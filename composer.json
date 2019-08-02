@@ -22,7 +22,7 @@
         }
     },
     "require": {
-        "vinou/translations": "*",
+        "vinou/translations": "^2.3",
         "vinou/utilities-general": "*"
     },
     "repositories": [
