@@ -1,15 +1,5 @@
 {
     "name": "vinou/api-connector",
-    "repositories": [
-        {
-            "url": "git@git.vinou.de:libraries/translations.git",
-            "type": "vcs"
-        },
-        {
-            "url": "git@git.vinou.de:utilities/utilities-general.git",
-            "type": "vcs"
-        }
-    ],
     "type": "library",
     "description": "Vinou API Connnector",
     "keywords": [
@@ -29,9 +19,5 @@
         "psr-4": {
             "Vinou\\ApiConnector\\": "Classes/"
         }
-    },
-    "require": {
-        "vinou/translations": "dev-master",
-        "vinou/utilities-general": "dev-master"
     }
 }
