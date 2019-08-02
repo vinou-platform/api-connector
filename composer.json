@@ -22,8 +22,8 @@
         }
     },
     "require": {
-        "vinou/translations": "dev-master",
-        "vinou/utilities-general": "dev-master"
+        "vinou/translations": "*",
+        "vinou/utilities-general": "*"
     },
     "repositories": [
         {
