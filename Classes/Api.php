@@ -11,24 +11,24 @@ class Api {
 
 	protected $authData = [];
 	protected $apiUrl = "https://api.vinou.de/service/";
-	public $enableLogging = false;
-	public $logindata = [];
+	public $enableLogging;
 	public $log = [];
 
-	public function __construct($token = '',$authid = '',$dev = false) {
+	public function __construct($token = '', $authid = '', $logging = false, $dev = false) {
 		$this->authData['token'] = $token;
 		$this->authData['authid'] = $authid;
+		$this->enableLogging = $logging;
 
 		Session::start();
 
-		$this->logindata = $this->validateLogin();
+		$this->validateLogin();
 	}
 
 
 	public function validateLogin(){
 
-		if(!isset($this->logindata['token']) && !isset($this->logindata['refreshToken']))  {
-			$this->login(false);
+		if(!Session::getValue('token') && !Session::getValue('refreshToken'))  {
+			$this->login();
 		} else {
 			$ch = curl_init($this->apiUrl.'check/login');
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
@@ -37,7 +37,7 @@ class Api {
 				[
 					'Content-Type: application/json',
 					'Origin: '.$_SERVER['SERVER_NAME'],
-					'Authorization: Bearer '.$this->logindata['token']
+					'Authorization: Bearer '.Session::getValue('token')
 				]
 			);
 			$result = curl_exec($ch);
@@ -45,7 +45,9 @@ class Api {
 			$requestinfo = curl_getinfo($ch);
 			if($httpCode != 200) {
 				$this->writeLog('token expired');
-				$this->login(false);
+				$this->login();
+			} else {
+				$this->writeLog('token valid');
 			}
 			return true;
 		}
@@ -69,13 +71,14 @@ class Api {
 
 		$result = json_decode(curl_exec($ch),true);
 		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		array_push($this->log,'login and write session');
+		$this->writeLog('login and write session');
 		if(curl_errno($ch) == 0 && isset($result['token'], $result['refreshToken']))
 		{
 			$this->writeLog('login succeeded');
 			curl_close($ch);
 			if ($cached) {
-				Session::setValue('vinouAuth',$result);
+				Session::setValue('token',$result['token']);
+				Session::setValue('refreshToken',$result['refreshToken']);
 			}
 			return $result;
 		}
@@ -97,7 +100,7 @@ class Api {
 				'Content-Type: application/json',
 				'Content-Length: ' . strlen($data_string),
 				'Origin: '.$_SERVER['SERVER_NAME'],
-				'Authorization: Bearer '.$this->logindata['token']
+				'Authorization: Bearer '.Session::getValue('token')
 			]
 		);
 		$result = curl_exec($ch);
@@ -145,7 +148,7 @@ class Api {
 	}
 
 	public function getWinesAll($postData = NULL) {
-		$postData['language'] = $GLOBALS['TSFE']->sys_language_isocode;
+		$postData['language'] = Session::getValue('language') ?? 'de';
 		$result = $this->curlApiRoute('wines/getAll',$postData);
 		return $result;
 	}
