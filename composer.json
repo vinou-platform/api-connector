@@ -1,6 +1,15 @@
 {
     "name": "vinou/api-connector",
-    "version": "0.0.1",
+    "repositories": [
+        {
+            "url": "git@git.vinou.de:libraries/translations.git",
+            "type": "vcs"
+        },
+        {
+            "url": "git@git.vinou.de:utilities/utilities-general.git",
+            "type": "vcs"
+        }
+    ],
     "type": "library",
     "description": "Vinou API Connnector",
     "keywords": [
@@ -22,17 +31,7 @@
         }
     },
     "require": {
-        "vinou/translations": "^2.3",
-        "vinou/utilities-general": "*"
-    },
-    "repositories": [
-        {
-            "url": "git@git.vinou.de:libraries/translations.git",
-            "type": "vcs"
-        },
-        {
-            "url": "git@git.vinou.de:utilities/utilities-general.git",
-            "type": "vcs"
-        }
-    ]
+        "vinou/translations": "dev-master",
+        "vinou/utilities-general": "dev-master"
+    }
 }
