@@ -1,7 +1,7 @@
 <?php
 namespace Vinou\ApiConnector;
 
-use Vinou\ApiConnector\T3Tools;
+use Vinou\Utilities\General\Session;
 
 /**
 * Api
@@ -18,6 +18,8 @@ class Api {
 	public function __construct($token = '',$authid = '',$dev = false) {
 		$this->authData['token'] = $token;
 		$this->authData['authid'] = $authid;
+
+		Session::start();
 
 		$this->logindata = $this->validateLogin();
 	}
@@ -73,7 +75,7 @@ class Api {
 			$this->writeLog('login succeeded');
 			curl_close($ch);
 			if ($cached) {
-				$this->writeSessionData('vinouAuth',$result);
+				Session::setValue('vinouAuth',$result);
 			}
 			return $result;
 		}
