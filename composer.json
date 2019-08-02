@@ -1,0 +1,24 @@
+{
+    "name": "vinou/api-connector",
+    "version": "0.0.1",
+    "type": "library",
+    "description": "Vinou API Connnector",
+    "keywords": [
+        "Vinou",
+        "API"
+    ],
+    "homepage": "http://doc.vinou.de",
+    "authors": [{
+        "name": "Vinou GmbH",
+        "role": "Developer",
+        "homepage": "https://www.vinou.de"
+    }],
+    "license": [
+        "GPL-2.0+"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Vinou\\ApiConnector\\": "Classes/"
+        }
+    }
+}
