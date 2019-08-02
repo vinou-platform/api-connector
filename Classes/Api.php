@@ -18,16 +18,13 @@ class Api {
 		$this->authData['token'] = $token;
 		$this->authData['authid'] = $authid;
 		$this->enableLogging = $logging;
-
-		Session::start();
-
 		$this->validateLogin();
 	}
 
 
 	public function validateLogin(){
 
-		if(!Session::getValue('token') && !Session::getValue('refreshToken'))  {
+		if(!Session::getValue('vinou'))  {
 			$this->login();
 		} else {
 			$ch = curl_init($this->apiUrl.'check/login');
@@ -37,7 +34,7 @@ class Api {
 				[
 					'Content-Type: application/json',
 					'Origin: '.$_SERVER['SERVER_NAME'],
-					'Authorization: Bearer '.Session::getValue('token')
+					'Authorization: Bearer '.Session::getValue('vinou')['token']
 				]
 			);
 			$result = curl_exec($ch);
@@ -77,8 +74,10 @@ class Api {
 			$this->writeLog('login succeeded');
 			curl_close($ch);
 			if ($cached) {
-				Session::setValue('token',$result['token']);
-				Session::setValue('refreshToken',$result['refreshToken']);
+				Session::setValue('vinou',[
+					'token' => $result['token'],
+					'refreshToken' => $result['refreshToken']
+				]);
 			}
 			return $result;
 		}
@@ -100,7 +99,7 @@ class Api {
 				'Content-Type: application/json',
 				'Content-Length: ' . strlen($data_string),
 				'Origin: '.$_SERVER['SERVER_NAME'],
-				'Authorization: Bearer '.Session::getValue('token')
+				'Authorization: Bearer '.Session::getValue('vinou')['token']
 			]
 		);
 		$result = curl_exec($ch);
