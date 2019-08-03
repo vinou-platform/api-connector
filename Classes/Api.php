@@ -11,6 +11,7 @@ class Api {
 
 	protected $authData = [];
 	protected $apiUrl = "https://api.vinou.de/service/";
+	public $dev;
 	public $enableLogging;
 	public $log = [];
 
@@ -18,6 +19,7 @@ class Api {
 		$this->authData['token'] = $token;
 		$this->authData['authid'] = $authid;
 		$this->enableLogging = $logging;
+		$this->dev = $dev;
 		$this->validateLogin();
 	}
 
@@ -192,7 +194,7 @@ class Api {
             'userAgent' => $_SERVER['HTTP_USER_AGENT']
         ];
 
-        if (self::isDev())
+        if ($this->dev)
         	$postData['ip'] = $this->fetchLokalIP();
 
 		$result = $this->curlApiRoute('clients/login',$postData);
