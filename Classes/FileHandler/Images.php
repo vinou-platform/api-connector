@@ -1,5 +1,9 @@
 <?php
-namespace Vinou\ApiConnector;
+namespace Vinou\ApiConnector\FileHandler;
+
+/**
+* Images
+*/
 
 class Images {
 

@@ -1,7 +1,7 @@
 <?php
 namespace Vinou\ApiConnector;
 
-use Vinou\Utilities\General\Session;
+use Vinou\ApiConnector\Session\Session;
 
 /**
 * Api
