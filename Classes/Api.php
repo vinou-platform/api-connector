@@ -11,6 +11,7 @@ class Api {
 
 	protected $authData = [];
 	protected $apiUrl = "https://api.vinou.de/service/";
+	public $status = 'offline';
 	public $dev;
 	public $enableLogging;
 	public $log = [];
@@ -46,6 +47,7 @@ class Api {
 				$this->writeLog('token expired');
 				$this->login();
 			} else {
+				$this->status = 'connected';
 				$this->writeLog('token valid');
 			}
 			return true;
@@ -76,6 +78,7 @@ class Api {
 			$this->writeLog('login succeeded');
 			curl_close($ch);
 			if ($cached) {
+				$this->status = 'connected';
 				Session::setValue('vinou',[
 					'token' => $result['token'],
 					'refreshToken' => $result['refreshToken']
@@ -84,11 +87,20 @@ class Api {
 			return $result;
 		}
 		$this->writeLog('login failed');
+		$this->status = 'offline';
 		return false;
 	}
 
 	private function curlApiRoute($route, $data = [], $debug = false)
 	{
+
+		if (defined('VINOU_MODE') && strcmp(VINOU_MODE, 'shop')) {
+			$data['inshop'] = true;
+		}
+
+		if (defined('VINOU_MODE') && strcmp(VINOU_MODE, 'winelist'))
+			$data['inwinelist'] = true;
+
 		$data_string = json_encode($data);
 		$url = $this->apiUrl.$route;
 		$this->writeLog('curl route '.$url);
@@ -154,10 +166,28 @@ class Api {
 		return $result;
 	}
 
+	public function getWinesLatest($postData = NULL) {
+		$postData['language'] = Session::getValue('language') ?? 'de';
+		$postData['orderBy'] = $postData['orderBy'] ?? 'chstamp DESC';
+		$postData['max'] = $postData['max'] ?? 9;
+		$result = $this->curlApiRoute('wines/getAll',$postData);
+		return $result;
+	}
+
 	public function getExpertise($id) {
 		$postData = ['id' => $id];
 		$result = $this->curlApiRoute('wines/getExpertise',$postData);
 		return $result['pdf'];
+	}
+
+	public function getCustomer(){
+		$result = $this->curlApiRoute('customers/getMy');
+		return $result['data'];
+	}
+
+	public function getAvailablePayments(){
+		$result = $this->curlApiRoute('customers/availablePayments');
+		return $result;
 	}
 
 	public function getCategory($id) {
@@ -206,10 +236,55 @@ class Api {
 		return false;
 	}
 
-	public function getBasket($uuid) {
-		$postData = ['uuid' => $uuid];
+	public function getBasket($uuid = NULL) {
+		$postData = [
+			'uuid' => is_null($uuid) ? Session::getValue('basket') : $uuid
+		];
 		$result = $this->curlApiRoute('baskets/get',$postData);
 		return isset($result['data']) ? $result['data'] : false;
+	}
+
+	public function initBasket() {
+		if (Session::getValue('basket')) {
+			$basket = $this->getBasket(Session::getValue('basket'));
+			if (!$basket) {
+				Session::deleteValue('basket');
+				return $this->createBasket();
+			}
+
+			if (!empty($basket['basketItems'])){
+				Session::deleteValue('card');
+				Session::setValue('card',$basket['basketItems']);
+			}
+			return true;
+		} else {
+			return $this->createBasket();
+		}
+	}
+
+	public function createBasket() {
+		$result = $this->curlApiRoute('baskets/add');
+		if (isset($result['data'])) {
+			Session::setValue('basket',$result['data']['uuid']);
+			return true;
+		}
+		else
+			return false;
+
+	}
+
+	public function addItemToBasket($postData = NULL) {
+		$postData['uuid'] = Session::getValue('basket');
+		return $this->curlApiRoute('baskets/addItem',$postData);
+	}
+
+	public function editItemInBasket($postData = NULL) {
+		return $this->curlApiRoute('baskets/editItem',$postData);
+	}
+
+	public function deleteItemFromBasket($id) {
+		$postData['id'] = $id;
+		return $this->curlApiRoute('baskets/deleteItem',$postData);
 	}
 
 	public function addOrder($order) {
