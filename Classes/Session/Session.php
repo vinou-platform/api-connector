@@ -17,14 +17,17 @@ class Session {
 
         // DETECT IF SESSION EXISTS
         if (!isset($_SESSION['id'])) {
-            $tmpDir = $_SERVER['DOCUMENT_ROOT'].'/tmp';
-            if (!is_dir($tmpDir))
-                mkdir($tmpDir, 0755, true);
-
-            ini_set('session.save_path', $tmpDir);
             $_SESSION['id'] = Converter::generateRandomString();
             self::setValue('start',strftime('%d.%m.%Y %H:%M:%S',time()));
         }
+    }
+
+    public static function checkTempFolder($parent = __DIR__) {
+        $tmpDir = $parent.'/tmp';
+        if (!is_dir($tmpDir))
+            mkdir($tmpDir, 0755, true);
+
+        ini_set('session.save_path', $tmpDir);
     }
 
     public static function setValue($key,$value) {
