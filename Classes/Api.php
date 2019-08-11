@@ -252,8 +252,8 @@ class Api {
 				return $this->createBasket();
 			}
 
+			Session::deleteValue('card');
 			if (!empty($basket['basketItems'])){
-				Session::deleteValue('card');
 				Session::setValue('card',$basket['basketItems']);
 			}
 			return true;
@@ -275,16 +275,22 @@ class Api {
 
 	public function addItemToBasket($postData = NULL) {
 		$postData['uuid'] = Session::getValue('basket');
-		return $this->curlApiRoute('baskets/addItem',$postData);
+		$result = $this->curlApiRoute('baskets/addItem',$postData);
+		$this->initBasket();
+		return $result;
 	}
 
 	public function editItemInBasket($postData = NULL) {
-		return $this->curlApiRoute('baskets/editItem',$postData);
+		$result = $this->curlApiRoute('baskets/editItem',$postData);
+		$this->initBasket();
+		return $result;;
 	}
 
 	public function deleteItemFromBasket($id) {
 		$postData['id'] = $id;
-		return $this->curlApiRoute('baskets/deleteItem',$postData);
+		$result = $this->curlApiRoute('baskets/deleteItem',$postData);
+		$this->initBasket();
+		return $result;;
 	}
 
 	public function addOrder($order) {
