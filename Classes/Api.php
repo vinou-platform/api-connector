@@ -143,8 +143,8 @@ class Api {
 		return false;
 	}
 
-	public function getWine($id) {
-		$postData = ['id' => $id];
+	public function getWine($input) {
+		$postData = is_numeric($input) ? ['id' => $input] : ['path_segment' => $input];
 		$result = $this->curlApiRoute('wines/get',$postData);
 		return $result;
 	}
@@ -190,14 +190,14 @@ class Api {
 		return $result;
 	}
 
-	public function getCategory($id) {
-		$postData = ['id' => $id];
+	public function getCategory($input) {
+		$postData = is_numeric($input) ? ['id' => $input] : ['path_segment' => $input];
 		$result = $this->curlApiRoute('categories/get',$postData);
 		return $result;
 	}
 
-	public function getCategoryWithWines($id) {
-		$postData = ['id' => $id];
+	public function getCategoryWithWines($input) {
+		$postData = is_numeric($input) ? ['id' => $input] : ['path_segment' => $input];
 		$result = $this->curlApiRoute('categories/getWithWines',$postData);
 		return $result;
 	}
@@ -212,8 +212,8 @@ class Api {
 		return $result;
 	}
 
-	public function getProduct($id) {
-		$postData = ['id' => $id];
+	public function getProduct($input) {
+		$postData = is_numeric($input) ? ['id' => $input] : ['path_segment' => $input];
 		$result = $this->curlApiRoute('products/get',$postData);
 		return $result;
 	}
