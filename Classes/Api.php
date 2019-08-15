@@ -293,8 +293,14 @@ class Api {
 		return $result;;
 	}
 
-	public function addOrder($order) {
-		$postData = ['data' => $order];
+	public function addOrder($order = null) {
+		if (is_null($order) || empty($order))
+			$order = Session::getValue('order');
+
+		$postData = [
+			'data' => $order
+		];
+
 		$result = $this->curlApiRoute('orders/add', $postData);
 		return $result;
 	}
@@ -305,6 +311,34 @@ class Api {
 			$type => $count
 		];
 		$result = $this->curlApiRoute('packaging/find',$postData);
+		return $result['data'];
+	}
+
+	public function getBasketSummary() {
+		$items = Session::getValue('card');
+		if (!$items || empty($items))
+			return false;
+
+		$summary = [
+			'type' => 'bottles',
+			'bottles' => 0
+		];
+
+		foreach ($items as $item) {
+			$summary['bottles'] = $summary['bottles'] + $item['quantity'];
+		}
+
+		Session::deleteValue('summary');
+		Session::setValue('summary',$summary);
+		return $summary;
+
+	}
+
+	public function getBasketPackage() {
+		$summary = $this->getBasketSummary();
+		$result = $this->curlApiRoute('packaging/find',$summary);
+		Session::deleteValue('package');
+		Session::setValue('package',$result['data']);
 		return $result['data'];
 	}
 
