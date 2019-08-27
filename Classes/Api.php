@@ -336,10 +336,16 @@ class Api {
 
 	public function getBasketPackage() {
 		$summary = $this->getBasketSummary();
-		$result = $this->curlApiRoute('packaging/find',$summary);
-		Session::deleteValue('package');
-		Session::setValue('package',$result['data']);
-		return $result['data'];
+		if ($summary['bottles'] > 0) {
+			$result = $this->curlApiRoute('packaging/find',$summary);
+			Session::deleteValue('package');
+			if (isset($result['data'])) {
+				Session::setValue('package',$result['data']);
+				return $result['data'];
+			}
+			return false;
+		}
+		return true;
 	}
 
 	public function getAllPackages() {
