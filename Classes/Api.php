@@ -174,6 +174,21 @@ class Api {
 		return $result;
 	}
 
+	public function searchWine($postData = []) {
+		if (!isset($postData['query']))
+			return false;
+
+		$postData['language'] = Session::getValue('language') ?? 'de';
+		$postData['orderBy'] = $postData['orderBy'] ?? 'chstamp DESC';
+		$postData['max'] = $postData['max'] ?? 9;
+
+		$result = $this->curlApiRoute('wines/search',$postData);
+		if (isset($result['data']))
+			return $result['data'];
+		else
+			return false;
+	}
+
 	public function getExpertise($id) {
 		$postData = ['id' => $id];
 		$result = $this->curlApiRoute('wines/getExpertise',$postData);
