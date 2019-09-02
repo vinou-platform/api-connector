@@ -93,13 +93,14 @@ class Api {
 
 	private function curlApiRoute($route, $data = [], $debug = false)
 	{
+		if (is_null($data))
+			$data = [];
 
-		if (defined('VINOU_MODE') && strcmp(VINOU_MODE, 'shop')) {
-			$data['inshop'] = true;
-		}
+		if (defined('VINOU_MODE') && VINOU_MODE === 'Shop')
+			array_push($data, ['inshop' => true]);
 
-		if (defined('VINOU_MODE') && strcmp(VINOU_MODE, 'winelist'))
-			$data['inwinelist'] = true;
+		if (defined('VINOU_MODE') && VINOU_MODE === 'Winelist')
+			array_push($data, ['inwinelist' => true]);
 
 		$data_string = json_encode($data);
 		$url = $this->apiUrl.$route;
@@ -193,6 +194,17 @@ class Api {
 		$postData = ['id' => $id];
 		$result = $this->curlApiRoute('wines/getExpertise',$postData);
 		return $result['pdf'];
+	}
+
+	public function getWineriesAll($postData = NULL) {
+		$result = $this->curlApiRoute('wineries/getAll',$postData);
+		return isset($result['data']) ? $result['data'] : $result;
+	}
+
+	public function getWinery($input) {
+		$postData = is_numeric($input) ? ['id' => $input] : ['path_segment' => $input];
+		$result = $this->curlApiRoute('wineries/get',$postData);
+		return isset($result['data']) ? $result['data'] : $result;
 	}
 
 	public function getCustomer(){
