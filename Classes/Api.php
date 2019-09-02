@@ -201,6 +201,32 @@ class Api {
 		return isset($result['data']) ? $result['data'] : $result;
 	}
 
+	public function getWineriesWithCategoryWines($postData = NULL) {
+		$wineriesResult = $this->curlApiRoute('wineries/getAll');
+		$wineries = [];
+		foreach ($wineriesResult['data'] as $winery) {
+			$wineries[$winery['id']] = $winery;
+			unset($wineries[$winery['id']]['wines']);
+		}
+
+		$postData = is_numeric($postData) ? ['id' => (int)$postData] : ['path_segment' => $postData];
+		$category = $this->curlApiRoute('categories/getWithWines',$postData);
+
+		$return = [];
+
+		foreach ($category['wines'] as $wine) {
+
+			if (!isset($return[$wine['winery_id']])) {
+				$wineryId = $wine['winery_id'];
+				$return[$wineryId] = $wineries[$wineryId];
+				$return[$wineryId]['wines'] = [];
+			}
+
+			$return[$wineryId]['wines'][$wine['id']] = $wine;
+		}
+		return $return;
+	}
+
 	public function getWinery($input) {
 		$postData = is_numeric($input) ? ['id' => $input] : ['path_segment' => $input];
 		$result = $this->curlApiRoute('wineries/get',$postData);
