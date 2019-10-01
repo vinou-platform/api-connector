@@ -255,8 +255,8 @@ class Api {
 		return $result;
 	}
 
-	public function getCategoriesAll() {
-		$result = $this->curlApiRoute('categories/getAll');
+	public function getCategoriesAll($postData = NULL) {
+		$result = $this->curlApiRoute('categories/getAll',$postData);
 		return $result['categories'];
 	}
 
