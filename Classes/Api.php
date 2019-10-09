@@ -255,6 +255,16 @@ class Api {
 		return $result;
 	}
 
+	public function getCategoryWines($identifier, $params = NULL) {
+		$postData = is_numeric($identifier) ? ['id' => $identifier] : ['path_segment' => $identifier];
+
+		if (is_array($params) && count($params) > 0)
+			$postData = array_merge($postData, $params);
+
+		$result = $this->curlApiRoute('categories/getWines',$postData);
+		return $result;
+	}
+
 	public function getCategoriesAll($postData = NULL) {
 		$result = $this->curlApiRoute('categories/getAll',$postData);
 		return $result['categories'];
