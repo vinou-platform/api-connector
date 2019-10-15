@@ -2,6 +2,7 @@
 namespace Vinou\ApiConnector;
 
 use Vinou\ApiConnector\Session\Session;
+use Vinou\Utilities\General\Tools\Redirect;
 
 /**
 * Api
@@ -27,19 +28,24 @@ class Api {
 
 	public function validateLogin(){
 
-		if(!Session::getValue('vinou'))  {
+		$authData = Session::getValue('vinou');
+		if(!$authData)  {
 			$this->login();
 		} else {
 			$ch = curl_init($this->apiUrl.'check/login');
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_HTTPHEADER,
-				[
-					'Content-Type: application/json',
-					'Origin: '.$_SERVER['SERVER_NAME'],
-					'Authorization: Bearer '.Session::getValue('vinou')['token']
-				]
-			);
+
+			$headers = [
+				'Content-Type: application/json',
+				'Origin: '.$_SERVER['SERVER_NAME'],
+				'Authorization: Bearer '.$authData['token']
+			];
+
+			if (isset($authData['clientToken']))
+				array_push($headers, 'Client-Authorization: '.$authData['clientToken']);
+
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 			$result = curl_exec($ch);
 			$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			$requestinfo = curl_getinfo($ch);
@@ -109,14 +115,19 @@ class Api {
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_HTTPHEADER,
-			[
-				'Content-Type: application/json',
-				'Content-Length: ' . strlen($data_string),
-				'Origin: '.$_SERVER['SERVER_NAME'],
-				'Authorization: Bearer '.Session::getValue('vinou')['token']
-			]
-		);
+
+		$authData = Session::getValue('vinou');
+		$headers = [
+			'Content-Type: application/json',
+			'Content-Length: ' . strlen($data_string),
+			'Origin: '.$_SERVER['SERVER_NAME'],
+			'Authorization: Bearer '.$authData['token']
+		];
+
+		if (isset($authData['clientToken']))
+			array_push($headers, 'Client-Authorization: '.$authData['clientToken']);
+
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 		$result = curl_exec($ch);
 		$requestinfo = curl_getinfo($ch);
 		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -417,6 +428,203 @@ class Api {
 		return $result['data'];
 	}
 
+	public function registerClient($data = NULL) {
+
+        if (is_null($data) || empty($data))
+            return ['notsend' => true];
+
+        $errors = [];
+        if (count($data) > 0) {
+            if ($data['username'] === '')
+                array_push($errors, 'username could not be blank');
+
+            if ($data['password'] === '')
+                array_push($errors, 'password could not be blank');
+
+            if (strcmp($data['password'],$data['password_repeat']))
+                array_push($errors, 'password and repeat did not match');
+
+            if ($data['mail'] === '')
+                array_push($errors, 'mail could not be blank');
+        }
+
+        if (count($errors) > 0)
+            return [
+                'error' => 'validation error',
+                'details' => implode(', ', $errors),
+                'postdata' => $data
+            ];
+
+        $data['password'] = md5(self::getServerSalt().$data['password']);
+        $postData = [
+            'data' => $data
+        ];
+
+		$result = $this->curlApiRoute('clients/register',$postData);
+
+        if (isset($result['error']))
+            return [
+                'error' => 'api error',
+                'details' => $result['response']['details'],
+                'postdata' => $data
+
+            ];
+
+        return $result['data'];
+	}
+
+	public function activateClient($postData = NULL) {
+		$errors = [];
+		if (!isset($postData['mail']))
+			array_push($errors, 'no mail set');
+
+		if (!isset($postData['hash']))
+			array_push($errors, 'no hash given');
+		else
+			$postData['lostpassword_hash'] = $postData['hash'];
+
+		if (count($errors) > 0)
+			return [
+				'error' => 'validation error',
+				'details' => implode(', ',$errors)
+			];
+
+		$result = $this->curlApiRoute('clients/activate',$postData);
+		return isset($result['data']) && $result['data'] ? true : ['error' => 'activation error', 'details' => $result['response']['details']];
+	}
+
+	public function clientLogin($postData = NULL) {
+		if (is_null($postData) || empty($postData))
+			return ['notsend' => true];
+
+		if (!isset($postData['mail']) || !isset($postData['password']))
+			return ['error' => 'authData missing'];
+
+		$postData['password'] = md5(self::getServerSalt().$postData['password']);
+		$result = $this->curlApiRoute('clients/login',$postData);
+
+		if (isset($result['error']))
+			return ['error' => $result['response']['details']];
+
+		else {
+			$authData = Session::getValue('vinou');
+			$authData['clientToken'] = $result['data']['token'];
+			Session::setValue('vinou', $authData);
+
+			if (isset($postData['redirect']))
+				Redirect::internal($postData['redirect']);
+		}
+
+		return $result;
+	}
+
+	public function getPasswordHash($postData = NULL) {
+		if (is_null($postData) || !isset($postData['mail']))
+			return false;
+
+		$result = $this->curlApiRoute('clients/getPasswordHash',$postData);
+		if (isset($result['data']) && $result['data']) {
+			$return = $result['data'];
+			$return['mail'] = $postData['mail'];
+			return $return;
+		} else {
+			return [
+				'error' => 'fetch error',
+				'details' => $result['response']['details']
+			];
+		}
+	}
+
+	public function resetPassword($data = NULL) {
+		if (is_null($data) || empty($data))
+			return false;
+
+		$errors = [];
+		$postData = [];
+		if (!isset($data['hash']))
+			array_push($errors, 'hash not given');
+		else
+			$postData['lostpassword_hash'] = $data['hash'];
+
+		if (!isset($data['mail']))
+			array_push($errors, 'mail not given');
+		else
+			$postData['mail'] = $data['mail'];
+
+		if (!isset($data['password']) || $data['password'] === '')
+			array_push($errors, 'password not given');
+		else {
+			if ($data['password'] != $data['password_repeat'])
+				array_push($errors, 'password repeat does not match');
+			else
+				$postData['password'] = md5(self::getServerSalt().$data['password']);;
+
+		}
+
+		if (count($errors) > 0)
+			return [
+				'error' => 'validation error',
+				'details' => implode(', ',$errors)
+			];
+
+		$result = $this->curlApiRoute('clients/resetPassword',$postData);
+		if (isset($result['data']) && $result['data']) {
+			$return = $result['data'];
+			return $return;
+		} else {
+			return [
+				'error' => 'fetch error',
+				'details' => $result['response']['details']
+			];
+		}
+	}
+
+	public function getClient($postData = NULL) {
+		$result = $this->curlApiRoute('clients/get',$postData);
+		return isset($result['data']) ? $result['data'] : false;
+	}
+
+	public function editClient($data = NULL) {
+		if (is_null($data) || empty($data))
+			return ['notsend' => true];
+
+		if (isset($data['password'])) {
+			if ($data['password'] === '')
+				unset($data['password']);
+			else
+				$data['password'] = md5(self::getServerSalt().$data['password']);
+		}
+
+		$postData = [
+			'data' => $data
+		];
+
+		$result = $this->curlApiRoute('clients/edit',$postData);
+
+		if (isset($result['error']))
+			return ['error' => $result['response']['details']];
+
+		return $result['data'];
+	}
+
+	public function clientLogout($postData = NULL) {
+		$authData = Session::getValue('vinou');
+		unset($authData['clientToken']);
+		Session::setValue('vinou', $authData);
+		if (isset($postData['redirect']))
+			Redirect::internal($postData['redirect']);
+	}
+
+	public function getClientOrders($postData = NULL) {
+		$result = $this->curlApiRoute('clients/orders/getAll',$postData);
+	}
+
+	public function getOrder($postData = NULL) {
+		$postData = is_numeric($postData) ? ['id' => $postData] : ['uuid' => $postData];
+		$result = $this->curlApiRoute('clients/orders/get',$postData);
+	}
+
+
 	public function fetchLokalIP(){
 		$result = $this->curlApiRoute('check/userinfo');
 		return $result['ip'];
@@ -425,5 +633,9 @@ class Api {
 	private function writeLog($entry) {
 		if ($this->enableLogging)
 			array_push($this->log,$entry);
+	}
+
+	public static function getServerSalt() {
+		return substr(base64_encode($_SERVER['SERVER_ADDR']), 0, 12);
 	}
 }
