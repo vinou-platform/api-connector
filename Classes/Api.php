@@ -624,6 +624,12 @@ class Api {
 
 	public function getOrder($postData = NULL) {
 		$postData = is_numeric($postData) ? ['id' => $postData] : ['uuid' => $postData];
+		$result = $this->curlApiRoute('orders/get',$postData);
+		return isset($result['data']) ? $result['data'] : false;
+	}
+
+	public function getClientOrder($postData = NULL) {
+		$postData = is_numeric($postData) ? ['id' => $postData] : ['uuid' => $postData];
 		$result = $this->curlApiRoute('clients/orders/get',$postData);
 		return isset($result['data']) ? $result['data'] : false;
 	}
