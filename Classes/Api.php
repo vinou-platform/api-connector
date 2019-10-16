@@ -376,7 +376,7 @@ class Api {
 		];
 
 		$result = $this->curlApiRoute('orders/add', $postData);
-		return $result;
+		return isset($result['data']) ? $result['data'] : false;
 	}
 
 	public function findPackage($type,$count) {
@@ -455,7 +455,7 @@ class Api {
                 'postdata' => $data
             ];
 
-        $data['password'] = md5(self::getServerSalt().$data['password']);
+        $data['password'] = md5($this->authData['token'].$data['password']);
         $postData = [
             'data' => $data
         ];
@@ -500,7 +500,7 @@ class Api {
 		if (!isset($postData['mail']) || !isset($postData['password']))
 			return ['error' => 'authData missing'];
 
-		$postData['password'] = md5(self::getServerSalt().$postData['password']);
+		$postData['password'] = md5($this->authData['token'].$postData['password']);
 		$result = $this->curlApiRoute('clients/login',$postData);
 
 		if (isset($result['error']))
@@ -557,7 +557,7 @@ class Api {
 			if ($data['password'] != $data['password_repeat'])
 				array_push($errors, 'password repeat does not match');
 			else
-				$postData['password'] = md5(self::getServerSalt().$data['password']);;
+				$postData['password'] = md5($this->authData['token'].$data['password']);;
 
 		}
 
@@ -581,7 +581,9 @@ class Api {
 
 	public function getClient($postData = NULL) {
 		$result = $this->curlApiRoute('clients/get',$postData);
-		return isset($result['data']) ? $result['data'] : false;
+		$client = isset($result['data']) ? $result['data'] : false;
+		Session::setValue('client', $client);
+		return $client;
 	}
 
 	public function editClient($data = NULL) {
@@ -592,7 +594,7 @@ class Api {
 			if ($data['password'] === '')
 				unset($data['password']);
 			else
-				$data['password'] = md5(self::getServerSalt().$data['password']);
+				$data['password'] = md5($this->authData['token'].$data['password']);
 		}
 
 		$postData = [
@@ -635,9 +637,5 @@ class Api {
 	private function writeLog($entry) {
 		if ($this->enableLogging)
 			array_push($this->log,$entry);
-	}
-
-	public static function getServerSalt() {
-		return substr(base64_encode($_SERVER['SERVER_ADDR']), 0, 12);
 	}
 }
