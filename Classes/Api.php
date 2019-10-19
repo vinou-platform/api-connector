@@ -1,8 +1,8 @@
 <?php
 namespace Vinou\ApiConnector;
 
-use Vinou\ApiConnector\Session\Session;
-use Vinou\Utilities\General\Tools\Redirect;
+use \Vinou\ApiConnector\Session\Session;
+use \Vinou\ApiConnector\Tools\Redirect;
 
 /**
 * Api
