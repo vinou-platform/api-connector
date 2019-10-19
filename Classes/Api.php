@@ -3,6 +3,8 @@ namespace Vinou\ApiConnector;
 
 use \Vinou\ApiConnector\Session\Session;
 use \Vinou\ApiConnector\Tools\Redirect;
+use \Vinou\ApiConnector\Tools\Helper;
+
 
 /**
 * Api
@@ -17,12 +19,43 @@ class Api {
 	public $enableLogging;
 	public $log = [];
 
-	public function __construct($token = '', $authid = '', $logging = false, $dev = false) {
-		$this->authData['token'] = $token;
-		$this->authData['authid'] = $authid;
-		$this->enableLogging = $logging;
-		$this->dev = $dev;
+	public function __construct($token = false, $authid = false, $logging = false, $dev = false) {
+
+		if (!$token || !$authid)
+			$this->loadYmlSettings();
+		else {
+			$this->authData['token'] = $token;
+			$this->authData['authid'] = $authid;
+			$this->enableLogging = $logging;
+			$this->dev = $dev;
+		}
 		$this->validateLogin();
+	}
+
+	public function loadYmlSettings() {
+		if (!defined('VINOU_CONFIG_DIR'))
+			throw new \Exception('no VINOU_CONFIG_DIR constant defined');
+
+		$settingsFile = Helper::getNormDocRoot().VINOU_CONFIG_DIR.'settings.yml';
+		if (!is_file($settingsFile))
+			throw new \Exception('settings.yml not found');
+
+		else {
+			$settings = spyc_load_file($settingsFile);
+
+			if (!isset($settings['vinou']['token']) || !isset($settings['vinou']['authid']))
+				throw new \Exception('no vinou settings found in yml');
+
+			else {
+				$this->authData = $settings['vinou'];
+
+				if (isset($settings['vinou']['enableLogging']))
+					$this->enableLogging = $settings['vinou']['enableLogging'];
+
+				if (isset($settings['vinou']['dev']))
+					$this->dev = $settings['vinou']['dev'];
+			}
+		}
 	}
 
 

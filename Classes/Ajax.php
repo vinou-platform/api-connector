@@ -14,14 +14,9 @@ class Ajax {
 	protected $output = false;
 	protected $data = [];
 
-	public function __construct($token = '', $authid = '', $logging = false, $dev = false) {
+	public function __construct() {
 
-		$this->api = new Api(
-			$token,
-			$authid,
-			$logging,
-			$dev
-		);
+		$this->api = new Api();
 
 		if (!$this->api || is_null($this->api)) {
 			array_push($this->errors, 'could not create api connection');
