@@ -1,14 +1,21 @@
 <?php
 namespace Vinou\ApiConnector\Session;
 
-use Vinou\ApiConnector\Session\TYPO3Session;
-use Vinou\ApiConnector\Tools\Converter;
+use \Vinou\ApiConnector\Session\TYPO3Session;
+use \Vinou\ApiConnector\Tools\Converter;
+use \Vinou\ApiConnector\Tools\Helper;
 
 /**
 * Session
 */
 
 class Session {
+
+    public function __construct() {
+        self::checkTempFolder();
+        self::start();
+    }
+
 
     //this method should be called at the start of the program
     public static function start() {
@@ -22,8 +29,8 @@ class Session {
         }
     }
 
-    public static function checkTempFolder($parent = __DIR__) {
-        $tmpDir = $parent.'/tmp';
+    public static function checkTempFolder($parent = null) {
+        $tmpDir = is_null($parent) ? Helper::getNormDocRoot().'tmp' : $parent .'/tmp';
         if (!is_dir($tmpDir))
             mkdir($tmpDir, 0755, true);
 
