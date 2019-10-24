@@ -132,7 +132,7 @@ class Api {
 
 	private function curlApiRoute($route, $data = [], $debug = false)
 	{
-		if (is_null($data))
+		if (is_null($data) || !is_array($data))
 			$data = [];
 
 		if (defined('VINOU_MODE') && VINOU_MODE === 'Shop')
@@ -228,10 +228,7 @@ class Api {
 		$postData['max'] = $postData['max'] ?? 9;
 
 		$result = $this->curlApiRoute('wines/search',$postData);
-		if (isset($result['data']))
-			return $result['data'];
-		else
-			return false;
+		return $this->flatOutput($result, false);
 	}
 
 	public function getExpertise($id) {
@@ -242,76 +239,42 @@ class Api {
 
 	public function getWineriesAll($postData = NULL) {
 		$result = $this->curlApiRoute('wineries/getAll',$postData);
-		return isset($result['data']) ? $result['data'] : $result;
+		return $this->flatOutput($result);
 	}
 
-	public function getWineriesWithCategoryWines($postData = NULL) {
-		$wineriesResult = $this->curlApiRoute('wineries/getAll');
-		$wineries = [];
-		foreach ($wineriesResult['data'] as $winery) {
-			$wineries[$winery['id']] = $winery;
-			unset($wineries[$winery['id']]['wines']);
-		}
-
-		$postData = is_numeric($postData) ? ['id' => (int)$postData] : ['path_segment' => $postData];
-		$category = $this->curlApiRoute('categories/getWithWines',$postData);
-
-		$return = [];
-
-		foreach ($category['wines'] as $wine) {
-
-			if (!isset($return[$wine['winery_id']])) {
-				$wineryId = $wine['winery_id'];
-				$return[$wineryId] = $wineries[$wineryId];
-				$return[$wineryId]['wines'] = [];
-			}
-
-			$return[$wineryId]['wines'][$wine['id']] = $wine;
-		}
-		return $return;
-	}
-
-	public function getWinery($input) {
-		$postData = is_numeric($input) ? ['id' => $input] : ['path_segment' => $input];
-		$result = $this->curlApiRoute('wineries/get',$postData);
-		return isset($result['data']) ? $result['data'] : $result;
+	public function getWinery($postData = NULL) {
+		$result = $this->curlApiRoute('wineries/get',$this->detectIdentifier($postData));
+		return $this->flatOutput($result, false);
 	}
 
 	public function getCustomer(){
 		$result = $this->curlApiRoute('customers/getMy');
-		return $result['data'];
+		return $this->flatOutput($result, false);
 	}
 
 	public function getAvailablePayments(){
 		$result = $this->curlApiRoute('customers/availablePayments');
+		return $this->flatOutput($result, false);
+	}
+
+	public function getCategory($postData = NULL) {
+		$result = $this->curlApiRoute('categories/get',$this->detectIdentifier($postData));
 		return $result;
 	}
 
-	public function getCategory($input) {
-		$postData = is_numeric($input) ? ['id' => $input] : ['path_segment' => $input];
-		$result = $this->curlApiRoute('categories/get',$postData);
-		return $result;
+	public function getCategoryWithWines($postData = NULL) {
+		$result = $this->curlApiRoute('categories/getWithWines',$this->detectIdentifier($postData));
+		return $this->flatOutput($result);
 	}
 
-	public function getCategoryWithWines($input) {
-		$postData = is_numeric($input) ? ['id' => $input] : ['path_segment' => $input];
-		$result = $this->curlApiRoute('categories/getWithWines',$postData);
-		return $result;
-	}
-
-	public function getCategoryWines($identifier, $params = NULL) {
-		$postData = is_numeric($identifier) ? ['id' => $identifier] : ['path_segment' => $identifier];
-
-		if (is_array($params) && count($params) > 0)
-			$postData = array_merge($postData, $params);
-
-		$result = $this->curlApiRoute('categories/getWines',$postData);
-		return $result;
+	public function getCategoryWines($postData = NULL) {
+		$result = $this->curlApiRoute('categories/getWines', $this->detectIdentifier($postData));
+		return $this->flatOutput($result, false);
 	}
 
 	public function getCategoriesAll($postData = NULL) {
 		$result = $this->curlApiRoute('categories/getAll',$postData);
-		return $result['categories'];
+		return $this->flatOutput($result, false, 'categories');
 	}
 
 	public function getProductsAll($postData = NULL) {
@@ -319,10 +282,9 @@ class Api {
 		return $result;
 	}
 
-	public function getProduct($input) {
-		$postData = is_numeric($input) ? ['id' => $input] : ['path_segment' => $input];
-		$result = $this->curlApiRoute('products/get',$postData);
-		return $result;
+	public function getProduct($postData) {
+		$result = $this->curlApiRoute('products/get',$this->detectIdentifier($postData));
+		return $this->flatOutput($result);
 	}
 
 	public function getClientLogin() {
@@ -348,7 +310,7 @@ class Api {
 			'uuid' => is_null($uuid) ? Session::getValue('basket') : $uuid
 		];
 		$result = $this->curlApiRoute('baskets/get',$postData);
-		return isset($result['data']) ? $result['data'] : false;
+		return $this->flatOutput($result, false);
 	}
 
 	public function initBasket() {
@@ -409,7 +371,7 @@ class Api {
 		];
 
 		$result = $this->curlApiRoute('orders/add', $postData);
-		return isset($result['data']) ? $result['data'] : false;
+		return $this->flatOutput($result, false);
 	}
 
 	public function findPackage($type,$count) {
@@ -418,7 +380,7 @@ class Api {
 			$type => $count
 		];
 		$result = $this->curlApiRoute('packaging/find',$postData);
-		return $result['data'];
+		return $this->flatOutput($result, false);
 	}
 
 	public function getBasketSummary() {
@@ -458,7 +420,7 @@ class Api {
 	public function getAllPackages() {
 		$postData = [];
 		$result = $this->curlApiRoute('packaging/getAll',$postData);
-		return $result['data'];
+		return $this->flatOutput($result, false);
 	}
 
 	public function registerClient($data = NULL) {
@@ -503,7 +465,7 @@ class Api {
 
             ];
 
-        return $result['data'];
+        return $this->flatOutput($result, false);
 	}
 
 	public function activateClient($postData = NULL) {
@@ -614,7 +576,7 @@ class Api {
 
 	public function getClient($postData = NULL) {
 		$result = $this->curlApiRoute('clients/get',$postData);
-		$client = isset($result['data']) ? $result['data'] : false;
+		$client = $this->flatOutput($result, false);
 		Session::setValue('client', $client);
 		return $client;
 	}
@@ -639,7 +601,7 @@ class Api {
 		if (isset($result['error']))
 			return ['error' => $result['response']['details']];
 
-		return $result['data'];
+		return $this->flatOutput($result, false);
 	}
 
 	public function clientLogout($postData = NULL) {
@@ -652,19 +614,19 @@ class Api {
 
 	public function getClientOrders($postData = NULL) {
 		$result = $this->curlApiRoute('clients/orders/getAll',$postData);
-		return isset($result['data']) ? $result['data'] : false;
+		return $this->flatOutput($result, false);
 	}
 
 	public function getOrder($postData = NULL) {
 		$postData = is_numeric($postData) ? ['id' => $postData] : ['uuid' => $postData];
 		$result = $this->curlApiRoute('orders/get',$postData);
-		return isset($result['data']) ? $result['data'] : false;
+		return $this->flatOutput($result, false);
 	}
 
 	public function getClientOrder($postData = NULL) {
 		$postData = is_numeric($postData) ? ['id' => $postData] : ['uuid' => $postData];
 		$result = $this->curlApiRoute('clients/orders/get',$postData);
-		return isset($result['data']) ? $result['data'] : false;
+		return $this->flatOutput($result, false);
 	}
 
 
@@ -677,4 +639,30 @@ class Api {
 		if ($this->enableLogging)
 			array_push($this->log,$entry);
 	}
+
+	private function detectIdentifier($data) {
+		if (is_null($data))
+			return $data;
+
+		if (is_array($data) && isset($data[0])) {
+			if (is_numeric($data[0]))
+				$data['id'] = $data[0];
+			else
+			 	$data['path_segment'] = $data[0];
+
+			unset($data[0]);
+		}
+		else
+			$data = is_numeric($data) ? ['id' => $data] : ['path_segment' => $data];
+
+		return $data;
+	}
+
+	private function flatOutput($data, $retAll = true, $selector = 'data') {
+		if ($data[$selector])
+			return $data[$selector];
+
+		return $retAll ? $data : false;
+	}
+
 }
