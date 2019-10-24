@@ -659,7 +659,7 @@ class Api {
 	}
 
 	private function flatOutput($data, $retAll = true, $selector = 'data') {
-		if ($data[$selector])
+		if (isset($data[$selector]))
 			return $data[$selector];
 
 		return $retAll ? $data : false;
