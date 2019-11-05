@@ -136,10 +136,10 @@ class Api {
 			$data = [];
 
 		if (defined('VINOU_MODE') && VINOU_MODE === 'Shop')
-			array_push($data, ['inshop' => true]);
+			$data['inshop'] = true;
 
 		if (defined('VINOU_MODE') && VINOU_MODE === 'Winelist')
-			array_push($data, ['inwinelist' => true]);
+			$data['inwinelist'] = true;
 
 		$data_string = json_encode($data);
 		$url = $this->apiUrl.$route;
@@ -254,7 +254,7 @@ class Api {
 
 	public function getAvailablePayments(){
 		$result = $this->curlApiRoute('customers/availablePayments');
-		return $this->flatOutput($result, false);
+		return $this->flatOutput($result, false, 'payments');
 	}
 
 	public function getCategory($postData = NULL) {
