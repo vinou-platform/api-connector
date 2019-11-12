@@ -77,13 +77,7 @@ class PublicApi {
 
 	public function getAllWines($postData = NULL) {
 		$result = $this->curlApiRoute('wines/getAll', $postData);
-		if (!isset($result['data']) || empty($result['data']))
-			return false;
-
-		return [
-			'wines' => $result['data'],
-			'pagination' => $result['pages']
-		];
+		return $this->pagedOutput($result, 'wines');
 	}
 
 	public function searchWine($postData = []) {
@@ -95,7 +89,7 @@ class PublicApi {
 		$postData['max'] = $postData['max'] ?? 9;
 
 		$result = $this->curlApiRoute('wines/search',$postData);
-		return $this->flatOutput($result, false);
+		return $this->pagedOutput($result, 'wines');
 	}
 
 	public function searchWinery($postData = []) {
@@ -176,6 +170,16 @@ class PublicApi {
 			return $data[$selector];
 
 		return $retAll ? $data : false;
+	}
+
+	private function pagedOutput($data, $dataKey = 'data') {
+		if (!isset($result['data']) || empty($result['data']))
+			return false;
+
+		return [
+			$dataKey => $result['data'],
+			'pagination' => $result['pages']
+		];
 	}
 
 }
