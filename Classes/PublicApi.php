@@ -101,7 +101,7 @@ class PublicApi {
 		$postData['max'] = $postData['max'] ?? 9;
 
 		$result = $this->curlApiRoute('wineries/search',$postData);
-		return $this->flatOutput($result, false);
+		return $this->pagedOutput($result, 'wineries');
 	}
 
 	public function getWinepass($postData) {
@@ -151,16 +151,25 @@ class PublicApi {
 		if (is_null($data))
 			return $data;
 
-		if (is_array($data) && isset($data[0])) {
-			if (is_numeric($data[0]))
-				$data['id'] = $data[0];
-			else
-			 	$data['path_segment'] = $data[0];
+		if (is_numeric($data))
+			return ['id' => $data];
 
-			unset($data[0]);
+		if (is_string($data))
+			return ['path_segment' => $data];
+
+		if (is_array($data)) {
+			if (isset($data['id']) || isset($data['path_segment']))
+				return $data;
+
+			if (isset($data[0])) {
+				if (is_numeric($data[0]))
+					$data['id'] = $data[0];
+				else
+				 	$data['path_segment'] = $data[0];
+
+				unset($data[0]);
+			}
 		}
-		else
-			$data = is_numeric($data) ? ['id' => $data] : ['path_segment' => $data];
 
 		return $data;
 	}
@@ -172,12 +181,13 @@ class PublicApi {
 		return $retAll ? $data : false;
 	}
 
-	private function pagedOutput($data, $dataKey = 'data') {
+	private function pagedOutput($result, $dataKey = 'data') {
 		if (!isset($result['data']) || empty($result['data']))
 			return false;
 
 		return [
 			$dataKey => $result['data'],
+			'total' => $result['total'],
 			'pagination' => $result['pages']
 		];
 	}
