@@ -581,6 +581,11 @@ class Api {
 		return $client;
 	}
 
+	public function checkClientMail($postData = NULL) {
+		$result = $this->flatOutput($this->curlApiRoute('clients/exists',$postData), false);
+		return is_array($result) && count($result) == 1 ? array_shift($result) : $result;
+	}
+
 	public function editClient($data = NULL) {
 		if (is_null($data) || empty($data))
 			return ['notsend' => true];
