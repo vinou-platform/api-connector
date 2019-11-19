@@ -680,7 +680,7 @@ class Api {
 
 		return [
 			$dataKey => $result['data'],
-			'total' => $result['total'],
+			'total' => $result['totalCount'],
 			'pagination' => $result['pages']
 		];
 	}
