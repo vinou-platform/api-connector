@@ -80,6 +80,11 @@ class PublicApi {
 		return $this->pagedOutput($result, 'wines');
 	}
 
+	public function getFilters($postData = NULL) {
+		$result = $this->curlApiRoute('wines/getFilters', $postData);
+		return $this->flatOutput($result, false);
+	}
+
 	public function searchWine($postData = []) {
 		if (!isset($postData['query']))
 			return false;
