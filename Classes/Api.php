@@ -188,6 +188,36 @@ class Api {
 		return false;
 	}
 
+	public function loadLocalization($countrycode = 'de') {
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_URL, 'https://api.vinou.de/localization/'.$countrycode);
+		$result = curl_exec($ch);
+		$requestinfo = curl_getinfo($ch);
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		switch ($httpCode) {
+			case 200:
+				curl_close($ch);
+				return json_decode($result, true);
+				break;
+			case 401:
+				return [
+					'error' => 'unauthorized',
+					'info' => $requestinfo,
+					'response' => $result
+				];
+				break;
+			default:
+				return [
+					'error' => 'an error occured',
+					'info' => $requestinfo,
+					'response' => $result
+				];
+				break;
+		}
+		return false;
+	}
+
 	public function getWine($input) {
 		$postData = is_numeric($input) ? ['id' => $input] : ['path_segment' => $input];
 		$result = $this->curlApiRoute('wines/get',$postData);
@@ -207,6 +237,9 @@ class Api {
 
 	public function getWinesAll($postData = NULL) {
 		$postData['language'] = Session::getValue('language') ?? 'de';
+		if (!isset($postData['cluster'])) {
+			$postData['cluster'] = ['type', 'tastes_id', 'vintage', 'grapetypeIds'];
+		}
 		$result = $this->curlApiRoute('wines/getAll',$postData);
 		return $result;
 	}
