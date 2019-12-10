@@ -563,21 +563,24 @@ class Api {
 		}
 	}
 
+	public function validatePasswordHash($postData = NULL) {
+		if (is_null($postData) || !isset($postData['mail']) || !isset($postData['hash']))
+			return false;
+
+		$postData['lostpassword_hash'] = $postData['hash'];
+		unset($postData['hash']);
+		$result = $this->curlApiRoute('clients/validatePasswordHash',$postData);
+		return $this->flatOutput($result, false);
+	}
+
 	public function resetPassword($data = NULL) {
-		if (is_null($data) || empty($data))
+		if (is_null($data) || empty($data) || !isset($postData['mail']) || !isset($postData['hash']))
 			return false;
 
 		$errors = [];
 		$postData = [];
-		if (!isset($data['hash']))
-			array_push($errors, 'hash not given');
-		else
-			$postData['lostpassword_hash'] = $data['hash'];
-
-		if (!isset($data['mail']))
-			array_push($errors, 'mail not given');
-		else
-			$postData['mail'] = $data['mail'];
+		$postData['lostpassword_hash'] = $data['hash'];
+		$postData['mail'] = $data['mail'];
 
 		if (!isset($data['password']) || $data['password'] === '')
 			array_push($errors, 'password not given');
