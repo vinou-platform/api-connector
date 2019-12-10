@@ -574,40 +574,31 @@ class Api {
 	}
 
 	public function resetPassword($data = NULL) {
-		if (is_null($data) || empty($data) || !isset($postData['mail']) || !isset($postData['hash']))
+		if (is_null($data) || empty($data))
 			return false;
 
-		$errors = [];
+		$validationFields = ['mail', 'hash', 'password', 'password_repeat'];
+		foreach ($validationFields as $inputName) {
+			if (!isset($data[$inputName]))
+				return [
+					'error' => 'validation error',
+					'details' => $inputName . ' not given'
+				];
+		}
+
+		if ($data['password'] != $data['password_repeat'])
+			return [
+				'error' => 'validation error',
+				'details' => 'password repeat does not match'
+			];
+
 		$postData = [];
 		$postData['lostpassword_hash'] = $data['hash'];
 		$postData['mail'] = $data['mail'];
-
-		if (!isset($data['password']) || $data['password'] === '')
-			array_push($errors, 'password not given');
-		else {
-			if ($data['password'] != $data['password_repeat'])
-				array_push($errors, 'password repeat does not match');
-			else
-				$postData['password'] = md5($this->authData['token'].$data['password']);;
-
-		}
-
-		if (count($errors) > 0)
-			return [
-				'error' => 'validation error',
-				'details' => implode(', ',$errors)
-			];
+		$postData['password'] = md5($this->authData['token'].$data['password']);
 
 		$result = $this->curlApiRoute('clients/resetPassword',$postData);
-		if (isset($result['data']) && $result['data']) {
-			$return = $result['data'];
-			return $return;
-		} else {
-			return [
-				'error' => 'fetch error',
-				'details' => $result['response']['details']
-			];
-		}
+		return $this->flatOutput($result, false);
 	}
 
 	public function getClient($postData = NULL) {
