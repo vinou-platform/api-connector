@@ -36,7 +36,7 @@ class Helper {
     public static function getApiUrl() {
         switch ($_SERVER['HTTP_HOST']) {
             case "shop.vinou.frog":
-                $apiurl = self::APIDEV;
+                $apiurl = self::APISANDBOX;
                 break;
             case "shop.sandbox.vinou.de":
                 $apiurl = self::APISANDBOX;
@@ -49,7 +49,8 @@ class Helper {
     }
 
     public static function getCurrentHost() {
-    	return $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'];
+        $protocol = strpos($_SERVER['SERVER_PROTOCOL'],'https') ? 'https://' : 'http://';
+    	return $protocol . $_SERVER['HTTP_HOST'];
     }
 
     public static function getClassPath($class = "\Composer\Autoload\ClassLoader")
