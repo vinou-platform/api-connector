@@ -29,6 +29,8 @@ class Api {
 			$this->enableLogging = $logging;
 			$this->dev = $dev;
 		}
+
+		$this->apiUrl = Helper::getApiUrl().'/service/';
 		$this->validateLogin();
 	}
 
@@ -404,6 +406,12 @@ class Api {
 		];
 
 		$result = $this->curlApiRoute('orders/add', $postData);
+
+		if (isset($result['targetUrl']) && isset($result['data']['uuid'])) {
+			$order = Session::setValue('order_uuid', $result['data']['uuid']);
+			Redirect::external($result['targetUrl']);
+		}
+
 		return $this->flatOutput($result, false);
 	}
 
@@ -454,6 +462,43 @@ class Api {
 		$postData = [];
 		$result = $this->curlApiRoute('packaging/getAll',$postData);
 		return $this->flatOutput($result, false);
+	}
+
+	public function finishPaypalPayment($data = NULL) {
+		if (is_null($data))
+			return false;
+
+		$fieldMapping = [
+			'pid' => 'payment_id',
+			'paymentId' => 'external_id',
+			'PayerID' => 'payer_id',
+		];
+		$postData = [
+			'order_id' => Session::getValue('order_uuid'),
+			'payment_type' => 'paypal'
+		];
+
+		foreach ($fieldMapping as $dataKey => $targetKey) {
+			if (!isset($data[$dataKey]))
+				return false;
+
+			$postData[$targetKey] = $data[$dataKey];
+		}
+
+		$result = $this->curlApiRoute('orders/checkout/finish',$postData);
+		return $this->flatOutput($result, false, 'paypalResult');
+	}
+
+	public function cancelPaypalPayment($postData = []) {
+		$postData['order_id'] = Session::getValue('order_uuid');
+
+		$result = $this->curlApiRoute('orders/checkout/cancel',$postData);
+		return $this->flatOutput($result, false);
+	}
+
+	public function getSessionOrder($postData = []) {
+		$postData['uuid'] = Session::getValue('order_uuid');
+		return $this->getOrder($postData);
 	}
 
 	public function registerClient($data = NULL) {
