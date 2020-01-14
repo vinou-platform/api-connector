@@ -45,6 +45,11 @@ class Helper {
                 $apiurl = self::APILIVE;
                 break;
         }
+
+        // Override if constant is set
+        if ((defined('VINOU_SOURCE') && VINOU_SOURCE === 'Sandbox'))
+            $apiurl = self::APISANDBOX;
+
         return $apiurl;
     }
 

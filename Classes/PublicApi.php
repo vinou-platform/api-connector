@@ -12,14 +12,16 @@ use \Vinou\ApiConnector\Tools\Helper;
 
 class PublicApi {
 
-	protected $apiUrl = "https://api.vinou.de/";
+	public $apiUrl = "https://api.vinou.de/";
 	public $dev;
 	public $enableLogging;
 	public $log = [];
 
 	public function __construct($logging = false, $dev = false) {
+
 		$this->enableLogging = $logging;
 		$this->dev = $dev;
+		$this->apiUrl = Helper::getApiUrl();
 	}
 
 	private function curlApiRoute($route, $data = [], $debug = false)
