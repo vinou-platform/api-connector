@@ -13,7 +13,7 @@ use \Vinou\ApiConnector\Tools\Helper;
 class Api {
 
 	protected $authData = [];
-	protected $apiUrl = "https://api.vinou.de/service/";
+	public $apiUrl = "https://api.vinou.de/service/";
 	public $status = 'offline';
 	public $dev;
 	public $enableLogging;
