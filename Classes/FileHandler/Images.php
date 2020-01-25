@@ -45,21 +45,25 @@ class Images {
 			'fileFetched' => FALSE,
 			'requestStatus' => 'no request done',
 			'absolute' => $localFile,
-			'src' => str_replace(Helper::getNormDocRoot(), '/', $localFile)
+			'src' => str_replace(Helper::getNormDocRoot(), '/', $localFile),
+			'localtime' => is_file($localFile) ? filemtime($localFile) : 0,
+			'externaltime' => $changeStamp,
+			'recreate' => is_file($localFile) ? true : $changeStamp > filemtime($localFile)
 		];
 
 		$fileurl = self::APIURL.$imagesrc;
 		$fileurl = preg_replace('/\s+/', '%20', $fileurl);
 
+		if (!$returnArr['recreate'])
+			return $returnArr;
+
 		if ($extension == 'svg') {
 			$returnArr['src'] = $fileurl;
-		} else if (!file_exists($localFile)) {
-			$returnArr['requestStatus'] = self::getExternalImage($fileurl,$localFile);
-			$returnArr['fileFetched'] = TRUE;
-		} else if (!is_null($chstamp) && $changeStamp > filemtime($localFile)) {
-			$returnArr['requestStatus'] = self::getExternalImage($fileurl,$localFile);
-			$returnArr['fileFetched'] = TRUE;
+			return $returnArr;
 		}
+
+		$returnArr['requestStatus'] = self::getExternalImage($fileurl,$localFile);
+		$returnArr['fileFetched'] = TRUE;
 
 		return $returnArr;
 	}
