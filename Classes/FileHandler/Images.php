@@ -37,10 +37,9 @@ class Images {
 		if (!is_dir($folder))
 			mkdir($folder, 0777, true);
 		$localFile = $folder . $fileName;
-		$exists = TRUE;
+		$extension = pathinfo($imagesrc, PATHINFO_EXTENSION);
+		$changeStamp = strtotime($chstamp);
 
-		$chdate = new \DateTime(strtotime($chstamp));
-		$changeStamp = $chdate->getTimestamp();
 		$returnArr = [
 			'fileName' => $fileName,
 			'fileFetched' => FALSE,
@@ -52,7 +51,9 @@ class Images {
 		$fileurl = self::APIURL.$imagesrc;
 		$fileurl = preg_replace('/\s+/', '%20', $fileurl);
 
-		if(!file_exists($localFile)){
+		if ($extension == 'svg') {
+			$returnArr['src'] = $fileurl;
+		} else if (!file_exists($localFile)) {
 			$returnArr['requestStatus'] = self::getExternalImage($fileurl,$localFile);
 			$returnArr['fileFetched'] = TRUE;
 		} else if (!is_null($chstamp) && $changeStamp > filemtime($localFile)) {
