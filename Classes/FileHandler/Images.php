@@ -1,6 +1,8 @@
 <?php
 namespace Vinou\ApiConnector\FileHandler;
 
+use \Vinou\ApiConnector\Tools\Helper;
+
 /**
 * Images
 */
@@ -28,18 +30,23 @@ class Images {
 	    return $httpStatus;
 	}
 
-	public static function storeApiImage($imagesrc,$localFolder,$chstamp = NULL) {
+	public static function storeApiImage($imagesrc, $chstamp = NULL, $localFolder = 'Cache/Images/') {
 		$fileName = self::createOptimalFilename(array_values(array_slice(explode('/',$imagesrc), -1))[0]);
 
-		$localFile = $localFolder.$fileName;
+		$folder = Helper::getNormDocRoot() . $localFolder;
+		if (!is_dir($folder))
+			mkdir($folder, 0777, true);
+		$localFile = $folder . $fileName;
 		$exists = TRUE;
 
-		$chdate = new \DateTime($chstamp);
+		$chdate = new \DateTime(strtotime($chstamp));
 		$changeStamp = $chdate->getTimestamp();
 		$returnArr = [
 			'fileName' => $fileName,
 			'fileFetched' => FALSE,
-			'requestStatus' => 'no request done'
+			'requestStatus' => 'no request done',
+			'absolute' => $localFile,
+			'src' => str_replace(Helper::getNormDocRoot(), '/', $localFile)
 		];
 
 		$fileurl = self::APIURL.$imagesrc;
