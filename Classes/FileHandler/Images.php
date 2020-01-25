@@ -48,7 +48,7 @@ class Images {
 			'src' => str_replace(Helper::getNormDocRoot(), '/', $localFile),
 			'localtime' => is_file($localFile) ? filemtime($localFile) : 0,
 			'externaltime' => $changeStamp,
-			'recreate' => is_file($localFile) ? true : $changeStamp > filemtime($localFile)
+			'recreate' => is_file($localFile) ? $changeStamp > filemtime($localFile) : true
 		];
 
 		$fileurl = self::APIURL.$imagesrc;
