@@ -31,13 +31,16 @@ class Images {
 	}
 
 	public static function storeApiImage($imagesrc, $chstamp = NULL, $localFolder = 'Cache/Images/') {
-		$fileName = self::createOptimalFilename(array_values(array_slice(explode('/',$imagesrc), -1))[0]);
+		$pureFileName = array_values(array_slice(explode('/',$imagesrc), -1))[0];
+		$pureFileName = explode('?', $pureFileName)[0];
+
+		$fileName = self::createOptimalFilename($pureFileName);
 
 		$folder = Helper::getNormDocRoot() . $localFolder;
 		if (!is_dir($folder))
 			mkdir($folder, 0777, true);
 		$localFile = $folder . $fileName;
-		$extension = pathinfo($imagesrc, PATHINFO_EXTENSION);
+		$extension = pathinfo($pureFileName, PATHINFO_EXTENSION);
 		$changeStamp = strtotime($chstamp);
 
 		$returnArr = [
