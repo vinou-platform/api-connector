@@ -274,6 +274,11 @@ class Api {
 
 	public function getWineriesAll($postData = NULL) {
 		$result = $this->curlApiRoute('wineries/getAll',$postData);
+		if (isset($result['clusters']))
+			return [
+				'wineries' => $result['data'],
+				'clusters' => $result['clusters']
+			];
 		return $this->flatOutput($result);
 	}
 
