@@ -36,9 +36,14 @@ class Images {
 
 		$fileName = self::createOptimalFilename($pureFileName);
 
-		$folder = Helper::getNormDocRoot() . $localFolder;
+		if (substr($localFolder, 0, 1)  === '/')
+			$folder = $localFolder;
+		else
+			$folder = Helper::getNormDocRoot() . $localFolder;
+
 		if (!is_dir($folder))
 			mkdir($folder, 0777, true);
+
 		$localFile = $folder . $fileName;
 		$extension = pathinfo($pureFileName, PATHINFO_EXTENSION);
 		$changeStamp = strtotime($chstamp);
