@@ -711,6 +711,37 @@ class Api {
 		return $this->flatOutput($result, false);
 	}
 
+	public function getNewsAll($postData = NULL) {
+		$result = $this->curlApiRoute('news/getAll',$postData);
+		return $this->flatOutput($result, false);
+	}
+
+	public function getNews($postData = NULL) {
+		$postData = is_numeric($postData) ? ['id' => $postData] : ['path_segment' => $postData];
+		$result = $this->curlApiRoute('news/get',$postData);
+		return $this->flatOutput($result, false);
+	}
+
+	public function getTextsAll($postData = NULL) {
+		$result = $this->curlApiRoute('texts/getAll',$postData);
+		return $this->flatOutput($result, false);
+	}
+
+	public function getText($postData = NULL) {
+		if (!is_array($postData) && !is_null($postData))
+			$postData = is_numeric($postData) ? ['id' => $postData] : ['path_segment' => $postData];
+
+		if (isset($postData['identifier'])) {
+			$result = $this->curlApiRoute('texts/getAll',$postData);
+			$texts = $this->flatOutput($result, false);
+			return isset($texts[0]) ? $texts[0] : false;
+		}
+		else {
+			$result = $this->curlApiRoute('texts/get',$postData);
+			return $this->flatOutput($result, false);
+		}
+	}
+
 
 	public function fetchLokalIP(){
 		$result = $this->curlApiRoute('check/userinfo');
