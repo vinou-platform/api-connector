@@ -240,7 +240,7 @@ class Api {
 	public function getWinesAll($postData = NULL) {
 		$postData['language'] = Session::getValue('language') ?? 'de';
 		if (!isset($postData['cluster'])) {
-			$postData['cluster'] = ['type', 'tastes_id', 'vintage', 'grapetypeIds'];
+			$postData['cluster'] = ['type', 'taste_id', 'vintage', 'grapetypeIds'];
 		}
 		$result = $this->curlApiRoute('wines/getAll',$postData);
 		return $result;
