@@ -21,7 +21,7 @@ class PublicApi {
 
 		$this->enableLogging = $logging;
 		$this->dev = $dev;
-		$this->apiUrl = Helper::getApiUrl();
+		$this->apiUrl = Helper::getApiUrl() . '/';
 	}
 
 	private function curlApiRoute($route, $data = [], $debug = false)
