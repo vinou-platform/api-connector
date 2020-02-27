@@ -132,7 +132,7 @@ class Api {
 		return false;
 	}
 
-	private function curlApiRoute($route, $data = [], $debug = false)
+	private function curlApiRoute($route, $data = [], $internal = false, $debug = false)
 	{
 		if (is_null($data) || !is_array($data))
 			$data = [];
@@ -159,14 +159,24 @@ class Api {
 			'Authorization: Bearer '.$authData['token']
 		];
 
-		if (isset($authData['clientToken']))
+		if (isset($authData['clientToken']) && $internal)
 			array_push($headers, 'Client-Authorization: '.$authData['clientToken']);
+
 
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 		$result = curl_exec($ch);
 		$requestinfo = curl_getinfo($ch);
 		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		$this->writeLog('Status: '.$httpCode);
+
+		// if ($route == 'news/getAll') {
+		// 	var_dump($forceClient);
+		// 	var_dump($headers);
+		// 	var_dump($httpCode);
+		// 	var_dump($requestinfo);
+		// 	var_dump(json_decode($result, true));
+		// 	die();
+		// }
 		switch ($httpCode) {
 			case 200:
 				curl_close($ch);
@@ -652,7 +662,7 @@ class Api {
 	}
 
 	public function getClient($postData = NULL) {
-		$result = $this->curlApiRoute('clients/get',$postData);
+		$result = $this->curlApiRoute('clients/get',$postData, true);
 		$client = $this->flatOutput($result, false);
 		Session::setValue('client', $client);
 		return $client;
@@ -678,7 +688,7 @@ class Api {
 			'data' => $data
 		];
 
-		$result = $this->curlApiRoute('clients/edit',$postData);
+		$result = $this->curlApiRoute('clients/edit',$postData, true);
 
 		if (isset($result['error']))
 			return ['error' => $result['response']['details']];
@@ -695,7 +705,7 @@ class Api {
 	}
 
 	public function getClientOrders($postData = NULL) {
-		$result = $this->curlApiRoute('clients/orders/getAll',$postData);
+		$result = $this->curlApiRoute('clients/orders/getAll',$postData, true);
 		return $this->flatOutput($result, false);
 	}
 
@@ -707,12 +717,17 @@ class Api {
 
 	public function getClientOrder($postData = NULL) {
 		$postData = is_numeric($postData) ? ['id' => $postData] : ['uuid' => $postData];
-		$result = $this->curlApiRoute('clients/orders/get',$postData);
+		$result = $this->curlApiRoute('clients/orders/get',$postData, true);
 		return $this->flatOutput($result, false);
 	}
 
 	public function getNewsAll($postData = NULL) {
 		$result = $this->curlApiRoute('news/getAll',$postData);
+		return $this->flatOutput($result, false);
+	}
+
+	public function getInternalNewsAll($postData = NULL) {
+		$result = $this->curlApiRoute('news/getAll',$postData, true);
 		return $this->flatOutput($result, false);
 	}
 
