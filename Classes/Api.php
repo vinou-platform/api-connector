@@ -232,18 +232,18 @@ class Api {
 
 	public function getWine($input) {
 		$postData = is_numeric($input) ? ['id' => $input] : ['path_segment' => $input];
-		$result = $this->curlApiRoute('wines/get',$postData);
+		$result = $this->curlApiRoute('wines/get', $postData, true);
 		return $result;
 	}
 
 	public function getWinesByCategory($postData) {
-		$result = $this->curlApiRoute('wines/getByCategory',$postData);
+		$result = $this->curlApiRoute('wines/getByCategory', $postData, true);
 		return $result;
 	}
 
 	public function getWinesByType($type) {
 		$postData = ['type' => $type];
-		$result = $this->curlApiRoute('wines/getByType',$postData);
+		$result = $this->curlApiRoute('wines/getByType', $postData, true);
 		return $result['wines'];
 	}
 
@@ -252,7 +252,7 @@ class Api {
 		if (!isset($postData['cluster'])) {
 			$postData['cluster'] = ['type', 'taste_id', 'vintage', 'grapetypeIds'];
 		}
-		$result = $this->curlApiRoute('wines/getAll',$postData);
+		$result = $this->curlApiRoute('wines/getAll', $postData, true);
 		return $result;
 	}
 
@@ -260,7 +260,7 @@ class Api {
 		$postData['language'] = Session::getValue('language') ?? 'de';
 		$postData['orderBy'] = $postData['orderBy'] ?? 'chstamp DESC';
 		$postData['max'] = $postData['max'] ?? 9;
-		$result = $this->curlApiRoute('wines/getAll',$postData);
+		$result = $this->curlApiRoute('wines/getAll', $postData, true);
 		return $result;
 	}
 
@@ -272,7 +272,7 @@ class Api {
 		$postData['orderBy'] = $postData['orderBy'] ?? 'chstamp DESC';
 		$postData['max'] = $postData['max'] ?? 9;
 
-		$result = $this->curlApiRoute('wines/search',$postData);
+		$result = $this->curlApiRoute('wines/search', $postData);
 		return $this->pagedOutput($result, 'wines');
 	}
 
@@ -359,7 +359,7 @@ class Api {
 		$postData = [
 			'uuid' => is_null($uuid) ? Session::getValue('basket') : $uuid
 		];
-		$result = $this->curlApiRoute('baskets/get',$postData);
+		$result = $this->curlApiRoute('baskets/get', $postData, true);
 		return $this->flatOutput($result, false);
 	}
 
@@ -394,20 +394,20 @@ class Api {
 
 	public function addItemToBasket($postData = NULL) {
 		$postData['uuid'] = Session::getValue('basket');
-		$result = $this->curlApiRoute('baskets/addItem',$postData);
+		$result = $this->curlApiRoute('baskets/addItem', $postData, true);
 		$this->initBasket();
 		return $result;
 	}
 
 	public function editItemInBasket($postData = NULL) {
-		$result = $this->curlApiRoute('baskets/editItem',$postData);
+		$result = $this->curlApiRoute('baskets/editItem', $postData, true);
 		$this->initBasket();
 		return $result;;
 	}
 
 	public function deleteItemFromBasket($id) {
 		$postData['id'] = $id;
-		$result = $this->curlApiRoute('baskets/deleteItem',$postData);
+		$result = $this->curlApiRoute('baskets/deleteItem', $postData, true);
 		$this->initBasket();
 		return $result;;
 	}
@@ -711,13 +711,13 @@ class Api {
 
 	public function getOrder($postData = NULL) {
 		$postData = is_numeric($postData) ? ['id' => $postData] : ['uuid' => $postData];
-		$result = $this->curlApiRoute('orders/get',$postData);
+		$result = $this->curlApiRoute('orders/get', $postData, true);
 		return $this->flatOutput($result, false);
 	}
 
 	public function getClientOrder($postData = NULL) {
 		$postData = is_numeric($postData) ? ['id' => $postData] : ['uuid' => $postData];
-		$result = $this->curlApiRoute('clients/orders/get',$postData, true);
+		$result = $this->curlApiRoute('clients/orders/get', $postData, true);
 		return $this->flatOutput($result, false);
 	}
 
