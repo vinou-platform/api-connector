@@ -308,32 +308,32 @@ class Api {
 	}
 
 	public function getCategory($postData = NULL) {
-		$result = $this->curlApiRoute('categories/get',$this->detectIdentifier($postData));
+		$result = $this->curlApiRoute('categories/get', $this->detectIdentifier($postData), true);
 		return $result;
 	}
 
 	public function getCategoryWithWines($postData = NULL) {
-		$result = $this->curlApiRoute('categories/getWithWines',$this->detectIdentifier($postData));
+		$result = $this->curlApiRoute('categories/getWithWines', $this->detectIdentifier($postData), true);
 		return $this->flatOutput($result);
 	}
 
 	public function getCategoryWines($postData = NULL) {
-		$result = $this->curlApiRoute('categories/getWines', $this->detectIdentifier($postData));
+		$result = $this->curlApiRoute('categories/getWines', $this->detectIdentifier($postData), true);
 		return $this->flatOutput($result, false);
 	}
 
 	public function getCategoriesAll($postData = NULL) {
-		$result = $this->curlApiRoute('categories/getAll',$postData);
+		$result = $this->curlApiRoute('categories/getAll', $postData, true);
 		return $this->flatOutput($result, false, 'categories');
 	}
 
 	public function getProductsAll($postData = NULL) {
-		$result = $this->curlApiRoute('products/getAll',$postData);
+		$result = $this->curlApiRoute('products/getAll', $postData, true);
 		return $result;
 	}
 
 	public function getProduct($postData) {
-		$result = $this->curlApiRoute('products/get',$this->detectIdentifier($postData));
+		$result = $this->curlApiRoute('products/get', $this->detectIdentifier($postData), true);
 		return $this->flatOutput($result);
 	}
 
