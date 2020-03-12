@@ -272,7 +272,7 @@ class Api {
 		$postData['orderBy'] = $postData['orderBy'] ?? 'chstamp DESC';
 		$postData['max'] = $postData['max'] ?? 9;
 
-		$result = $this->curlApiRoute('wines/search', $postData);
+		$result = $this->curlApiRoute('wines/search', $postData, true);
 		return $this->pagedOutput($result, 'wines');
 	}
 
