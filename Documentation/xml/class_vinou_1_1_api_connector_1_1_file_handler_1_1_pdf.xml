@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="class_vinou_1_1_api_connector_1_1_file_handler_1_1_pdf" kind="class" language="PHP" prot="public">
+    <compoundname>Vinou::ApiConnector::FileHandler::Pdf</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_vinou_1_1_api_connector_1_1_file_handler_1_1_pdf_1a5e130d488255c237320b53ad723593ac" prot="public" static="no" mutable="no">
+        <type>CONST</type>
+        <definition>CONST Vinou\ApiConnector\FileHandler\Pdf::APIURL</definition>
+        <argsstring></argsstring>
+        <name>APIURL</name>
+        <initializer>= &apos;https://api.vinou.de&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Pdf.php" line="10" column="7" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Pdf.php" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_file_handler_1_1_pdf_1a487942111728568865fa473438009bd2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\FileHandler\Pdf::getExternalPDF</definition>
+        <argsstring>($url, $targetFile)</argsstring>
+        <name>getExternalPDF</name>
+        <param>
+          <declname>$url</declname>
+        </param>
+        <param>
+          <declname>$targetFile</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Pdf.php" line="12" column="24" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Pdf.php" bodystart="12" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_file_handler_1_1_pdf_1aa648a1361246dcf8be69169110baba53" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\FileHandler\Pdf::getExternalPDFBinary</definition>
+        <argsstring>($url, $targetFile)</argsstring>
+        <name>getExternalPDFBinary</name>
+        <param>
+          <declname>$url</declname>
+        </param>
+        <param>
+          <declname>$targetFile</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Pdf.php" line="25" column="24" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Pdf.php" bodystart="25" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_file_handler_1_1_pdf_1afae64d1745eda7bdce73ea174a4cbda1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\FileHandler\Pdf::storeApiPDF</definition>
+        <argsstring>($src, $localFolder, $prefix=&apos;&apos;, $chstamp=NULL, $forceDownload=false)</argsstring>
+        <name>storeApiPDF</name>
+        <param>
+          <declname>$src</declname>
+        </param>
+        <param>
+          <declname>$localFolder</declname>
+        </param>
+        <param>
+          <declname>$prefix</declname>
+          <defval>&apos;&apos;</defval>
+        </param>
+        <param>
+          <declname>$chstamp</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <declname>$forceDownload</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Pdf.php" line="38" column="24" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Pdf.php" bodystart="38" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_file_handler_1_1_pdf_1a81b80d306f20f09e808964c07ef470c5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\FileHandler\Pdf::rawUrlEncodeApiPath</definition>
+        <argsstring>($url)</argsstring>
+        <name>rawUrlEncodeApiPath</name>
+        <param>
+          <declname>$url</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Pdf.php" line="67" column="24" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Pdf.php" bodystart="67" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_file_handler_1_1_pdf_1a715ff0e89f0928ebb31b47491cab1f16" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\FileHandler\Pdf::convertFileName</definition>
+        <argsstring>($fileName)</argsstring>
+        <name>convertFileName</name>
+        <param>
+          <declname>$fileName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Pdf.php" line="73" column="24" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Pdf.php" bodystart="73" bodyend="85"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><ref refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_pdf" kindref="compound">Pdf</ref> </para>
+    </detaileddescription>
+    <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Pdf.php" line="8" column="10" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Pdf.php" bodystart="8" bodyend="87"/>
+    <listofallmembers>
+      <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_pdf_1a5e130d488255c237320b53ad723593ac" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::FileHandler::Pdf</scope><name>APIURL</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_pdf_1a715ff0e89f0928ebb31b47491cab1f16" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::FileHandler::Pdf</scope><name>convertFileName</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_pdf_1a487942111728568865fa473438009bd2" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::FileHandler::Pdf</scope><name>getExternalPDF</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_pdf_1aa648a1361246dcf8be69169110baba53" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::FileHandler::Pdf</scope><name>getExternalPDFBinary</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_pdf_1a81b80d306f20f09e808964c07ef470c5" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::FileHandler::Pdf</scope><name>rawUrlEncodeApiPath</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_pdf_1afae64d1745eda7bdce73ea174a4cbda1" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::FileHandler::Pdf</scope><name>storeApiPDF</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

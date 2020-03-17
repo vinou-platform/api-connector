@@ -1,0 +1,1296 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="class_vinou_1_1_api_connector_1_1_api" kind="class" language="PHP" prot="public">
+    <compoundname>Vinou::ApiConnector::Api</compoundname>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_vinou_1_1_api_connector_1_1_api_1a8c6950c20614565c1347a7559908ec69" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::$authData</definition>
+        <argsstring></argsstring>
+        <name>$authData</name>
+        <initializer>= []</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="26" column="11" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_vinou_1_1_api_connector_1_1_api_1a2e41166d7ad144dc445d6fa5b292066a" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::$apiUrl</definition>
+        <argsstring></argsstring>
+        <name>$apiUrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="31" column="8" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_vinou_1_1_api_connector_1_1_api_1ad54db838a299d3cf523a716c441d12e7" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::$connected</definition>
+        <argsstring></argsstring>
+        <name>$connected</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="36" column="8" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_vinou_1_1_api_connector_1_1_api_1a5be6ba479b46bf14560f80abba0c6e47" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::$dev</definition>
+        <argsstring></argsstring>
+        <name>$dev</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="41" column="8" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_vinou_1_1_api_connector_1_1_api_1a1a3fdde5a61e376e25b934507a0a6cb3" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::$enableLogging</definition>
+        <argsstring></argsstring>
+        <name>$enableLogging</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="46" column="8" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_vinou_1_1_api_connector_1_1_api_1a6469365f8b63f7e8cc1625ac1a5413df" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::$log</definition>
+        <argsstring></argsstring>
+        <name>$log</name>
+        <initializer>= []</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="51" column="8" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_vinou_1_1_api_connector_1_1_api_1a1c2f2fee867858d4144d3c6077836351" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::$httpClient</definition>
+        <argsstring></argsstring>
+        <name>$httpClient</name>
+        <initializer>= null</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="56" column="8" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a7e15a1230449c48a01eab02d33e4a00a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::__construct</definition>
+        <argsstring>($token=false, $authid=false, $logging=false, $dev=false)</argsstring>
+        <name>__construct</name>
+        <param>
+          <declname>$token</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <declname>$authid</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <declname>$logging</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <declname>$dev</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>string</parametertype>
+<parametername>$token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>token created in token module in <ulink url="https://app.vinou.de">https://app.vinou.de</ulink> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametertype>string</parametertype>
+<parametername>$authid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>authid from invoice config in settings area in <ulink url="https://app.vinou.de">https://app.vinou.de</ulink> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametertype>boolean</parametertype>
+<parametername>$logging</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>enable logging if needed </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametertype>boolean</parametertype>
+<parametername>$dev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>enable dev mode </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="64" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="64" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1ae10a16acd31b4e34836664b4a92f83a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::loadLocalization</definition>
+        <argsstring>($countrycode=&apos;de&apos;)</argsstring>
+        <name>loadLocalization</name>
+        <param>
+          <declname>$countrycode</declname>
+          <defval>&apos;de&apos;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="240" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="240" bodyend="265"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1aab6e81d43cde2528d475d409b3cca908" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getWine</definition>
+        <argsstring>($input)</argsstring>
+        <name>getWine</name>
+        <param>
+          <declname>$input</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="267" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="267" bodyend="271"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1af3d319bdf09e56389314325ea745a027" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getWinesByCategory</definition>
+        <argsstring>($postData)</argsstring>
+        <name>getWinesByCategory</name>
+        <param>
+          <declname>$postData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="273" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="273" bodyend="276"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1ade5fdd55bff18d47d3ec684457b27d8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getWinesByType</definition>
+        <argsstring>($type)</argsstring>
+        <name>getWinesByType</name>
+        <param>
+          <declname>$type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="278" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="278" bodyend="282"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a198d2e2fe12dc965873790318bf14221" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getWinesAll</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>getWinesAll</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="284" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="284" bodyend="291"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1aedadd89b5a177d558288364d5b0f1614" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getWinesLatest</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>getWinesLatest</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="293" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="293" bodyend="299"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a28c7099bd5765174cc320a92b0854903" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::searchWine</definition>
+        <argsstring>($postData=[])</argsstring>
+        <name>searchWine</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>[]</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="301" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="301" bodyend="311"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a9ba8bb7174334d885ec86896e7f8ae0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getExpertise</definition>
+        <argsstring>($id)</argsstring>
+        <name>getExpertise</name>
+        <param>
+          <declname>$id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="313" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="313" bodyend="317"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a2cc529f7deaf480d120eed383939e0ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getWineriesAll</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>getWineriesAll</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="319" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="319" bodyend="327"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a29261880f49a0432acb44042334f6c19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getWinery</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>getWinery</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="329" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="329" bodyend="332"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a2d15037ccce976412c130b99713b8c6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getCustomer</definition>
+        <argsstring>()</argsstring>
+        <name>getCustomer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="334" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="334" bodyend="337"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1ae53227feeac8f4c0f49de947c50e4e98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getAvailablePayments</definition>
+        <argsstring>()</argsstring>
+        <name>getAvailablePayments</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="339" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="339" bodyend="342"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a192f5a17190980b6291d3a5d43e90295" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getCategory</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>getCategory</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="344" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="344" bodyend="347"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1ab846046255afc114b8e939dd99351813" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getCategoryWithWines</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>getCategoryWithWines</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="349" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="349" bodyend="352"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a87ce721ca4928fd85024a2340d031095" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getCategoryWines</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>getCategoryWines</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="354" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="354" bodyend="357"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1ac6928f14f2d2c848ab806d4cddf40a55" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getCategoriesAll</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>getCategoriesAll</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="359" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="359" bodyend="362"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a863c72d4de92adfc1ab0f0baf729aa5e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getProductsAll</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>getProductsAll</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="364" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="364" bodyend="367"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a95accf913965f02308dd00d8e142c1d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getProduct</definition>
+        <argsstring>($postData)</argsstring>
+        <name>getProduct</name>
+        <param>
+          <declname>$postData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="369" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="369" bodyend="372"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a293a75a2b08fea13872631c7e8ed25b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getBasket</definition>
+        <argsstring>($uuid=NULL)</argsstring>
+        <name>getBasket</name>
+        <param>
+          <declname>$uuid</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="374" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="374" bodyend="380"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a41ce9ef22e738b238f9a2e485e804b8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::initBasket</definition>
+        <argsstring>()</argsstring>
+        <name>initBasket</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="382" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="382" bodyend="398"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1ad12edab3def09edbbba82d085486911c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::createBasket</definition>
+        <argsstring>()</argsstring>
+        <name>createBasket</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="400" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="400" bodyend="409"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a5710393060118f84dd2d6b26abd2aab9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::addItemToBasket</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>addItemToBasket</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="411" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="411" bodyend="416"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a7a35ecc2d63278d1d060cf6e77644d4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::editItemInBasket</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>editItemInBasket</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="418" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="418" bodyend="422"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a48aa534ed8b08298a23574d612e49ca6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::deleteItemFromBasket</definition>
+        <argsstring>($id)</argsstring>
+        <name>deleteItemFromBasket</name>
+        <param>
+          <declname>$id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="424" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="424" bodyend="429"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a909ab244fbbd86633e1e6e7b13e6579a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::addOrder</definition>
+        <argsstring>($order=null)</argsstring>
+        <name>addOrder</name>
+        <param>
+          <declname>$order</declname>
+          <defval>null</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="431" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="431" bodyend="447"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1adb438629abfdd9a14543a066132e3659" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::findPackage</definition>
+        <argsstring>($type, $count)</argsstring>
+        <name>findPackage</name>
+        <param>
+          <declname>$type</declname>
+        </param>
+        <param>
+          <declname>$count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="449" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="449" bodyend="456"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1adfdf212ee32070651a8130b52945c764" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getBasketSummary</definition>
+        <argsstring>()</argsstring>
+        <name>getBasketSummary</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="458" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="458" bodyend="476"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a65073b9ed9bb01511dc49329408621e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getBasketPackage</definition>
+        <argsstring>()</argsstring>
+        <name>getBasketPackage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="478" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="478" bodyend="490"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a5204d6060e025473b91643d8a1bc865a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getAllPackages</definition>
+        <argsstring>()</argsstring>
+        <name>getAllPackages</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="492" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="492" bodyend="496"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a717a780407066283094648ad6342c8c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::finishPaypalPayment</definition>
+        <argsstring>($data=NULL)</argsstring>
+        <name>finishPaypalPayment</name>
+        <param>
+          <declname>$data</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="498" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="498" bodyend="521"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1aa8ad6eb0be07140354f34f80eb79e2ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::cancelPaypalPayment</definition>
+        <argsstring>($postData=[])</argsstring>
+        <name>cancelPaypalPayment</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>[]</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="523" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="523" bodyend="528"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a74741b10294b92491646ce6ec359d7af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getSessionOrder</definition>
+        <argsstring>($postData=[])</argsstring>
+        <name>getSessionOrder</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>[]</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="530" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="530" bodyend="533"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a32616c015edbf1c967ab7d69e41e59fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::registerClient</definition>
+        <argsstring>($data=NULL)</argsstring>
+        <name>registerClient</name>
+        <param>
+          <declname>$data</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="535" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="535" bodyend="578"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a426edebf0f6ca9efa7719a73e0355a91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::activateClient</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>activateClient</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="580" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="580" bodyend="598"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1ad85253847254641a1238c44ef4eb474c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::clientLogin</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>clientLogin</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="600" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="600" bodyend="626"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a1ad02d570fcc5415a6af113103662786" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getPasswordHash</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>getPasswordHash</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="628" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="628" bodyend="643"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a14ca3eb9280a159d8ed6b875015c03ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::validatePasswordHash</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>validatePasswordHash</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="645" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="645" bodyend="653"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1ac789d4ee8274997d69dd0b27038fb8e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::resetPassword</definition>
+        <argsstring>($data=NULL)</argsstring>
+        <name>resetPassword</name>
+        <param>
+          <declname>$data</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="655" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="655" bodyend="681"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1aaebdf906971e7cb515199c65efe17e97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getClient</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>getClient</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="683" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="683" bodyend="688"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1aa5a1a7219eedd608135dbc520ee008af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::checkClientMail</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>checkClientMail</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="690" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="690" bodyend="693"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1afd2553957c2c6e35dc0b4415e69f2311" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::editClient</definition>
+        <argsstring>($data=NULL)</argsstring>
+        <name>editClient</name>
+        <param>
+          <declname>$data</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="695" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="695" bodyend="716"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a8e1bdf6a7c3a515907fbee5898d9f514" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::clientLogout</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>clientLogout</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="718" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="718" bodyend="724"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1ab09bf2ada7a404942529401967bb4113" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getClientOrders</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>getClientOrders</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="726" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="726" bodyend="729"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1aea5dcb1368bbf5a52aa0785068990af1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getOrder</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>getOrder</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="731" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="731" bodyend="735"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a9f4f1a72c8bf20e2c560026bc4cdca5b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getClientOrder</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>getClientOrder</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="737" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="737" bodyend="741"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1ab267fc64007df486aebac159bd6ca44c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getNewsAll</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>getNewsAll</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="743" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="743" bodyend="746"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1ac2b2a295d8c38d03198a3fc0a85ee011" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getInternalNewsAll</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>getInternalNewsAll</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="748" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="748" bodyend="751"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1abde6320740cfbe17113b5cd987110423" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getNews</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>getNews</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="753" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="753" bodyend="757"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1ad79cda1931553667fb08fc3f99852f0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getTextsAll</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>getTextsAll</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="759" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="759" bodyend="762"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a744d27f5f57f146a99933050377dc7eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::getText</definition>
+        <argsstring>($postData=NULL)</argsstring>
+        <name>getText</name>
+        <param>
+          <declname>$postData</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="764" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="764" bodyend="777"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a67fd27f2291a0d2cbc4f3bad965486cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::fetchLokalIP</definition>
+        <argsstring>()</argsstring>
+        <name>fetchLokalIP</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="780" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="780" bodyend="783"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a7638436778c9b5eb1245b865a3a894f4" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::loadYmlSettings</definition>
+        <argsstring>()</argsstring>
+        <name>loadYmlSettings</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Load settings from settings.yml in config directory given by constant VINOU_CONFIG_DIR</para>
+<para><parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+</parameternamelist>
+<parameterdescription>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="91" column="18" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="91" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a04be29e38566fb1f9d2e76a019ff5901" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::validateLogin</definition>
+        <argsstring>()</argsstring>
+        <name>validateLogin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Checks the vinou tokens set in session and creates new token if old one is expired</para>
+<para><simplesect kind="return"><para>boolean returns false if login is expired and token cant be regenerated </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="122" column="18" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="122" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1af13dd67e3118e74d066c690cb7944df6" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::login</definition>
+        <argsstring>($cached=true)</argsstring>
+        <name>login</name>
+        <param>
+          <declname>$cached</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Creates token with auth credentials and store it to session</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>boolean</parametertype>
+<parametername>$cached</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>enable token storing into session data </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="149" column="18" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="149" bodyend="175"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a310a3e83a13a49f0ee3a3d9d30ccbbf6" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::curlApiRoute</definition>
+        <argsstring>($route, $data=[], $internal=false, $authorization=true)</argsstring>
+        <name>curlApiRoute</name>
+        <param>
+          <declname>$route</declname>
+        </param>
+        <param>
+          <declname>$data</declname>
+          <defval>[]</defval>
+        </param>
+        <param>
+          <declname>$internal</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <declname>$authorization</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create API request with postdata using Guzzle http agent</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>string</parametertype>
+<parametername>$route</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>api route to call without leading slash all routes prefixed with service </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametertype>array</parametertype>
+<parametername>$data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>post values </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametertype>boolean</parametertype>
+<parametername>$internal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>enable additional header if client authentification is needed </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametertype>boolean</parametertype>
+<parametername>$authorization</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>insert authorization header</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>array|false $response response body if route status code was 200 </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="188" column="18" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="188" bodyend="238"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a191a2f3a6d7ae7b1dcf9e248262e20ae" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::writeLog</definition>
+        <argsstring>($entry)</argsstring>
+        <name>writeLog</name>
+        <param>
+          <declname>$entry</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="785" column="18" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="785" bodyend="788"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1ad845d93129a8628cc76e4c09a467afa5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::detectIdentifier</definition>
+        <argsstring>($data)</argsstring>
+        <name>detectIdentifier</name>
+        <param>
+          <declname>$data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="790" column="18" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="790" bodyend="815"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1ad1e75f8f32632164123992d568dfa5ec" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::flatOutput</definition>
+        <argsstring>($data, $retAll=true, $selector=&apos;data&apos;)</argsstring>
+        <name>flatOutput</name>
+        <param>
+          <declname>$data</declname>
+        </param>
+        <param>
+          <declname>$retAll</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <declname>$selector</declname>
+          <defval>&apos;data&apos;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="817" column="18" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="817" bodyend="822"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_api_1a74f57ef714dfbc3252cfa025733563d2" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Api::pagedOutput</definition>
+        <argsstring>($result, $dataKey=&apos;data&apos;)</argsstring>
+        <name>pagedOutput</name>
+        <param>
+          <declname>$result</declname>
+        </param>
+        <param>
+          <declname>$dataKey</declname>
+          <defval>&apos;data&apos;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="824" column="18" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="824" bodyend="833"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><ref refid="class_vinou_1_1_api_connector_1_1_api" kindref="compound">Api</ref> </para>
+    </detaileddescription>
+    <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" line="18" column="10" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Api.php" bodystart="18" bodyend="835"/>
+    <listofallmembers>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a2e41166d7ad144dc445d6fa5b292066a" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>$apiUrl</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a8c6950c20614565c1347a7559908ec69" prot="protected" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>$authData</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1ad54db838a299d3cf523a716c441d12e7" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>$connected</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a5be6ba479b46bf14560f80abba0c6e47" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>$dev</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a1a3fdde5a61e376e25b934507a0a6cb3" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>$enableLogging</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a1c2f2fee867858d4144d3c6077836351" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>$httpClient</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a6469365f8b63f7e8cc1625ac1a5413df" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>$log</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a7e15a1230449c48a01eab02d33e4a00a" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>__construct</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a426edebf0f6ca9efa7719a73e0355a91" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>activateClient</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a5710393060118f84dd2d6b26abd2aab9" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>addItemToBasket</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a909ab244fbbd86633e1e6e7b13e6579a" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>addOrder</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1aa8ad6eb0be07140354f34f80eb79e2ab" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>cancelPaypalPayment</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1aa5a1a7219eedd608135dbc520ee008af" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>checkClientMail</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1ad85253847254641a1238c44ef4eb474c" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>clientLogin</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a8e1bdf6a7c3a515907fbee5898d9f514" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>clientLogout</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1ad12edab3def09edbbba82d085486911c" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>createBasket</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a310a3e83a13a49f0ee3a3d9d30ccbbf6" prot="private" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>curlApiRoute</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a48aa534ed8b08298a23574d612e49ca6" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>deleteItemFromBasket</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1ad845d93129a8628cc76e4c09a467afa5" prot="private" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>detectIdentifier</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1afd2553957c2c6e35dc0b4415e69f2311" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>editClient</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a7a35ecc2d63278d1d060cf6e77644d4a" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>editItemInBasket</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a67fd27f2291a0d2cbc4f3bad965486cb" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>fetchLokalIP</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1adb438629abfdd9a14543a066132e3659" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>findPackage</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a717a780407066283094648ad6342c8c7" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>finishPaypalPayment</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1ad1e75f8f32632164123992d568dfa5ec" prot="private" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>flatOutput</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a5204d6060e025473b91643d8a1bc865a" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getAllPackages</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1ae53227feeac8f4c0f49de947c50e4e98" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getAvailablePayments</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a293a75a2b08fea13872631c7e8ed25b9" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getBasket</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a65073b9ed9bb01511dc49329408621e6" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getBasketPackage</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1adfdf212ee32070651a8130b52945c764" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getBasketSummary</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1ac6928f14f2d2c848ab806d4cddf40a55" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getCategoriesAll</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a192f5a17190980b6291d3a5d43e90295" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getCategory</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a87ce721ca4928fd85024a2340d031095" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getCategoryWines</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1ab846046255afc114b8e939dd99351813" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getCategoryWithWines</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1aaebdf906971e7cb515199c65efe17e97" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getClient</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a9f4f1a72c8bf20e2c560026bc4cdca5b" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getClientOrder</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1ab09bf2ada7a404942529401967bb4113" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getClientOrders</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a2d15037ccce976412c130b99713b8c6c" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getCustomer</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a9ba8bb7174334d885ec86896e7f8ae0d" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getExpertise</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1ac2b2a295d8c38d03198a3fc0a85ee011" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getInternalNewsAll</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1abde6320740cfbe17113b5cd987110423" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getNews</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1ab267fc64007df486aebac159bd6ca44c" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getNewsAll</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1aea5dcb1368bbf5a52aa0785068990af1" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getOrder</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a1ad02d570fcc5415a6af113103662786" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getPasswordHash</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a95accf913965f02308dd00d8e142c1d9" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getProduct</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a863c72d4de92adfc1ab0f0baf729aa5e" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getProductsAll</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a74741b10294b92491646ce6ec359d7af" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getSessionOrder</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a744d27f5f57f146a99933050377dc7eb" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getText</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1ad79cda1931553667fb08fc3f99852f0c" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getTextsAll</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1aab6e81d43cde2528d475d409b3cca908" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getWine</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a2cc529f7deaf480d120eed383939e0ae" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getWineriesAll</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a29261880f49a0432acb44042334f6c19" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getWinery</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a198d2e2fe12dc965873790318bf14221" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getWinesAll</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1af3d319bdf09e56389314325ea745a027" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getWinesByCategory</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1ade5fdd55bff18d47d3ec684457b27d8a" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getWinesByType</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1aedadd89b5a177d558288364d5b0f1614" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>getWinesLatest</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a41ce9ef22e738b238f9a2e485e804b8d" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>initBasket</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1ae10a16acd31b4e34836664b4a92f83a1" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>loadLocalization</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a7638436778c9b5eb1245b865a3a894f4" prot="private" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>loadYmlSettings</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1af13dd67e3118e74d066c690cb7944df6" prot="private" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>login</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a74f57ef714dfbc3252cfa025733563d2" prot="private" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>pagedOutput</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a32616c015edbf1c967ab7d69e41e59fa" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>registerClient</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1ac789d4ee8274997d69dd0b27038fb8e7" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>resetPassword</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a28c7099bd5765174cc320a92b0854903" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>searchWine</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a04be29e38566fb1f9d2e76a019ff5901" prot="private" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>validateLogin</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a14ca3eb9280a159d8ed6b875015c03ec" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>validatePasswordHash</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_api_1a191a2f3a6d7ae7b1dcf9e248262e20ae" prot="private" virt="non-virtual"><scope>Vinou::ApiConnector::Api</scope><name>writeLog</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="namespace_vinou_1_1_api_connector" kind="namespace" language="PHP">
+    <compoundname>Vinou::ApiConnector</compoundname>
+    <innerclass refid="class_vinou_1_1_api_connector_1_1_ajax" prot="public">Vinou::ApiConnector::Ajax</innerclass>
+    <innerclass refid="class_vinou_1_1_api_connector_1_1_api" prot="public">Vinou::ApiConnector::Api</innerclass>
+    <innerclass refid="class_vinou_1_1_api_connector_1_1_public_api" prot="public">Vinou::ApiConnector::PublicApi</innerclass>
+    <innernamespace refid="namespace_vinou_1_1_api_connector_1_1_file_handler">Vinou::ApiConnector::FileHandler</innernamespace>
+    <innernamespace refid="namespace_vinou_1_1_api_connector_1_1_session">Vinou::ApiConnector::Session</innernamespace>
+    <innernamespace refid="namespace_vinou_1_1_api_connector_1_1_tools">Vinou::ApiConnector::Tools</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" line="2" column="10"/>
+  </compounddef>
+</doxygen>

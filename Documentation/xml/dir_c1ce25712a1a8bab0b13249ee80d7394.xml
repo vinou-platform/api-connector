@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="dir_c1ce25712a1a8bab0b13249ee80d7394" kind="dir">
+    <compoundname>/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session</compoundname>
+    <innerfile refid="_session_8php">Session.php</innerfile>
+    <innerfile refid="_t_y_p_o3_session_8php">TYPO3Session.php</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session/"/>
+  </compounddef>
+</doxygen>

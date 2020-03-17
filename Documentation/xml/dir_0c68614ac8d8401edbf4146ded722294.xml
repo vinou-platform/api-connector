@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="dir_0c68614ac8d8401edbf4146ded722294" kind="dir">
+    <compoundname>/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes</compoundname>
+    <innerdir refid="dir_1c5e221638632e885667de8c8290d4f8">/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler</innerdir>
+    <innerdir refid="dir_c1ce25712a1a8bab0b13249ee80d7394">/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session</innerdir>
+    <innerdir refid="dir_1d425e665d3c256a41934b41f3ded00e">/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Tools</innerdir>
+    <innerfile refid="_ajax_8php">Ajax.php</innerfile>
+    <innerfile refid="_api_8php">Api.php</innerfile>
+    <innerfile refid="_public_api_8php">PublicApi.php</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>Vinou API Connector</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>#Vinou API Connector</para>
+<para>The Vinou API Connector is a small library that provides the stable functions that are enabled within the service api.</para>
+<sect2 id="index_1autotoc_md0">
+<title>Routes</title>
+<para>The provided Routes are listed within the API-Documentation that can be found <ulink url="https://doc.vinou.de">here</ulink> </para>
+</sect2>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="class_vinou_1_1_api_connector_1_1_ajax" kind="class" language="PHP" prot="public">
+    <compoundname>Vinou::ApiConnector::Ajax</compoundname>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_vinou_1_1_api_connector_1_1_ajax_1adeaa48cbf42edd76b895330daa4bfb78" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>Vinou\ApiConnector\Ajax::$api</definition>
+        <argsstring></argsstring>
+        <name>$api</name>
+        <initializer>= null</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" line="12" column="11" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_vinou_1_1_api_connector_1_1_ajax_1a42b3702eda4b44290b3fd357a0179ae6" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>Vinou\ApiConnector\Ajax::$errors</definition>
+        <argsstring></argsstring>
+        <name>$errors</name>
+        <initializer>= []</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" line="13" column="11" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_vinou_1_1_api_connector_1_1_ajax_1ab9957a1219add85d365c040f733b419f" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>Vinou\ApiConnector\Ajax::$output</definition>
+        <argsstring></argsstring>
+        <name>$output</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" line="14" column="11" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_vinou_1_1_api_connector_1_1_ajax_1ac5ce2cc4292c4727fe320f9c3fdbad48" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>Vinou\ApiConnector\Ajax::$data</definition>
+        <argsstring></argsstring>
+        <name>$data</name>
+        <initializer>= []</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" line="15" column="11" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_ajax_1a4368b5d7ac785e2e222769cde5908703" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Ajax::__construct</definition>
+        <argsstring>()</argsstring>
+        <name>__construct</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" line="17" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" bodystart="17" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_ajax_1a066414fff37d2f0b064ba31ca7188d2a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Ajax::run</definition>
+        <argsstring>()</argsstring>
+        <name>run</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" line="26" column="17" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" bodystart="26" bodyend="30"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_ajax_1a25ec5c14cc8766d73c98b45ed8997c4a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Ajax::loadInput</definition>
+        <argsstring>()</argsstring>
+        <name>loadInput</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" line="32" column="18" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" bodystart="32" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_ajax_1ac61fc4951001e84254045cde9a977c5b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Ajax::handleActions</definition>
+        <argsstring>()</argsstring>
+        <name>handleActions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" line="36" column="18" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" bodystart="36" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_ajax_1afc41906470fd67a6de0802550f8e7b5d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Ajax::renderOutput</definition>
+        <argsstring>()</argsstring>
+        <name>renderOutput</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" line="74" column="18" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" bodystart="74" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_ajax_1ad7b446aa1fb4493b34bd339c9a5c211a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Ajax::sendError</definition>
+        <argsstring>($data)</argsstring>
+        <name>sendError</name>
+        <param>
+          <declname>$data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" line="82" column="18" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" bodystart="82" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_ajax_1affad414aeb0a140fa7ff21fc3286d579" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Ajax::sendResult</definition>
+        <argsstring>()</argsstring>
+        <name>sendResult</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" line="88" column="18" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" bodystart="88" bodyend="92"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><ref refid="class_vinou_1_1_api_connector_1_1_ajax" kindref="compound">Ajax</ref> </para>
+    </detaileddescription>
+    <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" line="10" column="11" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Ajax.php" bodystart="10" bodyend="95"/>
+    <listofallmembers>
+      <member refid="class_vinou_1_1_api_connector_1_1_ajax_1adeaa48cbf42edd76b895330daa4bfb78" prot="protected" virt="non-virtual"><scope>Vinou::ApiConnector::Ajax</scope><name>$api</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_ajax_1ac5ce2cc4292c4727fe320f9c3fdbad48" prot="protected" virt="non-virtual"><scope>Vinou::ApiConnector::Ajax</scope><name>$data</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_ajax_1a42b3702eda4b44290b3fd357a0179ae6" prot="protected" virt="non-virtual"><scope>Vinou::ApiConnector::Ajax</scope><name>$errors</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_ajax_1ab9957a1219add85d365c040f733b419f" prot="protected" virt="non-virtual"><scope>Vinou::ApiConnector::Ajax</scope><name>$output</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_ajax_1a4368b5d7ac785e2e222769cde5908703" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Ajax</scope><name>__construct</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_ajax_1ac61fc4951001e84254045cde9a977c5b" prot="private" virt="non-virtual"><scope>Vinou::ApiConnector::Ajax</scope><name>handleActions</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_ajax_1a25ec5c14cc8766d73c98b45ed8997c4a" prot="private" virt="non-virtual"><scope>Vinou::ApiConnector::Ajax</scope><name>loadInput</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_ajax_1afc41906470fd67a6de0802550f8e7b5d" prot="private" virt="non-virtual"><scope>Vinou::ApiConnector::Ajax</scope><name>renderOutput</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_ajax_1a066414fff37d2f0b064ba31ca7188d2a" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Ajax</scope><name>run</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_ajax_1ad7b446aa1fb4493b34bd339c9a5c211a" prot="private" virt="non-virtual"><scope>Vinou::ApiConnector::Ajax</scope><name>sendError</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_ajax_1affad414aeb0a140fa7ff21fc3286d579" prot="private" virt="non-virtual"><scope>Vinou::ApiConnector::Ajax</scope><name>sendResult</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="_r_e_a_d_m_e_8md" kind="file" language="Markdown">
+    <compoundname>README.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#Vinou<sp/>API<sp/>Connector</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>Vinou<sp/>API<sp/>Connector<sp/>is<sp/>a<sp/>small<sp/>library<sp/>that<sp/>provides<sp/>the<sp/>stable<sp/>functions<sp/>that<sp/>are<sp/>enabled<sp/>within<sp/>the<sp/>service<sp/>api.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##Routes</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>provided<sp/>Routes<sp/>are<sp/>listed<sp/>within<sp/>the<sp/>API-Documentation<sp/>that<sp/>can<sp/>be<sp/>found<sp/>[here](https://doc.vinou.de)</highlight></codeline>
+    </programlisting>
+    <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/README.md"/>
+  </compounddef>
+</doxygen>
