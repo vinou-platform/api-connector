@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="class_vinou_1_1_api_connector_1_1_file_handler_1_1_images" kind="class" language="PHP" prot="public">
+    <compoundname>Vinou::ApiConnector::FileHandler::Images</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_vinou_1_1_api_connector_1_1_file_handler_1_1_images_1a8f7fd73c9263a3ba0dd31f7a0675876d" prot="public" static="no" mutable="no">
+        <type>CONST</type>
+        <definition>CONST Vinou\ApiConnector\FileHandler\Images::APIURL</definition>
+        <argsstring></argsstring>
+        <name>APIURL</name>
+        <initializer>= &apos;https://api.vinou.de&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Images.php" line="12" column="7" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Images.php" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_file_handler_1_1_images_1a12bed086664294d358a515c5b5dc1993" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\FileHandler\Images::getExternalImage</definition>
+        <argsstring>($url, $targetFile)</argsstring>
+        <name>getExternalImage</name>
+        <param>
+          <declname>$url</declname>
+        </param>
+        <param>
+          <declname>$targetFile</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Images.php" line="14" column="24" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Images.php" bodystart="14" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_file_handler_1_1_images_1a328b11779f1cf81298f0ec53dd67b550" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\FileHandler\Images::storeApiImage</definition>
+        <argsstring>($imagesrc, $chstamp=NULL, $localFolder=&apos;Cache/Images/&apos;)</argsstring>
+        <name>storeApiImage</name>
+        <param>
+          <declname>$imagesrc</declname>
+        </param>
+        <param>
+          <declname>$chstamp</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <declname>$localFolder</declname>
+          <defval>&apos;Cache/<ref refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_images" kindref="compound">Images</ref>/&apos;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Images.php" line="33" column="24" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Images.php" bodystart="33" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_file_handler_1_1_images_1a63cd15df4d483cb790e7c9d911e9cfda" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\FileHandler\Images::createOptimalFilename</definition>
+        <argsstring>($fileName)</argsstring>
+        <name>createOptimalFilename</name>
+        <param>
+          <declname>$fileName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Images.php" line="79" column="24" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Images.php" bodystart="79" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_file_handler_1_1_images_1a375457da0b5ee3a42ba2630391b9172e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\FileHandler\Images::normalizeFileName</definition>
+        <argsstring>($fileName)</argsstring>
+        <name>normalizeFileName</name>
+        <param>
+          <declname>$fileName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Images.php" line="85" column="24" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Images.php" bodystart="85" bodyend="94"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><ref refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_images" kindref="compound">Images</ref> </para>
+    </detaileddescription>
+    <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Images.php" line="10" column="13" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/Images.php" bodystart="10" bodyend="96"/>
+    <listofallmembers>
+      <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_images_1a8f7fd73c9263a3ba0dd31f7a0675876d" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::FileHandler::Images</scope><name>APIURL</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_images_1a63cd15df4d483cb790e7c9d911e9cfda" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::FileHandler::Images</scope><name>createOptimalFilename</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_images_1a12bed086664294d358a515c5b5dc1993" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::FileHandler::Images</scope><name>getExternalImage</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_images_1a375457da0b5ee3a42ba2630391b9172e" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::FileHandler::Images</scope><name>normalizeFileName</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_images_1a328b11779f1cf81298f0ec53dd67b550" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::FileHandler::Images</scope><name>storeApiImage</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="dir_1c5e221638632e885667de8c8290d4f8" kind="dir">
+    <compoundname>/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler</compoundname>
+    <innerfile refid="_images_8php">Images.php</innerfile>
+    <innerfile refid="_pdf_8php">Pdf.php</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler/"/>
+  </compounddef>
+</doxygen>

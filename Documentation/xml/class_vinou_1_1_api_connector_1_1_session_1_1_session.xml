@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="class_vinou_1_1_api_connector_1_1_session_1_1_session" kind="class" language="PHP" prot="public">
+    <compoundname>Vinou::ApiConnector::Session::Session</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_session_1_1_session_1a546ff93ab38d80f93ee09cd1ba7953bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Vinou\ApiConnector\Session\Session::__construct</definition>
+        <argsstring>()</argsstring>
+        <name>__construct</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session/Session.php" line="14" column="21" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session/Session.php" bodystart="14" bodyend="17"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_session_1_1_session_1a1f0435fbee431ebebfda2a5a87a4b3ca" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\Session\Session::start</definition>
+        <argsstring>()</argsstring>
+        <name>start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session/Session.php" line="21" column="28" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session/Session.php" bodystart="21" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_session_1_1_session_1a5b1c119e7302bc20b6fe26e557e7d9e3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\Session\Session::checkTempFolder</definition>
+        <argsstring>($parent=null)</argsstring>
+        <name>checkTempFolder</name>
+        <param>
+          <declname>$parent</declname>
+          <defval>null</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session/Session.php" line="32" column="28" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session/Session.php" bodystart="32" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_session_1_1_session_1a66f0003276084fb67a2e4021e958622a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\Session\Session::setValue</definition>
+        <argsstring>($key, $value)</argsstring>
+        <name>setValue</name>
+        <param>
+          <declname>$key</declname>
+        </param>
+        <param>
+          <declname>$value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session/Session.php" line="40" column="28" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session/Session.php" bodystart="40" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_session_1_1_session_1a859939ea082ff987208245b9de434aa0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\Session\Session::getValue</definition>
+        <argsstring>($key)</argsstring>
+        <name>getValue</name>
+        <param>
+          <declname>$key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session/Session.php" line="54" column="28" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session/Session.php" bodystart="54" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_session_1_1_session_1ac12b2ed3a8cfb0b0d181122b7ff1791b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\Session\Session::deleteValue</definition>
+        <argsstring>($key)</argsstring>
+        <name>deleteValue</name>
+        <param>
+          <declname>$key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session/Session.php" line="68" column="28" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session/Session.php" bodystart="68" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_session_1_1_session_1aed08ada9c907758b3be412a44183bae9" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\Session\Session::detectEnvironment</definition>
+        <argsstring>()</argsstring>
+        <name>detectEnvironment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session/Session.php" line="83" column="28" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session/Session.php" bodystart="83" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_session_1_1_session_1a59d0b7804b35c394dada176b49ce8f0d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\Session\Session::is_session_started</definition>
+        <argsstring>()</argsstring>
+        <name>is_session_started</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session/Session.php" line="93" column="28" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session/Session.php" bodystart="93" bodyend="102"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><ref refid="class_vinou_1_1_api_connector_1_1_session_1_1_session" kindref="compound">Session</ref> </para>
+    </detaileddescription>
+    <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session/Session.php" line="12" column="14" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session/Session.php" bodystart="12" bodyend="104"/>
+    <listofallmembers>
+      <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_session_1a546ff93ab38d80f93ee09cd1ba7953bf" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Session::Session</scope><name>__construct</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_session_1a5b1c119e7302bc20b6fe26e557e7d9e3" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Session::Session</scope><name>checkTempFolder</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_session_1ac12b2ed3a8cfb0b0d181122b7ff1791b" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Session::Session</scope><name>deleteValue</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_session_1aed08ada9c907758b3be412a44183bae9" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Session::Session</scope><name>detectEnvironment</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_session_1a859939ea082ff987208245b9de434aa0" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Session::Session</scope><name>getValue</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_session_1a59d0b7804b35c394dada176b49ce8f0d" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Session::Session</scope><name>is_session_started</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_session_1a66f0003276084fb67a2e4021e958622a" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Session::Session</scope><name>setValue</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_session_1a1f0435fbee431ebebfda2a5a87a4b3ca" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Session::Session</scope><name>start</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,994 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Api &mdash; API-Connector 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PublicApi" href="publicapi.html" />
+    <link rel="prev" title="Ajax" href="ajax.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> API-Connector
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="_filehandler.html">FileHandler namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_session.html">Session namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_tools.html">Tools namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ajax.html">Ajax</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publicapi.html">PublicApi</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">API-Connector</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Api</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="api">
+<h1>Api<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="#Api" title="Api"><code class="xref php php-class docutils literal notranslate"><span class="pre">Api</span></code></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Qualified name:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">Vinou\ApiConnector\Api</span></code></td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="Api">
+<em class="property">class </em><code class="descname">Api</code><a class="headerlink" href="#Api" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="Api::__construct">
+<code class="descname">__construct</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::__construct" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$token</strong> (<em>string</em>) – token created in token module in <a class="reference external" href="https://app.vinou.de">https://app.vinou.de</a>.
+Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></li>
+<li><strong>$authid</strong> (<em>string</em>) – authid from invoice config in settings area in <a class="reference external" href="https://app.vinou.de">https://app.vinou.de</a>.
+Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></li>
+<li><strong>$logging</strong> (<em>boolean</em>) – enable logging if needed.
+Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></li>
+<li><strong>$dev</strong> (<em>boolean</em>) – enable dev mode.
+Default: <code class="docutils literal notranslate"><span class="pre">false</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::activateClient">
+<code class="descname">activateClient</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::activateClient" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::addItemToBasket">
+<code class="descname">addItemToBasket</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::addItemToBasket" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::addOrder">
+<code class="descname">addOrder</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::addOrder" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$order</strong> – Default: <code class="docutils literal notranslate"><span class="pre">null</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::cancelPaypalPayment">
+<code class="descname">cancelPaypalPayment</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::cancelPaypalPayment" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">[]</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::checkClientMail">
+<code class="descname">checkClientMail</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::checkClientMail" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::clientLogin">
+<code class="descname">clientLogin</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::clientLogin" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::clientLogout">
+<code class="descname">clientLogout</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::clientLogout" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::createBasket">
+<code class="descname">createBasket</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::createBasket" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Api::deleteItemFromBasket">
+<code class="descname">deleteItemFromBasket</code><span class="sig-paren">(</span><em>$id</em><span class="sig-paren">)</span><a class="headerlink" href="#Api::deleteItemFromBasket" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$id</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::editClient">
+<code class="descname">editClient</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::editClient" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$data</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::editItemInBasket">
+<code class="descname">editItemInBasket</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::editItemInBasket" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::fetchLokalIP">
+<code class="descname">fetchLokalIP</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::fetchLokalIP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Api::findPackage">
+<code class="descname">findPackage</code><span class="sig-paren">(</span><em>$type</em>, <em>$count</em><span class="sig-paren">)</span><a class="headerlink" href="#Api::findPackage" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$type</strong> – </li>
+<li><strong>$count</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::finishPaypalPayment">
+<code class="descname">finishPaypalPayment</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::finishPaypalPayment" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$data</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getAllPackages">
+<code class="descname">getAllPackages</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getAllPackages" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Api::getAvailablePayments">
+<code class="descname">getAvailablePayments</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getAvailablePayments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Api::getBasket">
+<code class="descname">getBasket</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getBasket" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$uuid</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getBasketPackage">
+<code class="descname">getBasketPackage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getBasketPackage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Api::getBasketSummary">
+<code class="descname">getBasketSummary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getBasketSummary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Api::getCategoriesAll">
+<code class="descname">getCategoriesAll</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getCategoriesAll" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getCategory">
+<code class="descname">getCategory</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getCategory" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getCategoryWines">
+<code class="descname">getCategoryWines</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getCategoryWines" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getCategoryWithWines">
+<code class="descname">getCategoryWithWines</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getCategoryWithWines" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getClient">
+<code class="descname">getClient</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getClient" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getClientOrder">
+<code class="descname">getClientOrder</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getClientOrder" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getClientOrders">
+<code class="descname">getClientOrders</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getClientOrders" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getCustomer">
+<code class="descname">getCustomer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getCustomer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Api::getExpertise">
+<code class="descname">getExpertise</code><span class="sig-paren">(</span><em>$id</em><span class="sig-paren">)</span><a class="headerlink" href="#Api::getExpertise" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$id</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getInternalNewsAll">
+<code class="descname">getInternalNewsAll</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getInternalNewsAll" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getNews">
+<code class="descname">getNews</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getNews" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getNewsAll">
+<code class="descname">getNewsAll</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getNewsAll" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getOrder">
+<code class="descname">getOrder</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getOrder" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getPasswordHash">
+<code class="descname">getPasswordHash</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getPasswordHash" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getProduct">
+<code class="descname">getProduct</code><span class="sig-paren">(</span><em>$postData</em><span class="sig-paren">)</span><a class="headerlink" href="#Api::getProduct" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getProductsAll">
+<code class="descname">getProductsAll</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getProductsAll" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getSessionOrder">
+<code class="descname">getSessionOrder</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getSessionOrder" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">[]</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getText">
+<code class="descname">getText</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getText" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getTextsAll">
+<code class="descname">getTextsAll</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getTextsAll" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getWine">
+<code class="descname">getWine</code><span class="sig-paren">(</span><em>$input</em><span class="sig-paren">)</span><a class="headerlink" href="#Api::getWine" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$input</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getWineriesAll">
+<code class="descname">getWineriesAll</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getWineriesAll" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getWinery">
+<code class="descname">getWinery</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getWinery" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getWinesAll">
+<code class="descname">getWinesAll</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getWinesAll" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getWinesByCategory">
+<code class="descname">getWinesByCategory</code><span class="sig-paren">(</span><em>$postData</em><span class="sig-paren">)</span><a class="headerlink" href="#Api::getWinesByCategory" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getWinesByType">
+<code class="descname">getWinesByType</code><span class="sig-paren">(</span><em>$type</em><span class="sig-paren">)</span><a class="headerlink" href="#Api::getWinesByType" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$type</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::getWinesLatest">
+<code class="descname">getWinesLatest</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::getWinesLatest" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::initBasket">
+<code class="descname">initBasket</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::initBasket" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Api::loadLocalization">
+<code class="descname">loadLocalization</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::loadLocalization" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$countrycode</strong> – Default: <code class="docutils literal notranslate"><span class="pre">'de'</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::registerClient">
+<code class="descname">registerClient</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::registerClient" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$data</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::resetPassword">
+<code class="descname">resetPassword</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::resetPassword" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$data</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::searchWine">
+<code class="descname">searchWine</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::searchWine" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">[]</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Api::validatePasswordHash">
+<code class="descname">validatePasswordHash</code><span class="sig-paren">(</span><span class="optional">[</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Api::validatePasswordHash" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$postData</strong> – Default: <code class="docutils literal notranslate"><span class="pre">NULL</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="publicapi.html" class="btn btn-neutral float-right" title="PublicApi" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ajax.html" class="btn btn-neutral" title="Ajax" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Christian Haendel.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

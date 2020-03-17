@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="namespace_vinou_1_1_api_connector_1_1_tools" kind="namespace" language="PHP">
+    <compoundname>Vinou::ApiConnector::Tools</compoundname>
+    <innerclass refid="class_vinou_1_1_api_connector_1_1_tools_1_1_converter" prot="public">Vinou::ApiConnector::Tools::Converter</innerclass>
+    <innerclass refid="class_vinou_1_1_api_connector_1_1_tools_1_1_helper" prot="public">Vinou::ApiConnector::Tools::Helper</innerclass>
+    <innerclass refid="class_vinou_1_1_api_connector_1_1_tools_1_1_redirect" prot="public">Vinou::ApiConnector::Tools::Redirect</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Tools/Converter.php" line="2" column="10"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="class_vinou_1_1_api_connector_1_1_tools_1_1_converter" kind="class" language="PHP" prot="public">
+    <compoundname>Vinou::ApiConnector::Tools::Converter</compoundname>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_tools_1_1_converter_1a39a3bad3b762c08039756636450f6b7c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\Tools\Converter::generateUuidHash</definition>
+        <argsstring>($lenght=36)</argsstring>
+        <name>generateUuidHash</name>
+        <param>
+          <declname>$lenght</declname>
+          <defval>36</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Tools/Converter.php" line="10" column="24" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Tools/Converter.php" bodystart="10" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_tools_1_1_converter_1a06f7b24d7d6e65ffe5fe8fd04355d27f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\Tools\Converter::generateUuidNamespace</definition>
+        <argsstring>()</argsstring>
+        <name>generateUuidNamespace</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Tools/Converter.php" line="22" column="24" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Tools/Converter.php" bodystart="22" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_tools_1_1_converter_1a8c70f8a4c46a4c8c245c4e58494c7fa5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\Tools\Converter::generateUuid</definition>
+        <argsstring>()</argsstring>
+        <name>generateUuid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Tools/Converter.php" line="44" column="24" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Tools/Converter.php" bodystart="44" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_tools_1_1_converter_1a3192afe5367b79a804967cef2de6e283" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\Tools\Converter::is_valid_uuid</definition>
+        <argsstring>($uuid)</argsstring>
+        <name>is_valid_uuid</name>
+        <param>
+          <declname>$uuid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Tools/Converter.php" line="87" column="24" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Tools/Converter.php" bodystart="87" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_tools_1_1_converter_1ab64b0935f3db6127526c52576fb67706" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\Tools\Converter::generateRandomString</definition>
+        <argsstring>($length=48, $charmode=&apos;both&apos;, $numbers=true, $specialChars=false, $unmistakable=false)</argsstring>
+        <name>generateRandomString</name>
+        <param>
+          <declname>$length</declname>
+          <defval>48</defval>
+        </param>
+        <param>
+          <declname>$charmode</declname>
+          <defval>&apos;both&apos;</defval>
+        </param>
+        <param>
+          <declname>$numbers</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <declname>$specialChars</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <declname>$unmistakable</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Tools/Converter.php" line="95" column="24" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Tools/Converter.php" bodystart="95" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_tools_1_1_converter_1ae6b10b1fa8521d96c92330bd9cd21442" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\Tools\Converter::normalizeFileName</definition>
+        <argsstring>($fileName)</argsstring>
+        <name>normalizeFileName</name>
+        <param>
+          <declname>$fileName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Tools/Converter.php" line="114" column="24" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Tools/Converter.php" bodystart="114" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vinou_1_1_api_connector_1_1_tools_1_1_converter_1ac90fb78a453efa0681919f5e63817a35" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>static</type>
+        <definition>static Vinou\ApiConnector\Tools\Converter::generateHash</definition>
+        <argsstring>($opts=[], $checkUnique=null)</argsstring>
+        <name>generateHash</name>
+        <param>
+          <declname>$opts</declname>
+          <defval>[]</defval>
+        </param>
+        <param>
+          <declname>$checkUnique</declname>
+          <defval>null</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Tools/Converter.php" line="125" column="24" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Tools/Converter.php" bodystart="125" bodyend="151"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><ref refid="class_vinou_1_1_api_connector_1_1_tools_1_1_converter" kindref="compound">Converter</ref> </para>
+    </detaileddescription>
+    <location file="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Tools/Converter.php" line="8" column="16" bodyfile="/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Tools/Converter.php" bodystart="8" bodyend="152"/>
+    <listofallmembers>
+      <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_converter_1ac90fb78a453efa0681919f5e63817a35" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Tools::Converter</scope><name>generateHash</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_converter_1ab64b0935f3db6127526c52576fb67706" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Tools::Converter</scope><name>generateRandomString</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_converter_1a8c70f8a4c46a4c8c245c4e58494c7fa5" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Tools::Converter</scope><name>generateUuid</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_converter_1a39a3bad3b762c08039756636450f6b7c" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Tools::Converter</scope><name>generateUuidHash</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_converter_1a06f7b24d7d6e65ffe5fe8fd04355d27f" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Tools::Converter</scope><name>generateUuidNamespace</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_converter_1a3192afe5367b79a804967cef2de6e283" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Tools::Converter</scope><name>is_valid_uuid</name></member>
+      <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_converter_1ae6b10b1fa8521d96c92330bd9cd21442" prot="public" virt="non-virtual"><scope>Vinou::ApiConnector::Tools::Converter</scope><name>normalizeFileName</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

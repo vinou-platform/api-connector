@@ -4,6 +4,11 @@ namespace Vinou\ApiConnector;
 use \Vinou\ApiConnector\Session\Session;
 use \Vinou\ApiConnector\Tools\Redirect;
 use \Vinou\ApiConnector\Tools\Helper;
+use \GuzzleHttp\Client;
+use \GuzzleHttp\Psr7;
+use \GuzzleHttp\Psr7\Request;
+use \GuzzleHttp\Exception\ClientException;
+use \GuzzleHttp\Exception\RequestException;
 
 
 /**
@@ -12,13 +17,50 @@ use \Vinou\ApiConnector\Tools\Helper;
 
 class Api {
 
+	/**
+	 * @var array $authData	authentication array
+	 *	- token: (string) token created in token module in https://app.vinou.de
+	 *	- authid: (string) authid from invoice config in settings area in https://app.vinou.de
+	 *
+	 */
 	protected $authData = [];
-	public $apiUrl = "https://api.vinou.de/service/";
-	public $status = 'offline';
-	public $dev;
+
+	/**
+	 * @var string $apiUrl url where api is located
+	 */
+	public $apiUrl;
+
+	/**
+	 * @var boolean $connected status of connection
+	 */
+	public $connected = false;
+
+	/**
+	 * @var boolean $dev enable dev mode
+	 */
+	public $dev = false;
+
+	/**
+	 * @var boolean $enableLogging enable logging into log array
+	 */
 	public $enableLogging;
+
+	/**
+	 * @var array $log array to log processes
+	 */
 	public $log = [];
 
+	/**
+	 * @var object $httpClient guzzle object for client
+	 */
+	public $httpClient = null;
+
+	/**
+	 * @param string $token token created in token module in https://app.vinou.de
+	 * @param string $authid authid from invoice config in settings area in https://app.vinou.de
+	 * @param boolean $logging enable logging if needed
+	 * @param boolean $dev enable dev mode
+	 */
 	public function __construct($token = false, $authid = false, $logging = false, $dev = false) {
 
 		if (!$token || !$authid)
@@ -30,11 +72,23 @@ class Api {
 			$this->dev = $dev;
 		}
 
+		$this->enableLogging = $logging;
+
 		$this->apiUrl = Helper::getApiUrl().'/service/';
+
+		$this->httpClient = new Client([
+			'base_uri' => $this->apiUrl
+		]);
+
 		$this->validateLogin();
 	}
 
-	public function loadYmlSettings() {
+	/**
+	 * Load settings from settings.yml in config directory given by constant VINOU_CONFIG_DIR
+	 *
+	 * @throws \Exception if directory or is misconfigured and token and authid wasn't set
+	 */ 
+	private function loadYmlSettings() {
 		if (!defined('VINOU_CONFIG_DIR'))
 			throw new \Exception('no VINOU_CONFIG_DIR constant defined');
 
@@ -60,79 +114,78 @@ class Api {
 		}
 	}
 
-
-	public function validateLogin(){
+	/**
+	 * Checks the vinou tokens set in session and creates new token if old one is expired
+	 *
+	 * @return boolean returns false if login is expired and token cant be regenerated
+	 */ 
+	private function validateLogin(){
 
 		$authData = Session::getValue('vinou');
 		if(!$authData)  {
-			$this->login();
+			$this->writeLog('no auth session');
+			return $this->login();
 		} else {
-			$ch = curl_init($this->apiUrl.'check/login');
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$this->writeLog('auth session exists');
+			$validation = $this->curlApiRoute('check/login');
 
-			$headers = [
-				'Content-Type: application/json',
-				'Origin: '.$_SERVER['SERVER_NAME'],
-				'Authorization: Bearer '.$authData['token']
-			];
-
-			if (isset($authData['clientToken']))
-				array_push($headers, 'Client-Authorization: '.$authData['clientToken']);
-
-			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-			$result = curl_exec($ch);
-			$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-			$requestinfo = curl_getinfo($ch);
-			if($httpCode != 200) {
+			if (!$validation) {
 				$this->writeLog('token expired');
-				$this->login();
+				return $this->login();
 			} else {
-				$this->status = 'connected';
 				$this->writeLog('token valid');
+				$this->connected = true;
 			}
-			return true;
 		}
+		return true;
+
     }
 
-	//request a fresh token based on authid and authtoken
-	public function login($cached = true)
-	{
-		$data_string = json_encode($this->authData);
-        $ch = curl_init($this->apiUrl.'login');
-		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_HTTPHEADER,
-			[
-				'Content-Type: application/json',
-				'Content-Length: ' . strlen($data_string),
-				'Origin: '.$_SERVER['SERVER_NAME']
-			]
+    /**
+     * Creates token with auth credentials and store it to session
+     *
+     * @param boolean $cached enable token storing into session data
+     */
+	private function login($cached = true) {
+
+		$result = $this->curlApiRoute(
+			'login',
+			$this->authData,
+			false,
+			false
 		);
 
-		$result = json_decode(curl_exec($ch),true);
-		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		$this->writeLog('login and write session');
-		if(curl_errno($ch) == 0 && isset($result['token'], $result['refreshToken']))
-		{
+		if (isset($result['token'])) {
 			$this->writeLog('login succeeded');
-			curl_close($ch);
+			$this->connected = true;
 			if ($cached) {
-				$this->status = 'connected';
 				Session::setValue('vinou',[
 					'token' => $result['token'],
 					'refreshToken' => $result['refreshToken']
 				]);
+				$this->writeLog('token stored in session');
 			}
-			return $result;
 		}
-		$this->writeLog('login failed');
-		$this->status = 'offline';
-		return false;
+		else {
+			$this->writeLog('login failed');
+			$this->connected = false;
+		}
+		
+		return true;
 	}
 
-	private function curlApiRoute($route, $data = [], $internal = false, $debug = false)
+	/**
+	 * Create API request with postdata using Guzzle http agent
+	 *
+	 * @param string $route api route to call without leading slash all routes prefixed with service
+	 * @param array $data post values
+	 * @param boolean $internal enable additional header if client authentification is needed
+	 * @param boolean $authorization insert authorization header
+	 *
+	 * @return array|false $response response body if route status code was 200
+	 *
+	 */
+	private function curlApiRoute($route, $data = [], $internal = false, $authorization = true)
 	{
 		if (is_null($data) || !is_array($data))
 			$data = [];
@@ -143,91 +196,72 @@ class Api {
 		if (defined('VINOU_MODE') && VINOU_MODE === 'Winelist')
 			$data['inwinelist'] = true;
 
-		$data_string = json_encode($data);
-		$url = $this->apiUrl.$route;
-		$this->writeLog('curl route '.$url);
-		$ch = curl_init($url);
-		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
 		$authData = Session::getValue('vinou');
 		$headers = [
-			'Content-Type: application/json',
-			'Content-Length: ' . strlen($data_string),
-			'Origin: '.$_SERVER['SERVER_NAME'],
-			'Authorization: Bearer '.$authData['token']
+			'User-Agent' => 'api-connector',
+			'Content-Type' => 'application/json',
+			'Origin' => ''.$_SERVER['SERVER_NAME']
 		];
 
-		if (isset($authData['clientToken']) && $internal)
-			array_push($headers, 'Client-Authorization: '.$authData['clientToken']);
+		if ($authorization) {
+			$headers['Authorization'] = 'Bearer '.$authData['token'];
 
-
-		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-		$result = curl_exec($ch);
-		$requestinfo = curl_getinfo($ch);
-		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		$this->writeLog('Status: '.$httpCode);
-
-		// if ($route == 'news/getAll') {
-		// 	var_dump($forceClient);
-		// 	var_dump($headers);
-		// 	var_dump($httpCode);
-		// 	var_dump($requestinfo);
-		// 	var_dump(json_decode($result, true));
-		// 	die();
-		// }
-		switch ($httpCode) {
-			case 200:
-				curl_close($ch);
-				return json_decode($result, true);
-				break;
-			case 401:
-				return [
-					'error' => 'unauthorized',
-					'info' => $requestinfo,
-					'response' => json_decode($result, true)
-				];
-				break;
-			default:
-				return [
-					'error' => 'recreate token or bad request',
-					'info' => $requestinfo,
-					'response' => json_decode($result, true)
-				];
-				break;
+			if (isset($authData['clientToken']) && $internal)
+				$headers['Client-Authorization'] = $authData['clientToken'];
 		}
-		return false;
+
+		try {
+			$response = $this->httpClient->request(
+				'POST', 
+				$route, 
+				[
+			    	'headers' => $headers,
+			    	'json' => $data
+				]
+			);
+
+			$this->writeLog([
+				'Status' => 200,
+				'Route' => $route
+			]);
+			return json_decode((string)$response->getBody(), true);
+
+		} catch (ClientException $e) {
+
+			$this->writeLog([
+				'Status' => $e->getResponse()->getStatusCode(),
+				'Route' => $route,
+				'Response' => json_decode((string)$e->getResponse()->getBody(), true)
+			]);
+			return false;
+		}
 	}
 
 	public function loadLocalization($countrycode = 'de') {
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_URL, 'https://api.vinou.de/localization/'.$countrycode);
-		$result = curl_exec($ch);
-		$requestinfo = curl_getinfo($ch);
-		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		switch ($httpCode) {
-			case 200:
-				curl_close($ch);
-				return json_decode($result, true);
-				break;
-			case 401:
-				return [
-					'error' => 'unauthorized',
-					'info' => $requestinfo,
-					'response' => $result
-				];
-				break;
-			default:
-				return [
-					'error' => 'an error occured',
-					'info' => $requestinfo,
-					'response' => $result
-				];
-				break;
+
+		$route = '/localization/' . $countrycode;
+
+		try {
+
+			$response = $this->httpClient->get($route);
+			$this->writeLog([
+				'Status' => 200,
+				'Route' => $route
+			]);
+
+			return json_decode((string)$response->getBody(), true);
+
+		} catch (ClientException $e) {
+
+			$this->writeLog([
+				'Status' => $e->getResponse()->getStatusCode(),
+				'Route' => $route,
+				'Response' => json_decode((string)$e->getResponse()->getBody(), true)
+			]);
+
+			return false;
 		}
-		return false;
+
 	}
 
 	public function getWine($input) {
@@ -335,24 +369,6 @@ class Api {
 	public function getProduct($postData) {
 		$result = $this->curlApiRoute('products/get', $this->detectIdentifier($postData), true);
 		return $this->flatOutput($result);
-	}
-
-	public function getClientLogin() {
-		$postData = [
-            'ip' => $_SERVER['REMOTE_ADDR'],
-            'userAgent' => $_SERVER['HTTP_USER_AGENT']
-        ];
-
-        if ($this->dev)
-        	$postData['ip'] = $this->fetchLokalIP();
-
-		$result = $this->curlApiRoute('clients/login',$postData);
-		if (isset($result['token']) && isset($result['refreshToken'])) {
-			unset($result['id']);
-			unset($result['info']);
-			return $result;
-		}
-		return false;
 	}
 
 	public function getBasket($uuid = NULL) {
@@ -591,6 +607,7 @@ class Api {
 		$postData['password'] = md5($this->authData['token'].$postData['password']);
 		$result = $this->curlApiRoute('clients/login',$postData);
 
+
 		if (isset($result['error']))
 			return ['error' => $result['response']['details']];
 
@@ -603,6 +620,8 @@ class Api {
 				Redirect::internal($postData['redirect']);
 		}
 
+		var_dump($this->log);
+		die();
 		return $result;
 	}
 

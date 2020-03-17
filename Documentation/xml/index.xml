@@ -1,0 +1,236 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.17">
+  <compound refid="class_vinou_1_1_api_connector_1_1_ajax" kind="class"><name>Vinou::ApiConnector::Ajax</name>
+    <member refid="class_vinou_1_1_api_connector_1_1_ajax_1adeaa48cbf42edd76b895330daa4bfb78" kind="variable"><name>$api</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_ajax_1a42b3702eda4b44290b3fd357a0179ae6" kind="variable"><name>$errors</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_ajax_1ab9957a1219add85d365c040f733b419f" kind="variable"><name>$output</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_ajax_1ac5ce2cc4292c4727fe320f9c3fdbad48" kind="variable"><name>$data</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_ajax_1a4368b5d7ac785e2e222769cde5908703" kind="function"><name>__construct</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_ajax_1a066414fff37d2f0b064ba31ca7188d2a" kind="function"><name>run</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_ajax_1a25ec5c14cc8766d73c98b45ed8997c4a" kind="function"><name>loadInput</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_ajax_1ac61fc4951001e84254045cde9a977c5b" kind="function"><name>handleActions</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_ajax_1afc41906470fd67a6de0802550f8e7b5d" kind="function"><name>renderOutput</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_ajax_1ad7b446aa1fb4493b34bd339c9a5c211a" kind="function"><name>sendError</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_ajax_1affad414aeb0a140fa7ff21fc3286d579" kind="function"><name>sendResult</name></member>
+  </compound>
+  <compound refid="class_vinou_1_1_api_connector_1_1_api" kind="class"><name>Vinou::ApiConnector::Api</name>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a8c6950c20614565c1347a7559908ec69" kind="variable"><name>$authData</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a2e41166d7ad144dc445d6fa5b292066a" kind="variable"><name>$apiUrl</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1ad54db838a299d3cf523a716c441d12e7" kind="variable"><name>$connected</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a5be6ba479b46bf14560f80abba0c6e47" kind="variable"><name>$dev</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a1a3fdde5a61e376e25b934507a0a6cb3" kind="variable"><name>$enableLogging</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a6469365f8b63f7e8cc1625ac1a5413df" kind="variable"><name>$log</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a1c2f2fee867858d4144d3c6077836351" kind="variable"><name>$httpClient</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a7e15a1230449c48a01eab02d33e4a00a" kind="function"><name>__construct</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1ae10a16acd31b4e34836664b4a92f83a1" kind="function"><name>loadLocalization</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1aab6e81d43cde2528d475d409b3cca908" kind="function"><name>getWine</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1af3d319bdf09e56389314325ea745a027" kind="function"><name>getWinesByCategory</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1ade5fdd55bff18d47d3ec684457b27d8a" kind="function"><name>getWinesByType</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a198d2e2fe12dc965873790318bf14221" kind="function"><name>getWinesAll</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1aedadd89b5a177d558288364d5b0f1614" kind="function"><name>getWinesLatest</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a28c7099bd5765174cc320a92b0854903" kind="function"><name>searchWine</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a9ba8bb7174334d885ec86896e7f8ae0d" kind="function"><name>getExpertise</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a2cc529f7deaf480d120eed383939e0ae" kind="function"><name>getWineriesAll</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a29261880f49a0432acb44042334f6c19" kind="function"><name>getWinery</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a2d15037ccce976412c130b99713b8c6c" kind="function"><name>getCustomer</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1ae53227feeac8f4c0f49de947c50e4e98" kind="function"><name>getAvailablePayments</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a192f5a17190980b6291d3a5d43e90295" kind="function"><name>getCategory</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1ab846046255afc114b8e939dd99351813" kind="function"><name>getCategoryWithWines</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a87ce721ca4928fd85024a2340d031095" kind="function"><name>getCategoryWines</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1ac6928f14f2d2c848ab806d4cddf40a55" kind="function"><name>getCategoriesAll</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a863c72d4de92adfc1ab0f0baf729aa5e" kind="function"><name>getProductsAll</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a95accf913965f02308dd00d8e142c1d9" kind="function"><name>getProduct</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a293a75a2b08fea13872631c7e8ed25b9" kind="function"><name>getBasket</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a41ce9ef22e738b238f9a2e485e804b8d" kind="function"><name>initBasket</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1ad12edab3def09edbbba82d085486911c" kind="function"><name>createBasket</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a5710393060118f84dd2d6b26abd2aab9" kind="function"><name>addItemToBasket</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a7a35ecc2d63278d1d060cf6e77644d4a" kind="function"><name>editItemInBasket</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a48aa534ed8b08298a23574d612e49ca6" kind="function"><name>deleteItemFromBasket</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a909ab244fbbd86633e1e6e7b13e6579a" kind="function"><name>addOrder</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1adb438629abfdd9a14543a066132e3659" kind="function"><name>findPackage</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1adfdf212ee32070651a8130b52945c764" kind="function"><name>getBasketSummary</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a65073b9ed9bb01511dc49329408621e6" kind="function"><name>getBasketPackage</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a5204d6060e025473b91643d8a1bc865a" kind="function"><name>getAllPackages</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a717a780407066283094648ad6342c8c7" kind="function"><name>finishPaypalPayment</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1aa8ad6eb0be07140354f34f80eb79e2ab" kind="function"><name>cancelPaypalPayment</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a74741b10294b92491646ce6ec359d7af" kind="function"><name>getSessionOrder</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a32616c015edbf1c967ab7d69e41e59fa" kind="function"><name>registerClient</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a426edebf0f6ca9efa7719a73e0355a91" kind="function"><name>activateClient</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1ad85253847254641a1238c44ef4eb474c" kind="function"><name>clientLogin</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a1ad02d570fcc5415a6af113103662786" kind="function"><name>getPasswordHash</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a14ca3eb9280a159d8ed6b875015c03ec" kind="function"><name>validatePasswordHash</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1ac789d4ee8274997d69dd0b27038fb8e7" kind="function"><name>resetPassword</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1aaebdf906971e7cb515199c65efe17e97" kind="function"><name>getClient</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1aa5a1a7219eedd608135dbc520ee008af" kind="function"><name>checkClientMail</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1afd2553957c2c6e35dc0b4415e69f2311" kind="function"><name>editClient</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a8e1bdf6a7c3a515907fbee5898d9f514" kind="function"><name>clientLogout</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1ab09bf2ada7a404942529401967bb4113" kind="function"><name>getClientOrders</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1aea5dcb1368bbf5a52aa0785068990af1" kind="function"><name>getOrder</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a9f4f1a72c8bf20e2c560026bc4cdca5b" kind="function"><name>getClientOrder</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1ab267fc64007df486aebac159bd6ca44c" kind="function"><name>getNewsAll</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1ac2b2a295d8c38d03198a3fc0a85ee011" kind="function"><name>getInternalNewsAll</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1abde6320740cfbe17113b5cd987110423" kind="function"><name>getNews</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1ad79cda1931553667fb08fc3f99852f0c" kind="function"><name>getTextsAll</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a744d27f5f57f146a99933050377dc7eb" kind="function"><name>getText</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a67fd27f2291a0d2cbc4f3bad965486cb" kind="function"><name>fetchLokalIP</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a7638436778c9b5eb1245b865a3a894f4" kind="function"><name>loadYmlSettings</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a04be29e38566fb1f9d2e76a019ff5901" kind="function"><name>validateLogin</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1af13dd67e3118e74d066c690cb7944df6" kind="function"><name>login</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a310a3e83a13a49f0ee3a3d9d30ccbbf6" kind="function"><name>curlApiRoute</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a191a2f3a6d7ae7b1dcf9e248262e20ae" kind="function"><name>writeLog</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1ad845d93129a8628cc76e4c09a467afa5" kind="function"><name>detectIdentifier</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1ad1e75f8f32632164123992d568dfa5ec" kind="function"><name>flatOutput</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_api_1a74f57ef714dfbc3252cfa025733563d2" kind="function"><name>pagedOutput</name></member>
+  </compound>
+  <compound refid="class_vinou_1_1_api_connector_1_1_tools_1_1_converter" kind="class"><name>Vinou::ApiConnector::Tools::Converter</name>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_converter_1a39a3bad3b762c08039756636450f6b7c" kind="function"><name>generateUuidHash</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_converter_1a06f7b24d7d6e65ffe5fe8fd04355d27f" kind="function"><name>generateUuidNamespace</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_converter_1a8c70f8a4c46a4c8c245c4e58494c7fa5" kind="function"><name>generateUuid</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_converter_1a3192afe5367b79a804967cef2de6e283" kind="function"><name>is_valid_uuid</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_converter_1ab64b0935f3db6127526c52576fb67706" kind="function"><name>generateRandomString</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_converter_1ae6b10b1fa8521d96c92330bd9cd21442" kind="function"><name>normalizeFileName</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_converter_1ac90fb78a453efa0681919f5e63817a35" kind="function"><name>generateHash</name></member>
+  </compound>
+  <compound refid="class_vinou_1_1_api_connector_1_1_tools_1_1_helper" kind="class"><name>Vinou::ApiConnector::Tools::Helper</name>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_helper_1a7c4714dcb45a8c1c436dd71ab488dff2" kind="variable"><name>APILIVE</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_helper_1a71a7bf6f37fa7bc2c74ea2b16c06aa6c" kind="variable"><name>APISANDBOX</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_helper_1aa3c36ccffead1c6e0c7d8648262f2595" kind="variable"><name>APIDEV</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_helper_1a0286de7e6eca9065752f93fae1d79520" kind="variable"><name>$normDocRoot</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_helper_1a9f34d6e03eeb0b2b4946f29c477923ed" kind="function"><name>getNormDocRoot</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_helper_1a9f2c5da33323359b94d5f3be1a9f3e3d" kind="function"><name>getApiUrl</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_helper_1a46ad9d8fd95e666357e484c416e0fb7a" kind="function"><name>getCurrentHost</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_helper_1a93513382f186d5209c0002fabb498daf" kind="function"><name>getClassPath</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_helper_1a790447f5be20b87b4dc03b1af985fc15" kind="function"><name>findKeyInArray</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_helper_1a27de7c92a9c81d2553ee83ac83efd1da" kind="function"><name>curl_get_contents</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_helper_1a7ce3c5a293eeb91a2bdee8ca5c2586b6" kind="function"><name>imageToBase64</name></member>
+  </compound>
+  <compound refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_images" kind="class"><name>Vinou::ApiConnector::FileHandler::Images</name>
+    <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_images_1a8f7fd73c9263a3ba0dd31f7a0675876d" kind="variable"><name>APIURL</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_images_1a12bed086664294d358a515c5b5dc1993" kind="function"><name>getExternalImage</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_images_1a328b11779f1cf81298f0ec53dd67b550" kind="function"><name>storeApiImage</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_images_1a63cd15df4d483cb790e7c9d911e9cfda" kind="function"><name>createOptimalFilename</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_images_1a375457da0b5ee3a42ba2630391b9172e" kind="function"><name>normalizeFileName</name></member>
+  </compound>
+  <compound refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_pdf" kind="class"><name>Vinou::ApiConnector::FileHandler::Pdf</name>
+    <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_pdf_1a5e130d488255c237320b53ad723593ac" kind="variable"><name>APIURL</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_pdf_1a487942111728568865fa473438009bd2" kind="function"><name>getExternalPDF</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_pdf_1aa648a1361246dcf8be69169110baba53" kind="function"><name>getExternalPDFBinary</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_pdf_1afae64d1745eda7bdce73ea174a4cbda1" kind="function"><name>storeApiPDF</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_pdf_1a81b80d306f20f09e808964c07ef470c5" kind="function"><name>rawUrlEncodeApiPath</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_file_handler_1_1_pdf_1a715ff0e89f0928ebb31b47491cab1f16" kind="function"><name>convertFileName</name></member>
+  </compound>
+  <compound refid="class_vinou_1_1_api_connector_1_1_public_api" kind="class"><name>Vinou::ApiConnector::PublicApi</name>
+    <member refid="class_vinou_1_1_api_connector_1_1_public_api_1ae827a2788daabfeb184b1ba2588199eb" kind="variable"><name>$apiUrl</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_public_api_1a0d54b221b74c684b00d24232400135c6" kind="variable"><name>$dev</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_public_api_1a7ba99e0c5ea61f504bcc4e54d56ff7e3" kind="variable"><name>$enableLogging</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_public_api_1a55242a879dd0884cc63bdce9b53cb37a" kind="variable"><name>$log</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_public_api_1adaeac4ba055a5819147d192214193071" kind="function"><name>__construct</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_public_api_1a6a57a58984dfd30d5c3da2825c517a78" kind="function"><name>getWine</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_public_api_1a5b18745c28626da43085f06b49dd9bfb" kind="function"><name>getAllWines</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_public_api_1ac365ef18c8229fa62fd7fd0b7573fcfd" kind="function"><name>getFilters</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_public_api_1a9f51e34464f4a1f9f511df77bdb2a497" kind="function"><name>searchWine</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_public_api_1a7d79ab35394e67d8e77897e588713f21" kind="function"><name>searchWinery</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_public_api_1a19eb6ce0ac10049acc334aaf1a11ab1f" kind="function"><name>getWinepass</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_public_api_1aa65b47cb0c019839fe6c34ddc2a054a4" kind="function"><name>getWinepassWines</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_public_api_1a206e196331aeeb8d363eecb39121b642" kind="function"><name>getByCategory</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_public_api_1a2aac898d7f599ee92043f837325a5179" kind="function"><name>getExpertise</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_public_api_1ad7eaea04a71acc68be5737d1bb9c2007" kind="function"><name>getCountries</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_public_api_1aa5137e83b7453c72aed027bf3887b627" kind="function"><name>getWineregions</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_public_api_1a8307f04ca055af262c2a276dc3c22241" kind="function"><name>curlApiRoute</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_public_api_1a673833e29b43c79b0963dec1406b720d" kind="function"><name>writeLog</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_public_api_1a047155af9273868e053b79cf09b8bac6" kind="function"><name>detectIdentifier</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_public_api_1a6394843092cc490676df163dc2e9ff52" kind="function"><name>flatOutput</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_public_api_1a44b451829a148d77ec4777a8a7edc363" kind="function"><name>pagedOutput</name></member>
+  </compound>
+  <compound refid="class_vinou_1_1_api_connector_1_1_tools_1_1_redirect" kind="class"><name>Vinou::ApiConnector::Tools::Redirect</name>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_redirect_1a4278ba52b1fc975789f50bd51db6a8b5" kind="variable"><name>$route</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_redirect_1a1d4c5b93e4c07b7e1932f1894a6be3c3" kind="variable"><name>exit</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_redirect_1afcf3ea0aaed0fd83a5ca2d97130bd8b5" kind="function"><name>external</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_tools_1_1_redirect_1af9f7f9521356e3089c4eb0e519ec54d5" kind="function"><name>detectProtocol</name></member>
+  </compound>
+  <compound refid="class_vinou_1_1_api_connector_1_1_session_1_1_session" kind="class"><name>Vinou::ApiConnector::Session::Session</name>
+    <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_session_1a546ff93ab38d80f93ee09cd1ba7953bf" kind="function"><name>__construct</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_session_1a1f0435fbee431ebebfda2a5a87a4b3ca" kind="function"><name>start</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_session_1a5b1c119e7302bc20b6fe26e557e7d9e3" kind="function"><name>checkTempFolder</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_session_1a66f0003276084fb67a2e4021e958622a" kind="function"><name>setValue</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_session_1a859939ea082ff987208245b9de434aa0" kind="function"><name>getValue</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_session_1ac12b2ed3a8cfb0b0d181122b7ff1791b" kind="function"><name>deleteValue</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_session_1aed08ada9c907758b3be412a44183bae9" kind="function"><name>detectEnvironment</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_session_1a59d0b7804b35c394dada176b49ce8f0d" kind="function"><name>is_session_started</name></member>
+  </compound>
+  <compound refid="class_vinou_1_1_api_connector_1_1_session_1_1_t_y_p_o3_session" kind="class"><name>Vinou::ApiConnector::Session::TYPO3Session</name>
+    <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_t_y_p_o3_session_1a130197c65759da75da614f191363146a" kind="variable"><name>$storageKey</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_t_y_p_o3_session_1af6bde93af856dbafa97a20f94443120a" kind="function"><name>readSessionData</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_t_y_p_o3_session_1acab43b990256519b696bb3d9aa15022f" kind="function"><name>writeSessionData</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_t_y_p_o3_session_1a563e55f9756bbea231883e09e8ff5482" kind="function"><name>removeSessionData</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_t_y_p_o3_session_1a351f9e3abe2abed31519710e23e93c96" kind="function"><name>readBESessionData</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_t_y_p_o3_session_1a9e2772c411bc251160d8063595d0dd16" kind="function"><name>writeBESessionData</name></member>
+    <member refid="class_vinou_1_1_api_connector_1_1_session_1_1_t_y_p_o3_session_1a6dbb0600dd610ee8c17a6306fc099550" kind="function"><name>removeBESessionData</name></member>
+  </compound>
+  <compound refid="namespace_composer_1_1_autoload_1_1_class_loader" kind="namespace"><name>Composer::Autoload::ClassLoader</name>
+  </compound>
+  <compound refid="namespace_guzzle_http_1_1_client" kind="namespace"><name>GuzzleHttp::Client</name>
+  </compound>
+  <compound refid="namespace_guzzle_http_1_1_exception_1_1_client_exception" kind="namespace"><name>GuzzleHttp::Exception::ClientException</name>
+  </compound>
+  <compound refid="namespace_guzzle_http_1_1_exception_1_1_request_exception" kind="namespace"><name>GuzzleHttp::Exception::RequestException</name>
+  </compound>
+  <compound refid="namespace_guzzle_http_1_1_psr7" kind="namespace"><name>GuzzleHttp::Psr7</name>
+  </compound>
+  <compound refid="namespace_guzzle_http_1_1_psr7_1_1_request" kind="namespace"><name>GuzzleHttp::Psr7::Request</name>
+  </compound>
+  <compound refid="namespace_vinou" kind="namespace"><name>Vinou</name>
+  </compound>
+  <compound refid="namespace_vinou_1_1_api_connector" kind="namespace"><name>Vinou::ApiConnector</name>
+  </compound>
+  <compound refid="namespace_vinou_1_1_api_connector_1_1_api" kind="namespace"><name>Vinou::ApiConnector::Api</name>
+  </compound>
+  <compound refid="namespace_vinou_1_1_api_connector_1_1_file_handler" kind="namespace"><name>Vinou::ApiConnector::FileHandler</name>
+  </compound>
+  <compound refid="namespace_vinou_1_1_api_connector_1_1_session" kind="namespace"><name>Vinou::ApiConnector::Session</name>
+  </compound>
+  <compound refid="namespace_vinou_1_1_api_connector_1_1_session_1_1_session" kind="namespace"><name>Vinou::ApiConnector::Session::Session</name>
+  </compound>
+  <compound refid="namespace_vinou_1_1_api_connector_1_1_session_1_1_t_y_p_o3_session" kind="namespace"><name>Vinou::ApiConnector::Session::TYPO3Session</name>
+  </compound>
+  <compound refid="namespace_vinou_1_1_api_connector_1_1_tools" kind="namespace"><name>Vinou::ApiConnector::Tools</name>
+  </compound>
+  <compound refid="namespace_vinou_1_1_api_connector_1_1_tools_1_1_converter" kind="namespace"><name>Vinou::ApiConnector::Tools::Converter</name>
+  </compound>
+  <compound refid="namespace_vinou_1_1_api_connector_1_1_tools_1_1_helper" kind="namespace"><name>Vinou::ApiConnector::Tools::Helper</name>
+  </compound>
+  <compound refid="namespace_vinou_1_1_api_connector_1_1_tools_1_1_redirect" kind="namespace"><name>Vinou::ApiConnector::Tools::Redirect</name>
+  </compound>
+  <compound refid="_ajax_8php" kind="file"><name>Ajax.php</name>
+  </compound>
+  <compound refid="_api_8php" kind="file"><name>Api.php</name>
+  </compound>
+  <compound refid="_images_8php" kind="file"><name>Images.php</name>
+  </compound>
+  <compound refid="_pdf_8php" kind="file"><name>Pdf.php</name>
+  </compound>
+  <compound refid="_public_api_8php" kind="file"><name>PublicApi.php</name>
+  </compound>
+  <compound refid="_session_8php" kind="file"><name>Session.php</name>
+  </compound>
+  <compound refid="_t_y_p_o3_session_8php" kind="file"><name>TYPO3Session.php</name>
+  </compound>
+  <compound refid="_converter_8php" kind="file"><name>Converter.php</name>
+  </compound>
+  <compound refid="_helper_8php" kind="file"><name>Helper.php</name>
+  </compound>
+  <compound refid="_redirect_8php" kind="file"><name>Redirect.php</name>
+  </compound>
+  <compound refid="_r_e_a_d_m_e_8md" kind="file"><name>README.md</name>
+  </compound>
+  <compound refid="dir_0c68614ac8d8401edbf4146ded722294" kind="dir"><name>/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes</name>
+  </compound>
+  <compound refid="dir_1c5e221638632e885667de8c8290d4f8" kind="dir"><name>/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/FileHandler</name>
+  </compound>
+  <compound refid="dir_c1ce25712a1a8bab0b13249ee80d7394" kind="dir"><name>/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Session</name>
+  </compound>
+  <compound refid="dir_1d425e665d3c256a41934b41f3ded00e" kind="dir"><name>/Users/christianhandel/Vinou/vinoushop-box/www/vendor/vinou/api-connector/Classes/Tools</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>
