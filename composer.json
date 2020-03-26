@@ -1,12 +1,13 @@
 {
     "name": "vinou/api-connector",
     "type": "library",
+    "version": "1.0.0",
     "description": "Vinou API Connnector",
     "keywords": [
         "Vinou",
         "API"
     ],
-    "homepage": "http://doc.vinou.de",
+    "homepage": "https://doc.vinou.de",
     "authors": [{
         "name": "Vinou GmbH",
         "role": "Developer",
