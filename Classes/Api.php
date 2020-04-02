@@ -185,7 +185,7 @@ class Api {
 	 * @return array|false $response response body if route status code was 200
 	 *
 	 */
-	private function curlApiRoute($route, $data = [], $internal = false, $authorization = true)
+	private function curlApiRoute($route, $data = [], $internal = false, $authorization = true, $returnErrorResponse = false)
 	{
 		if (is_null($data) || !is_array($data))
 			$data = [];
@@ -233,6 +233,9 @@ class Api {
 				'Route' => $route,
 				'Response' => json_decode((string)$e->getResponse()->getBody(), true)
 			]);
+
+			if ($returnErrorResponse)
+				return json_decode((string)$e->getResponse()->getBody(), true);
 			return false;
 		}
 	}
@@ -564,12 +567,12 @@ class Api {
             'data' => $data
         ];
 
-		$result = $this->curlApiRoute('clients/register',$postData);
+		$result = $this->curlApiRoute('clients/register',$postData, false, true, true);
 
-        if (isset($result['error']))
+        if (isset($result['code']) && $result['code'] == 400)
             return [
                 'error' => 'api error',
-                'details' => $result['response']['details'],
+                'details' => $result['details'],
                 'postdata' => $data
 
             ];
@@ -605,11 +608,13 @@ class Api {
 			return ['error' => 'authData missing'];
 
 		$postData['password'] = md5($this->authData['token'].$postData['password']);
-		$result = $this->curlApiRoute('clients/login',$postData);
+		$result = $this->curlApiRoute('clients/login',$postData, false, true, true);
 
-
-		if (isset($result['error']))
-			return ['error' => $result['response']['details']];
+		if (isset($result['code']) && $result['code'] == 400)
+			return [
+                'error' => 'api error',
+                'details' => $result['details']
+            ];
 
 		else {
 			$authData = Session::getValue('vinou');
@@ -620,8 +625,6 @@ class Api {
 				Redirect::internal($postData['redirect']);
 		}
 
-		var_dump($this->log);
-		die();
 		return $result;
 	}
 
@@ -629,7 +632,7 @@ class Api {
 		if (is_null($postData) || !isset($postData['mail']))
 			return false;
 
-		$result = $this->curlApiRoute('clients/getPasswordHash',$postData);
+		$result = $this->curlApiRoute('clients/getPasswordHash',$postData, false, true, true);
 		if (isset($result['data']) && $result['data']) {
 			$return = $result['data'];
 			$return['mail'] = $postData['mail'];
@@ -637,7 +640,7 @@ class Api {
 		} else {
 			return [
 				'error' => 'fetch error',
-				'details' => $result['response']['details']
+				'details' => $result['details']
 			];
 		}
 	}
@@ -676,7 +679,14 @@ class Api {
 		$postData['mail'] = $data['mail'];
 		$postData['password'] = md5($this->authData['token'].$data['password']);
 
-		$result = $this->curlApiRoute('clients/resetPassword',$postData);
+		$result = $this->curlApiRoute('clients/resetPassword',$postData, false, true, true);
+
+		if (isset($result['code']) && $result['code'] == 400)
+			return [
+                'error' => 'reset error',
+                'details' => $result['details']
+            ];
+
 		return $this->flatOutput($result, false);
 	}
 
