@@ -1,6 +1,8 @@
 <?php
 namespace Vinou\ApiConnector\FileHandler;
 
+use \Vinou\ApiConnector\Tools\Helper;
+
 /**
 * Pdf
 */
@@ -35,29 +37,36 @@ class Pdf {
 	    return $httpStatus;
 	}
 
-	public static function storeApiPDF($src,$localFolder,$prefix = '',$chstamp = NULL,$forceDownload = false) {
+	public static function storeApiPDF($src, $chstamp = NULL, $localFolder = 'Cache/Pdf/', $prefix = '', $forceDownload = false) {
+
 		$fileName = array_values(array_slice(explode('/',$src), -1))[0];
 		$convertedFileName = self::convertFileName($prefix.$fileName);
-		$localFile = $localFolder.$convertedFileName;
+
+		if (substr($localFolder, 0, 1)  === '/')
+			$folder = $localFolder;
+		else
+			$folder = Helper::getNormDocRoot() . $localFolder;
+
+		if (!is_dir($folder))
+			mkdir($folder, 0777, true);
+
+		$localFile = $folder . $convertedFileName;
 
 		$chdate = new \DateTime($chstamp);
 		$changeStamp = $chdate->getTimestamp();
 		$returnArr = [
+			'src' => str_replace(Helper::getNormDocRoot(), '/', $localFile),
 			'fileName' => $convertedFileName,
 			'fileFetched' => FALSE,
 			'requestStatus' => 'no request done'
 		];
 
-		if(!file_exists($localFile)){
-			// $result = self::getExternalPDF(self::APIURL.$src,$localFile);
-			$returnArr['requestStatus'] = self::getExternalPDFBinary(self::APIURL.$src,$localFile);
-			$returnArr['fileFetched'] = TRUE;
-		} else if (!is_null($chstamp) && $changeStamp > filemtime($localFile)) {
-			// $result = self::getExternalPDF(self::APIURL.$src,$localFile);
-			$returnArr['requestStatus'] = self::getExternalPDFBinary(self::APIURL.$src,$localFile);
-			$returnArr['fileFetched'] = TRUE;
-		} else if ($forceDownload) {
-			$returnArr['requestStatus'] = self::getExternalPDFBinary(self::APIURL.$src,$localFile);
+		if (
+			!file_exists($localFile)
+			|| $forceDownload
+			|| (!is_null($chstamp) && $changeStamp > filemtime($localFile))
+		) {
+			$returnArr['requestStatus'] = self::getExternalPDFBinary(Helper::getApiUrl().$src,$localFile);
 			$returnArr['fileFetched'] = TRUE;
 		}
 

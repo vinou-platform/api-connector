@@ -59,7 +59,7 @@ class Images {
 			'recreate' => is_file($localFile) ? $changeStamp > filemtime($localFile) : true
 		];
 
-		$fileurl = self::APIURL.$imagesrc;
+		$fileurl = Helper::getApiUrl().$imagesrc;
 		$fileurl = preg_replace('/\s+/', '%20', $fileurl);
 
 		if (!$returnArr['recreate'])
