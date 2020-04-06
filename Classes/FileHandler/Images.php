@@ -32,7 +32,12 @@ class Images {
 
 	public static function storeApiImage($imagesrc, $chstamp = NULL, $localFolder = 'Cache/Images/') {
 		$pureFileName = array_values(array_slice(explode('/',$imagesrc), -1))[0];
-		$pureFileName = explode('?', $pureFileName)[0];
+		$split = explode('?', $pureFileName);
+		$pureFileName = $split[0];
+
+		// PREFIX FILENAME IF ATTRIBUTE WAS GIVEN
+		if (isset($split[1]))
+			$pureFileName = explode('=', $split[1])[1] . '-' . $pureFileName;
 
 		$fileName = self::createOptimalFilename($pureFileName);
 
