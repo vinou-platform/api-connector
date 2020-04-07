@@ -40,6 +40,8 @@ class Pdf {
 	public static function storeApiPDF($src, $chstamp = NULL, $localFolder = 'Cache/Pdf/', $prefix = '', $forceDownload = false) {
 
 		$fileName = array_values(array_slice(explode('/',$src), -1))[0];
+		if (!is_null($chstamp))
+			$fileName = strtotime($chstamp) . '-' . $fileName;
 		$convertedFileName = self::convertFileName($prefix.$fileName);
 
 		if (substr($localFolder, 0, 1)  === '/')
