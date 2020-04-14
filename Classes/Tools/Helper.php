@@ -1,6 +1,7 @@
 <?php
 namespace Vinou\ApiConnector\Tools;
 
+use \Vinou\ApiConnector\Session\Session;
 use \Composer\Autoload\ClassLoader;
 
 /**
@@ -120,5 +121,14 @@ class Helper {
         }
 
         return 'data: '.$a.';base64,'.$data;
+    }
+
+    public static function validateCaptcha() {
+        if (!isset($_POST['captcha']))
+            return false;
+
+        $sessionPhrase = Session::getValue('captcha');
+        $phrase = $_POST['captcha'];
+        return $phrase === (string)$sessionPhrase;
     }
 }

@@ -545,14 +545,17 @@ class Api {
             if ($data['username'] === '')
                 array_push($errors, 'username could not be blank');
 
-            if ($data['password'] === '')
+            if (!isset($data['password']) || $data['password'] === '')
                 array_push($errors, 'password could not be blank');
 
-            if (strcmp($data['password'],$data['password_repeat']))
+            if (!isset($data['password_repeat']) || strcmp($data['password'],$data['password_repeat']))
                 array_push($errors, 'password and repeat did not match');
 
-            if ($data['mail'] === '')
+            if (!isset($data['mail']) || $data['mail'] === '')
                 array_push($errors, 'mail could not be blank');
+
+            if (isset($data['captcha']) && !Helper::validateCaptcha())
+            	array_push($errors, 'captcha is not valid');
         }
 
         if (count($errors) > 0)
@@ -561,6 +564,9 @@ class Api {
                 'details' => implode(', ', $errors),
                 'postdata' => $data
             ];
+
+        if (isset($data['captcha']))
+        	unset($data['captcha']);
 
         $data['password'] = md5($this->authData['token'].$data['password']);
         $postData = [
@@ -576,6 +582,8 @@ class Api {
                 'postdata' => $data
 
             ];
+
+        Session::deleteValue('captcha');
 
         return $this->flatOutput($result, false);
 	}
