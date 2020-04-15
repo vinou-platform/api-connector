@@ -296,7 +296,7 @@ class Api {
 	public function getWinesLatest($postData = NULL) {
 		$postData['language'] = Session::getValue('language') ? Session::getValue('language') : 'de';
 		$postData['orderBy'] = isset($postData['orderBy']) ? $postData['orderBy'] : 'chstamp DESC';
-		$postData['max'] = isset($postData['max']) ? int($postData['max']) : 9;
+		$postData['max'] = isset($postData['max']) ? (int)$postData['max'] : 9;
 		$result = $this->curlApiRoute('wines/getAll', $postData, true);
 		return $result;
 	}
