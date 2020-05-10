@@ -10,9 +10,12 @@ use \Composer\Autoload\ClassLoader;
 
 class Helper {
 
-    const APILIVE = 'https://api.vinou.de';
-    const APISANDBOX = 'https://api.sandbox.vinou.de';
-    const APIDEV = 'http://api.vinou.frog';
+    public static $urls = [
+        'local' => 'http://api.vinou.frog',
+        'development' => 'https://api.development.vinou.de',
+        'staging' => 'https://api.staging.vinou.de',
+        'live' => 'https://api.vinou.de',
+    ];
 
     private static $normDocRoot = NULL;
 
@@ -35,29 +38,21 @@ class Helper {
     }
 
     public static function getApiUrl() {
-        switch ($_SERVER['HTTP_HOST']) {
-            case "shop.vinou.frog":
-                $apiurl = self::APISANDBOX;
-                break;
-            case "shop.sandbox.vinou.de":
-                $apiurl = self::APISANDBOX;
-                break;
-            default:
-                $apiurl = self::APILIVE;
-                break;
-        }
+
+        $apiurl = self::$urls['live'];
 
         // Override if constant is set
+        if ((defined('VINOU_SOURCE') && VINOU_SOURCE === 'Local'))
+            $apiurl = self::$urls['local'];
+
         if ((defined('VINOU_SOURCE') && VINOU_SOURCE === 'Dev'))
-            $apiurl = self::APIDEV;
+            $apiurl = self::$urls['development'];
 
-        // Override if constant is set
         if ((defined('VINOU_SOURCE') && VINOU_SOURCE === 'Sandbox'))
-            $apiurl = self::APISANDBOX;
+            $apiurl = self::$urls['staging'];
 
-        // Override if constant is set
-        if ((defined('VINOU_SOURCE') && VINOU_SOURCE === 'Live'))
-            $apiurl = self::APILIVE;
+        if ((defined('VINOU_SOURCE') && VINOU_SOURCE === 'Staging'))
+            $apiurl = self::$urls['staging'];
 
         return $apiurl;
     }
