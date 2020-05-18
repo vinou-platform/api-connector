@@ -190,8 +190,13 @@ class Api {
 		if (is_null($data) || !is_array($data))
 			$data = [];
 
-		if (defined('VINOU_MODE') && VINOU_MODE === 'Shop')
+		if (!isset($data['filter']))
+			$data['filter'] = [];
+
+		if (defined('VINOU_MODE') && VINOU_MODE === 'Shop') {
 			$data['inshop'] = true;
+			$data['filter']['shop'] = true;
+		}
 
 		if (defined('VINOU_MODE') && VINOU_MODE === 'Winelist')
 			$data['inwinelist'] = true;
@@ -212,8 +217,8 @@ class Api {
 
 		try {
 			$response = $this->httpClient->request(
-				'POST', 
-				$route, 
+				'POST',
+				$route,
 				[
 			    	'headers' => $headers,
 			    	'json' => $data
@@ -236,6 +241,7 @@ class Api {
 
 			if ($returnErrorResponse)
 				return json_decode((string)$e->getResponse()->getBody(), true);
+
 			return false;
 		}
 	}
@@ -374,6 +380,21 @@ class Api {
 		return $this->flatOutput($result);
 	}
 
+	public function getBundlesAll($postData = NULL) {
+		$postData['language'] = Session::getValue('language') ? Session::getValue('language') : 'de';
+		if (!isset($postData['cluster'])) {
+			$postData['cluster'] = ['type', 'taste_id', 'vintage', 'grapetypeIds'];
+		}
+		$result = $this->curlApiRoute('bundles/getAll', $postData, true);
+		return $this->pagedOutput($result);
+	}
+
+	public function getBundle($input) {
+		$postData = is_numeric($input) ? ['id' => $input] : ['path_segment' => $input];
+		$result = $this->curlApiRoute('bundles/get', $postData, true);
+		return $this->flatOutput($result);
+	}
+
 	public function getBasket($uuid = NULL) {
 		$postData = [
 			'uuid' => is_null($uuid) ? Session::getValue('basket') : $uuid
@@ -469,7 +490,16 @@ class Api {
 		];
 
 		foreach ($items as $item) {
-			$summary['bottles'] = $summary['bottles'] + $item['quantity'];
+			switch ($item['item_type']) {
+
+				case 'bundle':
+					$summary['bottles'] = $summary['bottles'] + $item['quantity'] * $item['item']['package_quantity'];
+					break;
+
+				default:
+					$summary['bottles'] = $summary['bottles'] + $item['quantity'];
+					break;
+			}
 		}
 
 		Session::deleteValue('summary');
