@@ -389,6 +389,12 @@ class Api {
 		return $this->pagedOutput($result);
 	}
 
+	public function getBundlesByCategory($input) {
+		$postData = is_numeric($input) ? ['id' => $input] : ['path_segment' => $input];
+		$result = $this->curlApiRoute('bundles/getByCategory', $postData, true);
+		return $this->flatOutput($result);
+	}
+
 	public function getBundle($input) {
 		$postData = is_numeric($input) ? ['id' => $input] : ['path_segment' => $input];
 		$result = $this->curlApiRoute('bundles/get', $postData, true);
