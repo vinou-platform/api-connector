@@ -273,15 +273,17 @@ class Api {
 
 	}
 
-	public function getWine($input) {
-		$postData = is_numeric($input) ? ['id' => $input] : ['path_segment' => $input];
-		$result = $this->curlApiRoute('wines/get', $postData, true);
+	public function getWine($identifier = Null) {
+		$result = $this->curlApiRoute('wines/get', $this->detectIdentifier($identifier), true);
 		return $result;
 	}
 
-	public function getWinesByCategory($postData) {
+	public function getWinesByCategory($identifier) {
+		$postData = $this->detectIdentifier($identifier);
+		$postData['language'] = Session::getValue('language') ? Session::getValue('language') : 'de';
+
 		$result = $this->curlApiRoute('wines/getByCategory', $postData, true);
-		return $result;
+		return $this->pagedOutput($result);
 	}
 
 	public function getWinesByType($type) {
@@ -389,15 +391,13 @@ class Api {
 		return $this->pagedOutput($result);
 	}
 
-	public function getBundlesByCategory($input) {
-		$postData = is_numeric($input) ? ['id' => $input] : ['path_segment' => $input];
-		$result = $this->curlApiRoute('bundles/getByCategory', $postData, true);
+	public function getBundlesByCategory($postData = NULL) {
+		$result = $this->curlApiRoute('bundles/getByCategory', $this->detectIdentifier($postData), true);
 		return $this->flatOutput($result);
 	}
 
-	public function getBundle($input) {
-		$postData = is_numeric($input) ? ['id' => $input] : ['path_segment' => $input];
-		$result = $this->curlApiRoute('bundles/get', $postData, true);
+	public function getBundle($postData = NULL) {
+		$result = $this->curlApiRoute('bundles/get', $this->detectIdentifier($postData), true);
 		return $this->flatOutput($result);
 	}
 
