@@ -283,7 +283,7 @@ class Api {
 		$postData['language'] = Session::getValue('language') ? Session::getValue('language') : 'de';
 
 		$result = $this->curlApiRoute('wines/getByCategory', $postData, true);
-		return $this->pagedOutput($result);
+		return $this->flatOutput($result);
 	}
 
 	public function getWinesByType($type) {
