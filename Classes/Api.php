@@ -374,7 +374,18 @@ class Api {
 
 	public function getProductsAll($postData = NULL) {
 		$result = $this->curlApiRoute('products/getAll', $postData, true);
-		return $result;
+		return $this->flatOutput($result);
+	}
+
+	public function getProductsByCategory($input = NULL) {
+		$postData = [
+			'filter' => [
+				'tags' => $this->detectIdentifier($input)
+			]
+		];
+
+		$result = $this->curlApiRoute('products/getAll', $postData, true);
+		return $this->flatOutput($result);
 	}
 
 	public function getProduct($postData) {
