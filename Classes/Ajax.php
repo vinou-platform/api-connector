@@ -60,6 +60,8 @@ class Ajax {
 
             case 'findPackage':
                 $this->output = $this->api->getBasketPackage();
+                // force return to prevent error handling
+                return;
                 break;
 
             default:
