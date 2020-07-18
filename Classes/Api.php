@@ -9,7 +9,9 @@ use \GuzzleHttp\Psr7;
 use \GuzzleHttp\Psr7\Request;
 use \GuzzleHttp\Exception\ClientException;
 use \GuzzleHttp\Exception\RequestException;
-
+use \Jaybizzle\CrawlerDetect\CrawlerDetect;
+use \Monolog\Logger;
+use \Monolog\Handler\RotatingFileHandler;
 
 /**
 * Api
@@ -56,6 +58,16 @@ class Api {
 	public $httpClient = null;
 
 	/**
+	 * @var boolean $crawlerDetect shows if a crawler was detected
+	 */
+	public $crawler = false;
+
+	/**
+	 * @var object $logger monolog object for logs
+	 */
+	public $logger = null;
+
+	/**
 	 * @param string $token token created in token module in https://app.vinou.de
 	 * @param string $authid authid from invoice config in settings area in https://app.vinou.de
 	 * @param boolean $logging enable logging if needed
@@ -80,6 +92,8 @@ class Api {
 			'base_uri' => $this->apiUrl
 		]);
 
+		$this->initLogging();
+
 		$this->validateLogin();
 	}
 
@@ -87,7 +101,7 @@ class Api {
 	 * Load settings from settings.yml in config directory given by constant VINOU_CONFIG_DIR
 	 *
 	 * @throws \Exception if directory or is misconfigured and token and authid wasn't set
-	 */ 
+	 */
 	private function loadYmlSettings() {
 		if (!defined('VINOU_CONFIG_DIR'))
 			throw new \Exception('no VINOU_CONFIG_DIR constant defined');
@@ -114,26 +128,59 @@ class Api {
 		}
 	}
 
+	private function initLogging() {
+
+		$logDirName = defined('VINOU_LOG_DIR') ? VINOU_LOG_DIR : 'logs/';
+
+		$logDir = Helper::getNormDocRoot() . $logDirName;
+
+        if (!is_dir($logDir))
+            mkdir($logDir, 0777, true);
+
+        $htaccess = $logDir .'/.htaccess';
+        if (!is_file($htaccess)) {
+            $content = 'Deny from all';
+            file_put_contents($htaccess, $content);
+        }
+
+		$loglevel = defined('VINOU_LOG_LEVEL') ? Logger::VINOU_LOG_LEVEL : Logger::ERROR;
+
+		if (defined('VINOU_DEBUG') && VINOU_DEBUG)
+			$loglevel = Logger::DEBUG;
+
+		$this->logger = new Logger('api');
+		$this->logger->pushHandler(new RotatingFileHandler($logDir.'api-connector.log', 30, $loglevel));
+
+		$crawllog = new Logger('crawler');
+		$crawllog->pushHandler(new RotatingFileHandler($logDir.'crawler.log', 10, Logger::DEBUG));
+
+		$CrawlerDetect = new CrawlerDetect;
+		$this->crawler = $CrawlerDetect->isCrawler();
+
+		if ($this->crawler)
+			$crawllog->debug($CrawlerDetect->getMatches());
+	}
+
 	/**
 	 * Checks the vinou tokens set in session and creates new token if old one is expired
 	 *
 	 * @return boolean returns false if login is expired and token cant be regenerated
-	 */ 
+	 */
 	private function validateLogin(){
 
 		$authData = Session::getValue('vinou');
 		if(!$authData)  {
-			$this->writeLog('no auth session');
+			$this->logger->debug('no auth session');
 			return $this->login();
 		} else {
-			$this->writeLog('auth session exists');
+			$this->logger->debug('auth session exists');
 			$validation = $this->curlApiRoute('check/login');
 
 			if (!$validation) {
-				$this->writeLog('token expired');
+				$this->logger->debug('token expired');
 				return $this->login();
 			} else {
-				$this->writeLog('token valid');
+				$this->logger->debug('token valid');
 				$this->connected = true;
 			}
 		}
@@ -156,21 +203,21 @@ class Api {
 		);
 
 		if (isset($result['token'])) {
-			$this->writeLog('login succeeded');
+			$this->logger->debug('login succeeded');
 			$this->connected = true;
 			if ($cached) {
 				Session::setValue('vinou',[
 					'token' => $result['token'],
 					'refreshToken' => $result['refreshToken']
 				]);
-				$this->writeLog('token stored in session');
+				$this->logger->debug('token stored in session');
 			}
 		}
 		else {
-			$this->writeLog('login failed');
+			$this->logger->error('login failed');
 			$this->connected = false;
 		}
-		
+
 		return true;
 	}
 
@@ -211,6 +258,9 @@ class Api {
 		if ($authorization) {
 			$headers['Authorization'] = 'Bearer '.$authData['token'];
 
+			if ($internal && !isset($authData['clientToken']))
+				return false;
+
 			if (isset($authData['clientToken']) && $internal)
 				$headers['Client-Authorization'] = $authData['clientToken'];
 		}
@@ -225,19 +275,41 @@ class Api {
 				]
 			);
 
-			$this->writeLog([
+			$this->logger->debug(json_encode([
 				'Status' => 200,
 				'Route' => $route
-			]);
+			]));
 			return json_decode((string)$response->getBody(), true);
 
 		} catch (ClientException $e) {
 
-			$this->writeLog([
-				'Status' => $e->getResponse()->getStatusCode(),
-				'Route' => $route,
-				'Response' => json_decode((string)$e->getResponse()->getBody(), true)
-			]);
+			$statusCode = $e->getResponse()->getStatusCode();
+			if (!empty($_POST) && isset($_POST['password']))
+				unset($_POST['password']);
+
+			switch ($statusCode) {
+
+				case '401':
+					$this->logger->warning(json_encode([
+						'Status' => $e->getResponse()->getStatusCode(),
+						'Route' => $route,
+						'Response' => json_decode((string)$e->getResponse()->getBody(), true),
+						'GET' => $_GET,
+						'POST' => $_POST
+					]));
+					break;
+
+				default:
+					$this->logger->error(json_encode([
+						'Status' => $e->getResponse()->getStatusCode(),
+						'Route' => $route,
+						'Response' => json_decode((string)$e->getResponse()->getBody(), true),
+						'GET' => $_GET,
+						'POST' => $_POST
+					]));
+					break;
+
+			}
 
 			if ($returnErrorResponse)
 				return json_decode((string)$e->getResponse()->getBody(), true);
@@ -253,20 +325,20 @@ class Api {
 		try {
 
 			$response = $this->httpClient->get($route);
-			$this->writeLog([
+			$this->logger->warning(json_encode([
 				'Status' => 200,
 				'Route' => $route
-			]);
+			]));
 
 			return json_decode((string)$response->getBody(), true);
 
 		} catch (ClientException $e) {
 
-			$this->writeLog([
+			$this->logger->error(json_encode([
 				'Status' => $e->getResponse()->getStatusCode(),
 				'Route' => $route,
 				'Response' => json_decode((string)$e->getResponse()->getBody(), true)
-			]);
+			]));
 
 			return false;
 		}
@@ -413,6 +485,10 @@ class Api {
 	}
 
 	public function getBasket($uuid = NULL) {
+		// Prevent function execution if crawler is detected
+		if ($this->crawler)
+			return false;
+
 		$postData = [
 			'uuid' => is_null($uuid) ? Session::getValue('basket') : $uuid
 		];
@@ -421,6 +497,10 @@ class Api {
 	}
 
 	public function initBasket() {
+		// Prevent function execution if crawler is detected
+		if ($this->crawler)
+			return false;
+
 		if (Session::getValue('basket')) {
 			$basket = $this->getBasket(Session::getValue('basket'));
 			if (!$basket) {
@@ -439,6 +519,10 @@ class Api {
 	}
 
 	public function createBasket() {
+		// Prevent function execution if crawler is detected
+		if ($this->crawler)
+			return false;
+
 		$result = $this->curlApiRoute('baskets/add');
 		if (isset($result['data'])) {
 			Session::setValue('basket',$result['data']['uuid']);
@@ -605,12 +689,13 @@ class Api {
             	array_push($errors, 'captcha is not valid');
         }
 
-        if (count($errors) > 0)
+        if (count($errors) > 0) {
             return [
                 'error' => 'validation error',
                 'details' => implode(', ', $errors),
                 'postdata' => $data
             ];
+        }
 
         if (isset($data['captcha']))
         	unset($data['captcha']);
@@ -645,11 +730,19 @@ class Api {
 		else
 			$postData['lostpassword_hash'] = $postData['hash'];
 
-		if (count($errors) > 0)
+		if (count($errors) > 0) {
+			$this->logger->error(json_encode([
+				'error' => 'client could not be activated',
+				'detected' => $errors,
+				'postData' => $postData,
+				'GET' => $_GET,
+				'POST' => $_POST,
+			]));
 			return [
 				'error' => 'validation error',
 				'details' => implode(', ',$errors)
 			];
+		}
 
 		$result = $this->curlApiRoute('clients/activate',$postData);
 		return isset($result['data']) && $result['data'] ? true : ['error' => 'activation error', 'details' => $result['response']['details']];

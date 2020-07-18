@@ -34,7 +34,9 @@ class Session {
         if (!is_dir($tmpDir))
             mkdir($tmpDir, 0755, true);
 
-        ini_set('session.save_path', $tmpDir);
+        session_save_path($tmpDir);
+        // !IMPORTANT ON IONOS ENVIRONMENT TO ENABLE AUTODELETE SESSION FILES
+        ini_set('session.gc_probability', 1);
     }
 
     public static function setValue($key,$value) {
