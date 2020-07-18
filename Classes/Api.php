@@ -258,8 +258,8 @@ class Api {
 		if ($authorization) {
 			$headers['Authorization'] = 'Bearer '.$authData['token'];
 
-			if ($internal && !isset($authData['clientToken']))
-				return false;
+			// if ($internal && !isset($authData['clientToken']))
+			// 	return false;
 
 			if (isset($authData['clientToken']) && $internal)
 				$headers['Client-Authorization'] = $authData['clientToken'];
