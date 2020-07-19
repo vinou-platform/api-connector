@@ -284,8 +284,10 @@ class Api {
 		} catch (ClientException $e) {
 
 			$statusCode = $e->getResponse()->getStatusCode();
-			if (!empty($_POST) && isset($_POST['password']))
-				unset($_POST['password']);
+			$get = $_GET;
+			$post = $_POST;
+			if (!empty($post) && isset($post['password']))
+				unset($post['password']);
 
 			switch ($statusCode) {
 
@@ -294,8 +296,8 @@ class Api {
 						'Status' => $e->getResponse()->getStatusCode(),
 						'Route' => $route,
 						'Response' => json_decode((string)$e->getResponse()->getBody(), true),
-						'GET' => $_GET,
-						'POST' => $_POST
+						'GET' => $get,
+						'POST' => $post
 					]));
 					break;
 
@@ -304,8 +306,8 @@ class Api {
 						'Status' => $e->getResponse()->getStatusCode(),
 						'Route' => $route,
 						'Response' => json_decode((string)$e->getResponse()->getBody(), true),
-						'GET' => $_GET,
-						'POST' => $_POST
+						'GET' => $get,
+						'POST' => $post
 					]));
 					break;
 
@@ -798,7 +800,6 @@ class Api {
 			return false;
 
 		$postData['lostpassword_hash'] = $postData['hash'];
-		unset($postData['hash']);
 		$result = $this->curlApiRoute('clients/validatePasswordHash',$postData);
 		return $this->flatOutput($result, false);
 	}
