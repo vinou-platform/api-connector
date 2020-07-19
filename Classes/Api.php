@@ -161,6 +161,20 @@ class Api {
 			$crawllog->debug($CrawlerDetect->getMatches());
 	}
 
+	private function cleanUpLogData($data) {
+		$forbiddenKeys = [
+			'password',
+			'password_repeat',
+			'token',
+			'authId'
+		];
+		foreach ($data as $key => $value) {
+			if (in_array($key, $forbiddenKeys))
+				unset($data[$key]);
+		}
+		return $data;
+	}
+
 	/**
 	 * Checks the vinou tokens set in session and creates new token if old one is expired
 	 *
@@ -232,7 +246,7 @@ class Api {
 	 * @return array|false $response response body if route status code was 200
 	 *
 	 */
-	private function curlApiRoute($route, $data = [], $internal = false, $authorization = true, $returnErrorResponse = false)
+	private function curlApiRoute($route, $data = [], $internal = false, $authorization = true, $returnErrorResponse = false, $onlyinternal = false)
 	{
 		if (is_null($data) || !is_array($data))
 			$data = [];
@@ -258,12 +272,23 @@ class Api {
 		if ($authorization) {
 			$headers['Authorization'] = 'Bearer '.$authData['token'];
 
-			// if ($internal && !isset($authData['clientToken']))
-			// 	return false;
+			if ($onlyinternal && !isset($authData['clientToken']))
+				return false;
 
 			if (isset($authData['clientToken']) && $internal)
 				$headers['Client-Authorization'] = $authData['clientToken'];
 		}
+
+		// prepare logdata
+		$logData = [
+			'Route' => $route,
+			'Data' => $this->cleanUpLogData($data),
+			'Pageinfo' => [
+				'url' => (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]",
+				'GET' => $this->cleanUpLogData($_GET),
+				'POST' => $this->cleanUpLogData($_POST),
+			]
+		];
 
 		try {
 			$response = $this->httpClient->request(
@@ -275,40 +300,35 @@ class Api {
 				]
 			);
 
-			$this->logger->debug(json_encode([
+			// insert status and response from successful request to logdata and logdata on dev devices
+			$logData = array_merge([
 				'Status' => 200,
-				'Route' => $route
-			]));
+				'Response' => json_decode((string)$response->getBody(), true)
+			], $logData);
+			$this->logger->debug('api request', $logData);
+
 			return json_decode((string)$response->getBody(), true);
 
 		} catch (ClientException $e) {
 
 			$statusCode = $e->getResponse()->getStatusCode();
-			$get = $_GET;
-			$post = $_POST;
-			if (!empty($post) && isset($post['password']))
-				unset($post['password']);
+
+			// insert status and response from error request
+			$logData = array_merge([
+				'Status' => $statusCode,
+				'Response' => json_decode((string)$e->getResponse()->getBody(), true)
+			], $logData);
 
 			switch ($statusCode) {
 
 				case '401':
-					$this->logger->warning(json_encode([
-						'Status' => $e->getResponse()->getStatusCode(),
-						'Route' => $route,
-						'Response' => json_decode((string)$e->getResponse()->getBody(), true),
-						'GET' => $get,
-						'POST' => $post
-					]));
+					// if only authorization is missing the error is only a warning
+					$this->logger->warning('unauthorized', $logData);
 					break;
 
 				default:
-					$this->logger->error(json_encode([
-						'Status' => $e->getResponse()->getStatusCode(),
-						'Route' => $route,
-						'Response' => json_decode((string)$e->getResponse()->getBody(), true),
-						'GET' => $get,
-						'POST' => $post
-					]));
+					// all other errors should be fixed immediatly
+					$this->logger->error('error', $logData);
 					break;
 
 			}
@@ -327,20 +347,20 @@ class Api {
 		try {
 
 			$response = $this->httpClient->get($route);
-			$this->logger->warning(json_encode([
+			$this->logger->debug('localization', [
 				'Status' => 200,
 				'Route' => $route
-			]));
+			]);
 
 			return json_decode((string)$response->getBody(), true);
 
 		} catch (ClientException $e) {
 
-			$this->logger->error(json_encode([
+			$this->logger->error('localization error', [
 				'Status' => $e->getResponse()->getStatusCode(),
 				'Route' => $route,
 				'Response' => json_decode((string)$e->getResponse()->getBody(), true)
-			]));
+			]);
 
 			return false;
 		}
@@ -733,13 +753,13 @@ class Api {
 			$postData['lostpassword_hash'] = $postData['hash'];
 
 		if (count($errors) > 0) {
-			$this->logger->error(json_encode([
-				'error' => 'client could not be activated',
+			$this->logger->error('client activation error', [
+				'error' => 'pre validation error',
 				'detected' => $errors,
 				'postData' => $postData,
 				'GET' => $_GET,
 				'POST' => $_POST,
-			]));
+			]);
 			return [
 				'error' => 'validation error',
 				'details' => implode(', ',$errors)
@@ -840,7 +860,7 @@ class Api {
 	}
 
 	public function getClient($postData = NULL) {
-		$result = $this->curlApiRoute('clients/get',$postData, true);
+		$result = $this->curlApiRoute('clients/get',$postData, true, true, false, true);
 		$client = $this->flatOutput($result, false);
 		Session::setValue('client', $client);
 		return $client;
