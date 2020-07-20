@@ -645,9 +645,13 @@ class Api {
 		return true;
 	}
 
-	public function getAllPackages() {
-		$postData = [];
+	public function getAllPackages($postData = null) {
 		$result = $this->curlApiRoute('packaging/getAll',$postData);
+		return $this->flatOutput($result, false);
+	}
+
+	public function findCampaign($postData = null) {
+		$result = $this->curlApiRoute('campaigns/find',$postData);
 		return $this->flatOutput($result, false);
 	}
 

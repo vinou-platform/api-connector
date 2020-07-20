@@ -64,6 +64,10 @@ class Ajax {
                 return;
                 break;
 
+            case 'findCampaign':
+                $this->output = $this->api->findCampaign($this->data);
+                break;
+
             default:
                 array_push($this->errors, 'action could not be resolved');
                 break;
