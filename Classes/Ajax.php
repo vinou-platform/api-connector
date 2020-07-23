@@ -2,6 +2,7 @@
 namespace Vinou\ApiConnector;
 
 use \Vinou\ApiConnector\Api;
+use \Vinou\ApiConnector\Session\Session;
 
 /**
 * Ajax
@@ -67,6 +68,12 @@ class Ajax {
             case 'findCampaign':
                 $this->output = $this->api->findCampaign($this->data);
                 break;
+
+            case 'loadCampaign':
+            	$this->output = $this->api->findCampaign($this->data);
+            	if ($this->output)
+            		Session::setValue('campaign', $this->output);
+            	break;
 
             default:
                 array_push($this->errors, 'action could not be resolved');
