@@ -149,6 +149,13 @@ class PublicApi {
 		return $this->flatOutput($result, false);
 	}
 
+	public function register($postData = NULL) {
+		if (is_null($postData))
+			return false;
+		$result = $this->curlApiRoute('customers/register',$postData);
+		return $this->flatOutput($result, false);
+	}
+
 	private function writeLog($entry) {
 		if ($this->enableLogging)
 			array_push($this->log,$entry);
