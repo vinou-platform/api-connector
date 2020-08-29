@@ -959,6 +959,11 @@ class Api {
 		}
 	}
 
+	public function getAutomationCustomers($postData = NULL) {
+		$result = $this->curlApiRoute('automations/getCustomers',$postData);
+		return $this->flatOutput($result, false);
+	}
+
 
 	public function fetchLokalIP(){
 		$result = $this->curlApiRoute('check/userinfo');
