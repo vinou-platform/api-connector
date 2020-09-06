@@ -6,6 +6,11 @@ The Vinou API Connector is a PHP library that provides the stable functions and 
 
 - [Installation](#installation)
 - [Usage Example](#usage-example)
+	1. [Basic Instantiation](#1-basic-instantiation)
+	2. [Instantiation with settings (recommended)](#2-instantiation-with-settings-recommended)
+	3. [Improve session handling](#3-improve-session-handling)
+	4. [Example function call](#4-example-function-call)
+	5. [Prepare Ajax connection](#5-prepare-ajax-connection-content-of-ajaxphp-eg-called-via-httpsyourdomaincomajaxphp)
 - [Constants](#constants)
 - [Classlist](#classlist)
 - [Provider](#provider)
