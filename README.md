@@ -13,7 +13,7 @@ The Vinou API Connector is a PHP library that provides the stable functions and 
 
 ## Installation
 
-```
+```bash
 composer install vinou/api-connector
 ```
 
@@ -57,29 +57,30 @@ ___This session handling is able to detect a TYPO3 session___
 
 
 ### 4. Example function call
-```	
+```php	
 // returns all public wines of your Vinou-Office Account as php array
 $api->getWinesAll()
 ```
 
 ### 5. Prepare Ajax connection (content of ajax.php e.g. called via https://your.domain.com/ajax.php)
-```	
-require_once __DIR__ . '/../vendor/autoload.php';
+```php
+<?php
+        require_once __DIR__ . '/../vendor/autoload.php';
 
-define('VINOU_ROOT', realpath('./'));
-define('VINOU_MODE', 'Ajax');
-define('VINOU_CONFIG_DIR', '../config/');
+        define('VINOU_ROOT', realpath('./'));
+        define('VINOU_MODE', 'Ajax');
+        define('VINOU_CONFIG_DIR', '../config/');
 
-header('Cache-Control: no-cache, must-revalidate');
-header('Content-type: application/json');
+        header('Cache-Control: no-cache, must-revalidate');
+        header('Content-type: application/json');
 
-// INIT SESSION BEFORE ALL THE OTHER STUFF STARTS
-$session = new \Vinou\ApiConnector\Session\Session ();
-$session::setValue('language','de');
+        // INIT SESSION BEFORE ALL THE OTHER STUFF STARTS
+        $session = new \Vinou\ApiConnector\Session\Session ();
+        $session::setValue('language','de');
 
-$ajax = new \Vinou\ApiConnector\Ajax ();
-$ajax->run();
-
+        $ajax = new \Vinou\ApiConnector\Ajax ();
+        $ajax->run();
+?>
 ```
 
 
