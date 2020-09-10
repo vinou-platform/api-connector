@@ -19,8 +19,7 @@
     "require": {
         "guzzlehttp/guzzle": "^6.5",
         "jaybizzle/crawler-detect": "*",
-        "monolog/monolog": "^2.1.0",
-        "vinou/translations": "3.*"
+        "monolog/monolog": "^2.1.0"
     },
     "autoload": {
         "psr-4": {
