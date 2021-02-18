@@ -651,8 +651,10 @@ class Api {
 	}
 
 	public function findCampaign($postData = null) {
-		$result = $this->curlApiRoute('campaigns/find',$postData);
-		return $this->flatOutput($result, false);
+		$basket = Session::getValue('basket');
+		if ($basket)
+			$postData['basket_uuid'] = $basket;
+		return $this->curlApiRoute('campaigns/find',$postData, false, true, true);
 	}
 
 	public function finishPaypalPayment($data = NULL) {
