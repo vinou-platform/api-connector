@@ -609,10 +609,18 @@ class Api {
 
 		$summary = [
 			'type' => 'bottles',
-			'bottles' => 0
+			'bottles' => 0,
+			'net' => 0,
+			'tax' => 0,
+			'gross' => 0
 		];
 
 		foreach ($items as $item) {
+
+			$summary['net'] = $summary['net'] + $item['quantity'] * $item['item']['net'];
+			$summary['tax'] = $summary['tax'] + $item['quantity'] * $item['item']['tax'];
+			$summary['gross'] = $summary['gross'] + $item['quantity'] * $item['item']['gross'];
+
 			switch ($item['item_type']) {
 
 				case 'bundle':
@@ -637,8 +645,14 @@ class Api {
 			$result = $this->curlApiRoute('packaging/find',$summary);
 			Session::deleteValue('package');
 			if (isset($result['data'])) {
-				Session::setValue('package',$result['data']);
-				return $result['data'];
+				$package = $result['data'];
+				if (isset($result['summary']) && isset($result['summary']['freightfreelimit']) && $summary['gross'] >= $result['summary']['freightfreelimit']) {
+					$package['net'] = "0.00";
+					$package['tax'] = "0.00";
+					$package['gross'] = "0.00";
+				}
+				Session::setValue('package',$package);
+				return $package;
 			}
 			return false;
 		}
