@@ -514,8 +514,17 @@ class Api {
 		$postData = [
 			'uuid' => is_null($uuid) ? Session::getValue('basket') : $uuid
 		];
-		$result = $this->curlApiRoute('baskets/get', $postData, true);
-		return $this->flatOutput($result, false);
+		$result = $this->flatOutput($this->curlApiRoute('baskets/get', $postData, true), false);
+
+		if (isset($result['basketItems'])) {
+			foreach ($result['basketItems'] as &$item) {
+				$item['gross'] = number_format($item['quantity'] * $item['item']['gross'], 2, '.' ,'');
+				$item['net'] = number_format($item['quantity'] * $item['item']['net'], 2, '.' ,'');
+				$item['tax'] = number_format($item['gross'] - $item['net'], 2, '.' ,'');
+			}
+		}
+
+		return $result;
 	}
 
 	public function initBasket() {
