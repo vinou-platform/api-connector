@@ -436,6 +436,21 @@ class Api {
 		return $this->flatOutput($result, false);
 	}
 
+	public function getMerchantsAll($postData = NULL) {
+		$result = $this->curlApiRoute('merchants/getAll',$postData);
+		if (isset($result['clusters']))
+			return [
+				'merchants' => $result['data'],
+				'clusters' => $result['clusters']
+			];
+		return $this->flatOutput($result);
+	}
+
+	public function getMerchant($postData = NULL) {
+		$result = $this->curlApiRoute('merchants/get',$this->detectIdentifier($postData));
+		return $this->flatOutput($result, false);
+	}
+
 	public function getCustomer(){
 		$result = $this->curlApiRoute('customers/getMy');
 		return $this->flatOutput($result, false);
