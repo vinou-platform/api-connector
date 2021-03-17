@@ -594,9 +594,20 @@ class Api {
 
 		$result = $this->curlApiRoute('orders/add', $postData);
 
-		if (isset($result['targetUrl']) && isset($result['data']['uuid'])) {
-			$order = Session::setValue('order_uuid', $result['data']['uuid']);
+		if (isset($result['data']['uuid']))
+			$orderUid = Session::setValue('order_uuid', $result['data']['uuid']);
+
+		if (isset($result['targetUrl'])) {
+			$order = $orderUid;
 			Redirect::external($result['targetUrl']);
+		}
+
+		if (isset($result['sessionId']) && isset($result['publishableKey'])) {
+			$stripeData = [
+				'sessionId' => $result['sessionId'],
+				'publishableKey' => $result['publishableKey']
+			];
+			$stripe = Session::setValue('stripe', $stripeData);
 		}
 
 		return $this->flatOutput($result, false);
@@ -709,6 +720,26 @@ class Api {
 		$postData['order_id'] = Session::getValue('order_uuid');
 
 		$result = $this->curlApiRoute('orders/checkout/cancel',$postData);
+		return $this->flatOutput($result, false);
+	}
+
+	public function finishPayment($data = NULL) {
+		if (is_null($data) || !array_key_exists('pid', $data))
+			return false;
+
+		$result = $this->curlApiRoute('orders/checkout/finish', [
+			'payment_uuid' => $data['pid']
+		]);
+		return $this->flatOutput($result, false, 'stripeResult');
+	}
+
+	public function cancelPayment($data = NULL) {
+		if (is_null($data) || !array_key_exists('pid', $data))
+			return false;
+
+		$result = $this->curlApiRoute('orders/checkout/cancel', [
+			'uuid' => Session::getValue('order_uuid')
+		]);
 		return $this->flatOutput($result, false);
 	}
 
