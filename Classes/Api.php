@@ -738,6 +738,7 @@ class Api {
 			return false;
 
 		$result = $this->curlApiRoute('orders/checkout/cancel', [
+			'payment_uuid' => $data['pid'],
 			'uuid' => Session::getValue('order_uuid')
 		]);
 		return $this->flatOutput($result, false);
