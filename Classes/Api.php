@@ -612,14 +612,17 @@ class Api {
 		if (isset($result['data']['uuid']))
 			$orderUid = Session::setValue('order_uuid', $result['data']['uuid']);
 
+		// DETECT FOR EXTERNAL CHECKOUT (PAYPAL) AND REDIRECT
 		if (isset($result['targetUrl'])) {
 			$order = $orderUid;
 			Redirect::external($result['targetUrl']);
 		}
 
-		if (isset($result['sessionId']) && isset($result['publishableKey'])) {
+		// DETECT STRIPE CHECKOUT SESSION
+		if (isset($result['sessionId']) && isset($result['publishableKey']) && isset($result['accountId'])) {
 			$stripeData = [
 				'sessionId' => $result['sessionId'],
+				'accountId' => $result['accountId'],
 				'publishableKey' => $result['publishableKey']
 			];
 			$stripe = Session::setValue('stripe', $stripeData);
@@ -745,7 +748,13 @@ class Api {
 		$result = $this->curlApiRoute('orders/checkout/finish', [
 			'payment_uuid' => $data['pid']
 		]);
-		return $this->flatOutput($result, false, 'stripeResult');
+
+		// CHECK AND VALIDATE PAYMENT RESULT
+		$stripeResult = $this->flatOutput($result, false, 'stripeResult');
+		if (!!$stripeResult && isset($stripeResult['payment_intent']) && in_array($stripeResult['payment_intent']['status'], ['succeeded', 'processing']))
+			return $stripeResult['payment_intent']['status'];
+
+		return false;
 	}
 
 	public function cancelPayment($data = NULL) {
