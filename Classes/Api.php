@@ -4,6 +4,7 @@ namespace Vinou\ApiConnector;
 use \Vinou\ApiConnector\Session\Session;
 use \Vinou\ApiConnector\Tools\Redirect;
 use \Vinou\ApiConnector\Tools\Helper;
+use \Vinou\ApiConnector\Tools\ServiceLocator;
 use \GuzzleHttp\Client;
 use \GuzzleHttp\Psr7;
 use \GuzzleHttp\Psr7\Request;
@@ -26,6 +27,12 @@ class Api {
 	 *
 	 */
 	protected $authData = [];
+
+
+	/**
+	 * @var object $settings settingsservice object
+	 */
+	public $settingsService = null;
 
 	/**
 	 * @var string $apiUrl url where api is located
@@ -75,6 +82,8 @@ class Api {
 	 */
 	public function __construct($token = false, $authid = false, $logging = false, $dev = false) {
 
+		$this->settingsService = ServiceLocator::get('Settings');
+
 		if (!$token || !$authid)
 			$this->loadYmlSettings();
 		else {
@@ -111,6 +120,7 @@ class Api {
 			throw new \Exception('settings.yml not found');
 
 		else {
+
 			$settings = spyc_load_file($settingsFile);
 
 			if (!isset($settings['vinou']['token']) || !isset($settings['vinou']['authid']))
@@ -118,6 +128,7 @@ class Api {
 
 			else {
 				$this->authData = $settings['vinou'];
+				$this->settingsService->set('auth', $settings['vinou']);
 
 				if (isset($settings['vinou']['enableLogging']))
 					$this->enableLogging = $settings['vinou']['enableLogging'];
