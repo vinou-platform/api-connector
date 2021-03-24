@@ -436,6 +436,21 @@ class Api {
 		return $this->flatOutput($result, false);
 	}
 
+	public function getMerchantsAll($postData = NULL) {
+		$result = $this->curlApiRoute('merchants/getAll',$postData);
+		if (isset($result['clusters']))
+			return [
+				'merchants' => $result['data'],
+				'clusters' => $result['clusters']
+			];
+		return $this->flatOutput($result);
+	}
+
+	public function getMerchant($postData = NULL) {
+		$result = $this->curlApiRoute('merchants/get',$this->detectIdentifier($postData));
+		return $this->flatOutput($result, false);
+	}
+
 	public function getCustomer(){
 		$result = $this->curlApiRoute('customers/getMy');
 		return $this->flatOutput($result, false);
@@ -514,8 +529,17 @@ class Api {
 		$postData = [
 			'uuid' => is_null($uuid) ? Session::getValue('basket') : $uuid
 		];
-		$result = $this->curlApiRoute('baskets/get', $postData, true);
-		return $this->flatOutput($result, false);
+		$result = $this->flatOutput($this->curlApiRoute('baskets/get', $postData, true), false);
+
+		if (isset($result['basketItems'])) {
+			foreach ($result['basketItems'] as &$item) {
+				$item['gross'] = number_format($item['quantity'] * $item['item']['gross'], 2, '.' ,'');
+				$item['net'] = number_format($item['quantity'] * $item['item']['net'], 2, '.' ,'');
+				$item['tax'] = number_format($item['gross'] - $item['net'], 2, '.' ,'');
+			}
+		}
+
+		return $result;
 	}
 
 	public function initBasket() {
@@ -585,9 +609,23 @@ class Api {
 
 		$result = $this->curlApiRoute('orders/add', $postData);
 
-		if (isset($result['targetUrl']) && isset($result['data']['uuid'])) {
-			$order = Session::setValue('order_uuid', $result['data']['uuid']);
+		if (isset($result['data']['uuid']))
+			$orderUid = Session::setValue('order_uuid', $result['data']['uuid']);
+
+		// DETECT FOR EXTERNAL CHECKOUT (PAYPAL) AND REDIRECT
+		if (isset($result['targetUrl'])) {
+			$order = $orderUid;
 			Redirect::external($result['targetUrl']);
+		}
+
+		// DETECT STRIPE CHECKOUT SESSION
+		if (isset($result['sessionId']) && isset($result['publishableKey']) && isset($result['accountId'])) {
+			$stripeData = [
+				'sessionId' => $result['sessionId'],
+				'accountId' => $result['accountId'],
+				'publishableKey' => $result['publishableKey']
+			];
+			$stripe = Session::setValue('stripe', $stripeData);
 		}
 
 		return $this->flatOutput($result, false);
@@ -700,6 +738,32 @@ class Api {
 		$postData['order_id'] = Session::getValue('order_uuid');
 
 		$result = $this->curlApiRoute('orders/checkout/cancel',$postData);
+		return $this->flatOutput($result, false);
+	}
+
+	public function finishPayment($data = NULL) {
+		if (is_null($data) || !array_key_exists('pid', $data))
+			return false;
+
+		$result = $this->curlApiRoute('orders/checkout/finish', [
+			'payment_uuid' => $data['pid']
+		]);
+
+		// CHECK AND VALIDATE PAYMENT RESULT
+		$stripeResult = $this->flatOutput($result, false, 'stripeResult');
+		if (!!$stripeResult && isset($stripeResult['payment_intent']) && in_array($stripeResult['payment_intent']['status'], ['succeeded', 'processing']))
+			return $stripeResult['payment_intent']['status'];
+
+		return false;
+	}
+
+	public function cancelPayment($data = NULL) {
+		if (is_null($data) || !array_key_exists('pid', $data))
+			return false;
+
+		$result = $this->curlApiRoute('orders/checkout/cancel', [
+			'uuid' => Session::getValue('order_uuid')
+		]);
 		return $this->flatOutput($result, false);
 	}
 

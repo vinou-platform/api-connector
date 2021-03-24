@@ -36,6 +36,7 @@ class TYPO3Session {
 		if (TYPO3_MODE === 'BE')
 			return self::removeBESessionData($key);
 
+		$GLOBALS['TSFE']->fe_user->setAndSaveSessionData($key, null);
 		unset($GLOBALS['TSFE']->fe_user->sesData[$key]);
 		return $GLOBALS['TSFE']->fe_user->storeSessionData();
 	}
