@@ -4,7 +4,7 @@ namespace Vinou\ApiConnector;
 use \Vinou\ApiConnector\Session\Session;
 use \Vinou\ApiConnector\Tools\Redirect;
 use \Vinou\ApiConnector\Tools\Helper;
-use \Vinou\ApiConnector\Tools\ServiceLocator;
+use \Vinou\ApiConnector\Services\ServiceLocator;
 use \GuzzleHttp\Client;
 use \GuzzleHttp\Psr7;
 use \GuzzleHttp\Psr7\Request;
@@ -128,6 +128,7 @@ class Api {
 
 			else {
 				$this->authData = $settings['vinou'];
+
 				$this->settingsService->set('auth', $settings['vinou']);
 
 				if (isset($settings['vinou']['enableLogging']))

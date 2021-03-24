@@ -1,8 +1,8 @@
 <?php
-namespace Vinou\ApiConnector\Tools;
+namespace Vinou\ApiConnector\Services;
 
 /**
- * Vinou/ApiConnector/Tools/Settings
+ * Vinou/ApiConnector/Services/Settings
  */
 class Settings {
 

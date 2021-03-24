@@ -1,8 +1,8 @@
 <?php
-namespace Vinou\ApiConnector\Tools;
+namespace Vinou\ApiConnector\Services;
 
 /**
- * Singleton Vinou/ApiConnector/Tools/ServiceLocator to get access to specific services, e.g.
+ * Singleton Vinou/ApiConnector/Services/ServiceLocator to get access to specific services, e.g.
  * "Settings" or "Database".
  */
 class ServiceLocator {
@@ -30,5 +30,5 @@ class ServiceLocator {
 	}
 }
 
-ServiceLocator::register('Settings', \Vinou\ApiConnector\Tools\Settings::class);
+ServiceLocator::register('Settings', \Vinou\ApiConnector\Services\Settings::class);
 ServiceLocator::register('Translator', \Vinou\Translations\Utilities\Translation::class);
