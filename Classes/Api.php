@@ -694,6 +694,9 @@ class Api {
 	}
 
 	public function getBasketPackage() {
+		if (Session::getValue('delivery_type') == 'none')
+			return false;
+
 		$summary = $this->getBasketSummary();
 		if ($summary['bottles'] > 0) {
 			$result = $this->curlApiRoute('packaging/find',$summary);
