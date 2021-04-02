@@ -58,7 +58,8 @@ class Helper {
     }
 
     public static function getCurrentHost() {
-        $protocol = strpos($_SERVER['SERVER_PROTOCOL'],'https') ? 'https://' : 'http://';
+        $ssl = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? true : false;
+        $protocol = $ssl ? 'https://' : 'http://';
     	return $protocol . $_SERVER['HTTP_HOST'];
     }
 
