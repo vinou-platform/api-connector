@@ -1023,6 +1023,11 @@ class Api {
 		return $this->flatOutput($result, false);
 	}
 
+	public function addStock($postData = NULL) {
+		$result = $this->curlApiRoute('stocks/add', $postData);
+		return $result;
+	}
+
 	public function getNewsAll($postData = NULL) {
 		$result = $this->curlApiRoute('news/getAll',$postData);
 		return $this->flatOutput($result, false);
