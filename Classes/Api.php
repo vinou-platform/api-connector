@@ -1025,7 +1025,7 @@ class Api {
 
 	public function addStock($postData = NULL) {
 		$result = $this->curlApiRoute('stocks/add', $postData);
-		return $result;
+		return $this->flatOutput($result, false);
 	}
 
 	public function getNewsAll($postData = NULL) {
