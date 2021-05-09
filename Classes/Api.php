@@ -404,16 +404,20 @@ class Api {
 	}
 
 	public function getWinesAll($postData = NULL) {
-		$postData['language'] = Session::getValue('language') ? Session::getValue('language') : 'de';
-		if (!isset($postData['cluster'])) {
+		if (!array_key_exists('language', $postData))
+			$postData['language'] = Session::getValue('language') ? Session::getValue('language') : 'de';
+
+		if (!array_key_exists('cluster', $postData))
 			$postData['cluster'] = ['type', 'taste_id', 'vintage', 'grapetypeIds'];
-		}
+
 		$result = $this->curlApiRoute('wines/getAll', $postData, true);
 		return $result;
 	}
 
 	public function getWinesLatest($postData = NULL) {
-		$postData['language'] = Session::getValue('language') ? Session::getValue('language') : 'de';
+		if (!array_key_exists('language', $postData))
+			$postData['language'] = Session::getValue('language') ? Session::getValue('language') : 'de';
+
 		$postData['orderBy'] = isset($postData['orderBy']) ? $postData['orderBy'] : 'chstamp DESC';
 		$postData['max'] = isset($postData['max']) ? (int)$postData['max'] : 9;
 		$result = $this->curlApiRoute('wines/getAll', $postData, true);
@@ -424,7 +428,9 @@ class Api {
 		if (!isset($postData['query']))
 			return false;
 
-		$postData['language'] = Session::getValue('language') ? Session::getValue('language') : 'de';
+		if (!array_key_exists('language', $postData))
+			$postData['language'] = Session::getValue('language') ? Session::getValue('language') : 'de';
+
 		$postData['orderBy'] = isset($postData['orderBy']) ? $postData['orderBy'] : 'chstamp DESC';
 		$postData['max'] = isset($postData['max']) ? (int)$postData['max'] : 9;
 
@@ -520,10 +526,12 @@ class Api {
 	}
 
 	public function getBundlesAll($postData = NULL) {
-		$postData['language'] = Session::getValue('language') ? Session::getValue('language') : 'de';
-		if (!isset($postData['cluster'])) {
+		if (!array_key_exists('language', $postData))
+			$postData['language'] = Session::getValue('language') ? Session::getValue('language') : 'de';
+
+		if (!array_key_exists('cluster', $postData))
 			$postData['cluster'] = ['type', 'taste_id', 'vintage', 'grapetypeIds'];
-		}
+
 		$result = $this->curlApiRoute('bundles/getAll', $postData, true);
 		return $this->pagedOutput($result);
 	}
