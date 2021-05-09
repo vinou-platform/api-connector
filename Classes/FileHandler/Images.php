@@ -15,7 +15,7 @@ class Images {
 	    $headers[] = 'Accept: image/gif, image/x-bitmap, image/jpeg, image/pjpeg, image/png, application/octet-stream';
 	    $headers[] = 'Connection: Keep-Alive';
 	    $headers[] = 'Content-type: application/x-www-form-urlencoded;charset=UTF-8';
-	    $user_agent = 'php';
+	    $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? 'php';
 	    $process = curl_init($url);
 	    curl_setopt($process, CURLOPT_HTTPHEADER, $headers);
 	    curl_setopt($process, CURLOPT_HEADER, 0);
@@ -64,7 +64,7 @@ class Images {
 			'recreate' => is_file($localFile) ? $changeStamp > filemtime($localFile) : true
 		];
 
-		$fileurl = Helper::getApiUrl().$imagesrc;
+		$fileurl = filter_var($imagesrc, FILTER_VALIDATE_URL) ? $imagesrc : Helper::getApiUrl().$imagesrc;
 		$fileurl = preg_replace('/\s+/', '%20', $fileurl);
 
 		if (!$returnArr['recreate'])
