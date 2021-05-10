@@ -403,7 +403,7 @@ class Api {
 		return $result['wines'];
 	}
 
-	public function getWinesAll($postData = NULL) {
+	public function getWinesAll($postData = []) {
 		if (!array_key_exists('language', $postData))
 			$postData['language'] = Session::getValue('language') ? Session::getValue('language') : 'de';
 
@@ -414,7 +414,7 @@ class Api {
 		return $result;
 	}
 
-	public function getWinesLatest($postData = NULL) {
+	public function getWinesLatest($postData = []) {
 		if (!array_key_exists('language', $postData))
 			$postData['language'] = Session::getValue('language') ? Session::getValue('language') : 'de';
 
@@ -525,7 +525,7 @@ class Api {
 		return $this->flatOutput($result);
 	}
 
-	public function getBundlesAll($postData = NULL) {
+	public function getBundlesAll($postData = []) {
 		if (!array_key_exists('language', $postData))
 			$postData['language'] = Session::getValue('language') ? Session::getValue('language') : 'de';
 
