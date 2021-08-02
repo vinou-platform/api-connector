@@ -31,12 +31,14 @@ class Images {
 	}
 
 	public static function storeApiImage($imagesrc, $chstamp = NULL, $localFolder = 'Cache/Images/') {
-		$pureFileName = array_values(array_slice(explode('/',$imagesrc), -1))[0];
-		$split = explode('?', $pureFileName);
+		$host = parse_url($imagesrc, PHP_URL_HOST);
+
+		// $pureFileName = array_values(array_slice(explode('/',$imagesrc), -1))[0];
+		$split = explode('?', basename($imagesrc));
 		$pureFileName = $split[0];
 
 		// PREFIX FILENAME IF ATTRIBUTE WAS GIVEN
-		if (isset($split[1]))
+		if (isset($split[1]) && strpos($host, 'instagram') == false)
 			$pureFileName = explode('=', $split[1])[1] . '-' . $pureFileName;
 
 		$fileName = self::createOptimalFilename($pureFileName);
