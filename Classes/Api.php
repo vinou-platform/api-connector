@@ -157,8 +157,12 @@ class Api {
 
 		$loglevel = defined('VINOU_LOG_LEVEL') ? Logger::VINOU_LOG_LEVEL : Logger::ERROR;
 
+
 		if (defined('VINOU_DEBUG') && VINOU_DEBUG)
 			$loglevel = Logger::DEBUG;
+
+
+//$loglevel = Logger::DEBUG;
 
 		$this->logger = new Logger('api');
 		$this->logger->pushHandler(new RotatingFileHandler($logDir.'api-connector.log', 30, $loglevel));
@@ -657,6 +661,7 @@ class Api {
 	}
 
 	public function findPackage($type,$count) {
+
 		$postData = [
 			'type' => $type,
 			$type => $count
@@ -702,9 +707,83 @@ class Api {
 
 	}
 
+	public function prepareCheckout($basketUuid = null) {
+
+		// $result = [
+		// 	"data" => [
+		// 		"net" => 50.00,
+		// 		"tax" => 10.00,
+		// 		"gross" => 60.00,
+		// 		"items"=> [
+		// 			[
+		// 				"item_type"=> "Wine",
+		// 				"name"=> "Riesling 0815 1",
+		// 				"quantity"=> 1,
+		// 				"net"=> 5.00,
+		// 				"tax"=> 1.00,
+		// 				"taxrate"=> 19,
+		// 				"gross"=> 6.00,
+		// 				"winery_id"=> 123 // <-- Weingut ID von Artikel 1
+		// 			],
+		// 			[
+		// 				"item_type"=> "Wine",
+		// 				"name"=> "Riesling 0815 2",
+		// 				"quantity"=> 1,
+		// 				"net"=> 5.00,
+		// 				"tax"=> 1.00,
+		// 				"taxrate"=> 19,
+		// 				"gross"=> 6.00,
+		// 				"winery_id"=> 123 // <-- Weingut ID von Artikel 1
+		// 			],
+		// 			[
+		// 				"item_type"=> "package",
+		// 				"name"=> "Packaging",
+		// 				"quantity"=> 1,
+		// 				"net"=> 10.00,
+		// 				"tax"=> 2.00,
+		// 				"taxrate"=> 19,
+		// 				"gross"=> 12.00,
+		// 				"winery_id"=> 123  //<-- Weingut ID von Artikel 1
+		// 			],
+		// 			[
+		// 				"item_type"=> "package",
+		// 				"name"=> "Packaging",
+		// 				"quantity"=> 1,
+		// 				"net"=> 5.00,
+		// 				"tax"=> 1.00,
+		// 				"taxrate"=> 19,
+		// 				"gross"=> 6.00,
+		// 				"winery_id"=> 456 // <-- Weingut ID von Artikel 2
+		// 			]
+		// 		]
+		// 	]
+
+		// ];
+
+		// return $result["data"];
+
+		$result = $this->curlApiRoute('orders/checkout/prepare',['basket_uuid' => $basketUuid]);
+		Session::deleteValue('checkout');
+		if ($result !== false) {
+			Session::setValue('checkout',$result['data']); //items
+			return $result['data'];
+		}
+
+		return false;
+	}
+
+
+	/**
+	 * @deprecated
+	 */
 	public function getBasketPackage() {
 		if (Session::getValue('delivery_type') == 'none')
 			return false;
+
+		// 	packaging/find ersetzen durch
+		// -	orders/checkout/prepare
+		// 	- Params: { basket_id: ... }
+		// 	- data: { net, tax, gross, packages: [] }
 
 		$summary = $this->getBasketSummary();
 		if ($summary['bottles'] > 0) {
