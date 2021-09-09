@@ -11,7 +11,7 @@ use \Composer\Autoload\ClassLoader;
 class Helper {
 
     public static $urls = [
-        'local' => 'http://api.vinou.frog',
+        'local' => 'http://api.vinou.site',
         'development' => 'https://api.development.vinou.de',
         'staging' => 'https://api.staging.vinou.de',
         'live' => 'https://api.vinou.de',
