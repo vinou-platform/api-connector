@@ -690,6 +690,10 @@ class Api {
 					$summary['bottles'] = $summary['bottles'] + $item['quantity'] * $item['item']['package_quantity'];
 					break;
 
+				case 'product':
+					$summary['bottles'] = $summary['bottles'] + $item['quantity'] * $item['item']['package_quantity'];
+					break;
+
 				default:
 					$summary['bottles'] = $summary['bottles'] + $item['quantity'];
 					break;
