@@ -799,9 +799,11 @@ class Api {
 		return $this->flatOutput($result, false);
 	}
 
-	public function getSessionOrder($postData = []) {
-		$postData['uuid'] = Session::getValue('order_uuid');
-		return $this->getOrder($postData);
+	public function getSessionOrder() {
+		$uuid = Session::getValue('order_uuid');
+		if (empty($uuid))
+			return false;
+		return $this->getOrder($uuid);
 	}
 
 	public function registerClient($data = NULL) {
