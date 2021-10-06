@@ -632,6 +632,10 @@ class Api {
 			'data' => $order
 		];
 
+		Session::deleteValue('stripe');
+		Session::deleteValue('paypal');
+
+
 		$result = $this->curlApiRoute('orders/add', $postData);
 
 		if (isset($result['data']['uuid']))
@@ -640,6 +644,7 @@ class Api {
 		// DETECT FOR EXTERNAL CHECKOUT (PAYPAL) AND REDIRECT
 		if (isset($result['targetUrl'])) {
 			$order = $orderUid;
+			Session::setValue('paypal', $result['targetUrl']);
 			Redirect::external($result['targetUrl']);
 		}
 
