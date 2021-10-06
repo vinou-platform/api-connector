@@ -1,7 +1,7 @@
 {
     "name": "vinou/api-connector",
     "type": "library",
-    "version": "2.3.11",
+    "version": "2.3.12",
     "description": "Vinou API Connnector",
     "keywords": [
         "Vinou",
