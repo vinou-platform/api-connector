@@ -813,6 +813,13 @@ class Api {
 
 	public function registerClient($data = NULL) {
 
+
+				$dynamicCaptchaInput = false;
+				if (is_array($data) && isset($data['dynamicCaptchaInput'])){
+					$dynamicCaptchaInput = $data['dynamicCaptchaInput'];
+					unset($data['dynamicCaptchaInput']);
+				}
+
         if (is_null($data) || empty($data))
             return ['notsend' => true];
 
@@ -830,8 +837,11 @@ class Api {
             if (!isset($data['mail']) || $data['mail'] === '')
                 array_push($errors, 'mail could not be blank');
 
-            if (isset($data['captcha']) && !Helper::validateCaptcha())
-            	array_push($errors, 'captcha is not valid');
+						if (
+								(isset($data['captcha']) || $dynamicCaptchaInput)
+								&& !Helper::validateCaptcha($dynamicCaptchaInput)
+						)
+								array_push($errors, 'captcha is not valid');
         }
 
         if (count($errors) > 0) {
