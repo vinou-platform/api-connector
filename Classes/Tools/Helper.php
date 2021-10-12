@@ -11,7 +11,7 @@ use \Composer\Autoload\ClassLoader;
 class Helper {
 
     public static $urls = [
-        'local' => 'http://api.vinou.frog',
+        'local' => 'http://api.vinou.site',
         'development' => 'https://api.development.vinou.de',
         'staging' => 'https://api.staging.vinou.de',
         'live' => 'https://api.vinou.de',
@@ -119,12 +119,19 @@ class Helper {
         return 'data: '.$a.';base64,'.$data;
     }
 
-    public static function validateCaptcha() {
-        if (!isset($_POST['captcha']))
-            return false;
+	public static function validateCaptcha($dynamicCaptchaInput = false) {
+		if (!isset($_POST['captcha']))
+			return false;
 
-        $sessionPhrase = Session::getValue('captcha');
-        $phrase = $_POST['captcha'];
-        return $phrase === (string)$sessionPhrase;
-    }
+		if ($dynamicCaptchaInput) {
+			if (!isset($_POST[$_POST['captcha']]))
+				return false;
+			$phrase = $_POST[$_POST['captcha']];
+		}
+		else
+			$phrase = $_POST['captcha'];
+
+		$sessionPhrase = Session::getValue('captcha');
+		return $phrase === (string)$sessionPhrase;
+	}
 }

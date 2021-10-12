@@ -636,6 +636,10 @@ class Api {
 			'data' => $order
 		];
 
+		Session::deleteValue('stripe');
+		Session::deleteValue('paypal');
+
+
 		$result = $this->curlApiRoute('orders/add', $postData);
 
 		if (isset($result['data']['uuid']))
@@ -644,6 +648,7 @@ class Api {
 		// DETECT FOR EXTERNAL CHECKOUT (PAYPAL) AND REDIRECT
 		if (isset($result['targetUrl'])) {
 			$order = $orderUid;
+			Session::setValue('paypal', $result['targetUrl']);
 			Redirect::external($result['targetUrl']);
 		}
 
@@ -692,6 +697,10 @@ class Api {
 			switch ($item['item_type']) {
 
 				case 'bundle':
+					$summary['bottles'] = $summary['bottles'] + $item['quantity'] * $item['item']['package_quantity'];
+					break;
+
+				case 'product':
 					$summary['bottles'] = $summary['bottles'] + $item['quantity'] * $item['item']['package_quantity'];
 					break;
 
@@ -874,12 +883,21 @@ class Api {
 		return $this->flatOutput($result, false);
 	}
 
-	public function getSessionOrder($postData = []) {
-		$postData['uuid'] = Session::getValue('order_uuid');
-		return $this->getOrder($postData);
+	public function getSessionOrder() {
+		$uuid = Session::getValue('order_uuid');
+		if (empty($uuid))
+			return false;
+		return $this->getOrder($uuid);
 	}
 
 	public function registerClient($data = NULL) {
+
+
+				$dynamicCaptchaInput = false;
+				if (is_array($data) && isset($data['dynamicCaptchaInput'])){
+					$dynamicCaptchaInput = $data['dynamicCaptchaInput'];
+					unset($data['dynamicCaptchaInput']);
+				}
 
         if (is_null($data) || empty($data))
             return ['notsend' => true];
@@ -898,8 +916,11 @@ class Api {
             if (!isset($data['mail']) || $data['mail'] === '')
                 array_push($errors, 'mail could not be blank');
 
-            if (isset($data['captcha']) && !Helper::validateCaptcha())
-            	array_push($errors, 'captcha is not valid');
+						if (
+								(isset($data['captcha']) || $dynamicCaptchaInput)
+								&& !Helper::validateCaptcha($dynamicCaptchaInput)
+						)
+								array_push($errors, 'captcha is not valid');
         }
 
         if (count($errors) > 0) {
