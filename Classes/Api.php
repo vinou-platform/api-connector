@@ -621,7 +621,18 @@ class Api {
 		return $result;;
 	}
 
+
+	public function editBasket($items = []) {
+		$basket = Session::getValue('basket');
+		$postData = is_numeric($basket) ? ['id' => $basket] : ['uuid' => $basket];
+		$postData['data'] = ['basketItems' => $items];
+		$result = $this->curlApiRoute('baskets/edit', $postData, true);
+		// $this->initBasket();
+		return $result;;
+	}
+
 	public function deleteItemFromBasket($id) {
+
 		$postData['id'] = $id;
 		$result = $this->curlApiRoute('baskets/deleteItem', $postData, true);
 		$this->initBasket();
@@ -771,7 +782,12 @@ class Api {
 
 		// return $result["data"];
 
-		$result = $this->curlApiRoute('orders/checkout/prepare',['basket_uuid' => $basketUuid]);
+		$result = $this->curlApiRoute('orders/checkout/prepare',[
+			'data' => ['basket_uuid' => $basketUuid],
+			'include' => [
+				'items.item.prices'
+			]
+		]);
 		Session::deleteValue('checkout');
 		if ($result !== false) {
 			Session::setValue('checkout',$result['data']); //items
