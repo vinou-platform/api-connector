@@ -727,7 +727,7 @@ class Api {
 
 	}
 
-	public function prepareCheckout($basketUuid = null) {
+	public function prepareCheckout ($include = null) {
 
 		// $result = [
 		// 	"data" => [
@@ -781,13 +781,19 @@ class Api {
 		// ];
 
 		// return $result["data"];
+		$basket = Session::getValue('basket');
 
-		$result = $this->curlApiRoute('orders/checkout/prepare',[
-			'data' => ['basket_uuid' => $basketUuid],
+		$data = [
+			'data' => ['basket_uuid' => $basket]
+		];
+		/*,
 			'include' => [
-				'items.item.prices'
-			]
-		]);
+				'items.item.prices',
+				'items.item.winery'*/
+		if ($include)
+			$data['include'] = $include;
+
+		$result = $this->curlApiRoute('orders/checkout/prepare', $data);
 		Session::deleteValue('checkout');
 		if ($result !== false) {
 			Session::setValue('checkout',$result['data']); //items
