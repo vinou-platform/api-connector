@@ -727,73 +727,149 @@ class Api {
 
 	}
 
-	public function prepareCheckout ($include = null) {
+	public function checkout($data, $include = null, $prepare = true) {
 
-		// $result = [
-		// 	"data" => [
-		// 		"net" => 50.00,
-		// 		"tax" => 10.00,
-		// 		"gross" => 60.00,
-		// 		"items"=> [
-		// 			[
-		// 				"item_type"=> "Wine",
-		// 				"name"=> "Riesling 0815 1",
-		// 				"quantity"=> 1,
-		// 				"net"=> 5.00,
-		// 				"tax"=> 1.00,
-		// 				"taxrate"=> 19,
-		// 				"gross"=> 6.00,
-		// 				"winery_id"=> 123 // <-- Weingut ID von Artikel 1
-		// 			],
-		// 			[
-		// 				"item_type"=> "Wine",
-		// 				"name"=> "Riesling 0815 2",
-		// 				"quantity"=> 1,
-		// 				"net"=> 5.00,
-		// 				"tax"=> 1.00,
-		// 				"taxrate"=> 19,
-		// 				"gross"=> 6.00,
-		// 				"winery_id"=> 123 // <-- Weingut ID von Artikel 1
-		// 			],
-		// 			[
-		// 				"item_type"=> "package",
-		// 				"name"=> "Packaging",
-		// 				"quantity"=> 1,
-		// 				"net"=> 10.00,
-		// 				"tax"=> 2.00,
-		// 				"taxrate"=> 19,
-		// 				"gross"=> 12.00,
-		// 				"winery_id"=> 123  //<-- Weingut ID von Artikel 1
-		// 			],
-		// 			[
-		// 				"item_type"=> "package",
-		// 				"name"=> "Packaging",
-		// 				"quantity"=> 1,
-		// 				"net"=> 5.00,
-		// 				"tax"=> 1.00,
-		// 				"taxrate"=> 19,
-		// 				"gross"=> 6.00,
-		// 				"winery_id"=> 456 // <-- Weingut ID von Artikel 2
-		// 			]
-		// 		]
-		// 	]
-
-		// ];
+	// 	{
+	// 		"info": "success",
+	// 		"data": {
+	// 				"net": "747.52",
+	// 				"tax": "98.53",
+	// 				"gross": "846.05",
+	// 				"taxrates": {
+	// 						"19": {
+	// 								"net": "385.00",
+	// 								"tax": "73.15",
+	// 								"gross": "458.15"
+	// 						},
+	// 						"7": {
+	// 								"net": "362.52",
+	// 								"tax": "25.38",
+	// 								"gross": "387.90"
+	// 						}
+	// 				},
+	// 				"taxrate": "13.18",
+	// 				"payment": null,
+	// 				"items": [
+	// 						{
+	// 								"item_type": "wine",
+	// 								"item_id": 9223,
+	// 								"quantity": 4,
+	// 								"custom": 1,
+	// 								"net": "79.36",
+	// 								"tax": "15.08",
+	// 								"taxrate": 19,
+	// 								"gross": "94.44",
+	// 								"name": "Muskateller",
+	// 								"winery_id": 1585,
+	// 								"winery_company": "Weingut Rudolph"
+	// 						},
+	// 						{
+	// 								"item_type": "wine",
+	// 								"item_id": 9229,
+	// 								"quantity": 6,
+	// 								"custom": 1,
+	// 								"net": "166.32",
+	// 								"tax": "31.60",
+	// 								"taxrate": 19,
+	// 								"gross": "197.92",
+	// 								"name": "Secco",
+	// 								"winery_id": 1585,
+	// 								"winery_company": "Weingut Rudolph"
+	// 						},
+	// 						{
+	// 								"item_type": "wine",
+	// 								"item_id": 9216,
+	// 								"quantity": 6,
+	// 								"custom": 1,
+	// 								"net": "139.32",
+	// 								"tax": "26.47",
+	// 								"taxrate": 19,
+	// 								"gross": "165.79",
+	// 								"name": "Rosé Cuvée",
+	// 								"winery_id": 1585,
+	// 								"winery_company": "Weingut Rudolph"
+	// 						},
+	// 						{
+	// 								"item_type": "package",
+	// 								"item_id": 439,
+	// 								"quantity": 1,
+	// 								"name": "Packaging",
+	// 								"taxrate": 19,
+	// 								"net": "4.20",
+	// 								"gross": "5.00",
+	// 								"tax": "0.80",
+	// 								"custom": 0,
+	// 								"winery_id": 1585,
+	// 								"winery_company": "Weingut Rudolph"
+	// 						},
+	// 						{
+	// 								"item_type": "rebate",
+	// 								"item_id": 439,
+	// 								"name": "Kostenloser Versand",
+	// 								"quantity": 1,
+	// 								"taxrate": 19,
+	// 								"net": "-4.20",
+	// 								"gross": "-5.00",
+	// 								"tax": "-0.80",
+	// 								"custom": 0,
+	// 								"winery_id": 1585,
+	// 								"winery_company": "Weingut Rudolph"
+	// 						},
+	// 						{
+	// 								"item_type": "wine",
+	// 								"item_id": 9290,
+	// 								"quantity": 6,
+	// 								"custom": 1,
+	// 								"net": "362.52",
+	// 								"tax": "25.38",
+	// 								"taxrate": 7,
+	// 								"gross": "387.90",
+	// 								"name": "Agiorgitiko",
+	// 								"winery_id": 1656,
+	// 								"winery_company": "Musterweingut Vinou"
+	// 						},
+	// 						{
+	// 								"item_type": "package",
+	// 								"item_id": 49,
+	// 								"quantity": 1,
+	// 								"name": "Packaging",
+	// 								"taxrate": 19,
+	// 								"net": "5.04",
+	// 								"gross": "6.00",
+	// 								"tax": "0.96",
+	// 								"custom": 0,
+	// 								"winery_id": 1656,
+	// 								"winery_company": "Musterweingut Vinou"
+	// 						},
+	// 						{
+	// 								"item_type": "rebate",
+	// 								"item_id": 49,
+	// 								"name": "Kostenloser Versand",
+	// 								"quantity": 1,
+	// 								"taxrate": 19,
+	// 								"net": "-5.04",
+	// 								"gross": "-6.00",
+	// 								"tax": "-0.96",
+	// 								"custom": 0,
+	// 								"winery_id": 1656,
+	// 								"winery_company": "Musterweingut Vinou"
+	// 						}
+	// 				]
+	// 		},
+	// 		"processingTime": 0.626
+	// }
 
 		// return $result["data"];
-		$basket = Session::getValue('basket');
 
-		$data = [
-			'data' => ['basket_uuid' => $basket]
-		];
-		/*,
-			'include' => [
-				'items.item.prices',
-				'items.item.winery'*/
+		$data = ['data' => $data];
+
 		if ($include)
 			$data['include'] = $include;
 
-		$result = $this->curlApiRoute('orders/checkout/prepare', $data);
+		$result = $this->curlApiRoute(
+			$prepare ? 'orders/checkout/prepare' : 'orders/checkout/process',
+			$data
+		);
 		Session::deleteValue('checkout');
 		if ($result !== false) {
 			Session::setValue('checkout',$result['data']); //items
@@ -850,16 +926,13 @@ class Api {
 	public function finishPaypalPayment($data = NULL) {
 		if (is_null($data))
 			return false;
-
+		// To-Do: weg damit und von aussen die korrekten daten direkt eingeben
 		$fieldMapping = [
-			'pid' => 'payment_id',
+			'pid' => 'payment_uuid',
 			'paymentId' => 'external_id',
 			'PayerID' => 'payer_id',
 		];
-		$postData = [
-			'order_id' => Session::getValue('order_uuid'),
-			'payment_type' => 'paypal'
-		];
+		$postData = [];
 
 		foreach ($fieldMapping as $dataKey => $targetKey) {
 			if (!isset($data[$dataKey]))
@@ -869,7 +942,7 @@ class Api {
 		}
 
 		$result = $this->curlApiRoute('orders/checkout/finish',$postData);
-		return $this->flatOutput($result, false, 'paypalResult');
+		return $this->flatOutput($result, false);
 	}
 
 	public function cancelPaypalPayment($postData = []) {
@@ -888,8 +961,8 @@ class Api {
 		]);
 
 		// CHECK AND VALIDATE PAYMENT RESULT
-		$stripeResult = $this->flatOutput($result, false, 'stripeResult');
-		if (!!$stripeResult && isset($stripeResult['payment_intent']) && in_array($stripeResult['payment_intent']['status'], ['succeeded', 'processing']))
+		$stripeResult = $this->flatOutput($result, false);
+		if ($stripeResult && isset($stripeResult['payment_intent']) && in_array($stripeResult['payment_intent']['status'], ['succeeded', 'processing']))
 			return $stripeResult['payment_intent']['status'];
 
 		return false;
@@ -910,6 +983,12 @@ class Api {
 		if (empty($uuid))
 			return false;
 		return $this->getOrder($uuid);
+	}
+	public function getSessionCheckout() {
+		$id = Session::getValue('checkout_id');
+		if (empty($id))
+			return false;
+		return $this->getCheckout($id, ["orders"]);
 	}
 
 	public function registerClient($data = NULL) {
@@ -1144,6 +1223,14 @@ class Api {
 	public function getOrder($postData = NULL) {
 		$postData = is_numeric($postData) ? ['id' => $postData] : ['uuid' => $postData];
 		$result = $this->curlApiRoute('orders/get', $postData, true);
+		return $this->flatOutput($result, false);
+	}
+
+	public function getCheckout($id, $include = NULL) {
+		$postData = ['id' => $id];
+		if ($include)
+			$postData['include'] = $include;
+		$result = $this->curlApiRoute('orders/checkout/get', $postData, true);
 		return $this->flatOutput($result, false);
 	}
 
