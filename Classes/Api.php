@@ -988,6 +988,7 @@ class Api {
 		$id = Session::getValue('checkout_id');
 		if (empty($id))
 			return false;
+		// To-Do: Mit Eric abklären ob noch includes gesetzt werden müssen um Dokumente und Orders / Items direkt mit dem checkout zu bekommen
 		return $this->getCheckout($id, ["orders"]);
 	}
 
