@@ -923,25 +923,17 @@ class Api {
 		return $this->curlApiRoute('campaigns/find',$postData, false, true, true);
 	}
 
+	// ToDo: Prüfen ob beide Funktionen finishPaypalPayment und finishPayment in finishPayment vereint werden können
 	public function finishPaypalPayment($data = NULL) {
 		if (is_null($data))
 			return false;
-		// To-Do: weg damit und von aussen die korrekten daten direkt eingeben
-		$fieldMapping = [
-			'pid' => 'payment_uuid',
-			'paymentId' => 'external_id',
-			'PayerID' => 'payer_id',
+
+		$postData = [
+			'uuid' => $data['payment_uuid'],
+			'payer_id' => $data['PayerID']
 		];
-		$postData = [];
 
-		foreach ($fieldMapping as $dataKey => $targetKey) {
-			if (!isset($data[$dataKey]))
-				return false;
-
-			$postData[$targetKey] = $data[$dataKey];
-		}
-
-		$result = $this->curlApiRoute('orders/checkout/finish',$postData);
+		$result = $this->curlApiRoute('payments/execute',$postData);
 		return $this->flatOutput($result, false);
 	}
 
@@ -953,11 +945,11 @@ class Api {
 	}
 
 	public function finishPayment($data = NULL) {
-		if (is_null($data) || !array_key_exists('pid', $data))
+		if (is_null($data) || !array_key_exists('payment_uuid', $data))
 			return false;
 
-		$result = $this->curlApiRoute('orders/checkout/finish', [
-			'payment_uuid' => $data['pid']
+		$result = $this->curlApiRoute('payments/execute', [
+			'uuid' => $data['payment_uuid']
 		]);
 
 		// CHECK AND VALIDATE PAYMENT RESULT
@@ -969,10 +961,10 @@ class Api {
 	}
 
 	public function cancelPayment($data = NULL) {
-		if (is_null($data) || !array_key_exists('pid', $data))
+		if (is_null($data) || !array_key_exists('payment_uuid', $data))
 			return false;
 
-		$result = $this->curlApiRoute('orders/checkout/cancel', [
+		$result = $this->curlApiRoute('checkouts/cancel', [
 			'uuid' => Session::getValue('order_uuid')
 		]);
 		return $this->flatOutput($result, false);
