@@ -317,10 +317,10 @@ class Api {
 			);
 
 			// insert status and response from successful request to logdata and logdata on dev devices
-			$logData = array_merge([
+			$logData = array_merge($logData, [
 				'Status' => 200,
 				'Response' => json_decode((string)$response->getBody(), true)
-			], $logData);
+			]);
 			$this->logger->debug('api request', $logData);
 
 			return json_decode((string)$response->getBody(), true);
@@ -330,10 +330,10 @@ class Api {
 			$statusCode = $e->getResponse()->getStatusCode();
 
 			// insert status and response from error request
-			$logData = array_merge([
+			$logData = array_merge($logData, [
 				'Status' => $statusCode,
 				'Response' => json_decode((string)$e->getResponse()->getBody(), true)
-			], $logData);
+			]);
 
 			switch ($statusCode) {
 
@@ -1033,6 +1033,7 @@ class Api {
 
 		$result = $this->curlApiRoute('payments/execute',$postData);
 		return $this->flatOutput($result, false);
+
 	}
 
 	public function cancelPaypalPayment($postData = []) {
