@@ -663,6 +663,7 @@ class Api {
 			Redirect::external($result['targetUrl']);
 		}
 
+
 		// DETECT STRIPE CHECKOUT SESSION
 		if (isset($result['sessionId']) && isset($result['publishableKey']) && isset($result['accountId'])) {
 			$stripeData = [
@@ -872,7 +873,104 @@ class Api {
 		);
 		Session::deleteValue('checkout');
 		if ($result !== false) {
+
 			Session::setValue('checkout',$result['data']); //items
+			Session::setValue('checkout_process_result',$result); //items
+
+
+			if(!$prepare) {
+
+
+				if (isset($result['data']['uuid']))
+				$orderUid = Session::setValue('order_uuid', $result['data']['uuid']);
+
+				// // DETECT FOR EXTERNAL CHECKOUT (PAYPAL) AND REDIRECT
+				// if (isset($result['targetUrl'])) {
+				// 	$order = $orderUid;
+				// 	Session::setValue('paypal', $result['targetUrl']);
+				// 	Redirect::external($result['targetUrl']);
+				// }
+
+
+				// DETECT STRIPE CHECKOUT SESSION
+				if (isset($result['sessionId']) && isset($result['publishableKey']) && isset($result['accountId'])) {
+					$stripeData = [
+						'sessionId' => $result['sessionId'],
+						'accountId' => $result['accountId'],
+						'publishableKey' => $result['publishableKey']
+					];
+					$stripe = Session::setValue('stripe', $stripeData);
+				}
+
+
+				/* ?><pre>prepare:<?php echo $prepare?>:<?php print_r($result);die; */
+				/*
+				Array
+(
+    [info] => success
+    [data] => Array
+        (
+            [customers_id] => 954
+            [cruser_id] => 623
+            [client_id] => 54792
+            [basket_id] => 7286769
+            [crstamp] => 2021-11-09 15:39:31
+            [taxrates] => Array
+                (
+                    [7] => Array
+                        (
+                            [net] => 60.39
+                            [tax] => 4.23
+                            [gross] => 64.62
+                        )
+
+                    [19] => Array
+                        (
+                            [net] => 5.04
+                            [tax] => 0.96
+                            [gross] => 6.00
+                        )
+
+                )
+
+            [net] => 65.43
+            [tax] => 5.19
+            [gross] => 70.62
+            [id] => 16
+            [payment] => Array
+                (
+                    [order_id] => 46246
+                    [gross] => 70.62
+                    [return_url] => https://yummytours.frog/marktplatz/bezahlung-abschliessen?no_cache=1&checkout_id=16&payment_uuid=cb034e12-5ab9-56e8-9854-1e0adf335631&pid=cb034e12-5ab9-56e8-9854-1e0adf335631
+                    [cancel_url] => https://yummytours.frog/marktplatz/bezahlung-abbrechen?no_cache=1&checkout_id=16&payment_uuid=cb034e12-5ab9-56e8-9854-1e0adf335631&pid=cb034e12-5ab9-56e8-9854-1e0adf335631
+                    [customers_id] => 289
+                    [status] => created
+                    [uuid] => cb034e12-5ab9-56e8-9854-1e0adf335631
+                    [cruser_id] => 623
+                    [type] => card
+                    [externalid] => pi_3JtwQ8QXEDxoa6dN0h1J1Fjl
+                    [session_id] => cs_test_a1PpY5zyxgKWnZTx2gAX1Bw6rrqCpXIByYKBJQMFHDbCoAuyh35QDkwCkf
+                    [account_id] => acct_1Jf240QXEDxoa6dN
+                    [bookingstamp] =>
+                    [id] => 21789
+                    [details] =>
+                )
+
+        )
+
+    [sessionId] => cs_test_a1PpY5zyxgKWnZTx2gAX1Bw6rrqCpXIByYKBJQMFHDbCoAuyh35QDkwCkf
+    [accountId] => acct_1Jf240QXEDxoa6dN
+    [publishableKey] => pk_test_51GzJkkH6v913SMRU0KDha4lVZb7p4W4X8WReXePAZGcbt5j6EXm2Gp6u1PwEBmnKBfekYFjXad9OhSTKHFfRV0mx00yjavgod3
+    [processingTime] => 4.858
+)
+*/
+			}
+			//debug
+			// Session::deleteValue('checkoutResult');
+			// Session::setValue('checkoutResult',$result);
+
+
+
 			return $result['data'];
 		}
 
@@ -930,7 +1028,7 @@ class Api {
 
 		$postData = [
 			'uuid' => $data['payment_uuid'],
-			'payer_id' => $data['PayerID']
+			// 'payer_id' => $data['PayerID']
 		];
 
 		$result = $this->curlApiRoute('payments/execute',$postData);
@@ -945,6 +1043,8 @@ class Api {
 	}
 
 	public function finishPayment($data = NULL) {
+
+
 		if (is_null($data) || !array_key_exists('payment_uuid', $data))
 			return false;
 
@@ -952,12 +1052,28 @@ class Api {
 			'uuid' => $data['payment_uuid']
 		]);
 
-		// CHECK AND VALIDATE PAYMENT RESULT
-		$stripeResult = $this->flatOutput($result, false);
-		if ($stripeResult && isset($stripeResult['payment_intent']) && in_array($stripeResult['payment_intent']['status'], ['succeeded', 'processing']))
-			return $stripeResult['payment_intent']['status'];
+		//debug
+		Session::setValue('payments_execute_result', $result);
 
-		return false;
+		return $this->flatOutput($result, false);
+		// // $result = [
+		// // 	"data" => [
+		// // 		"payment" => 'paymentmodel'
+		// // 	]
+		// // ];
+		// //debug
+		// Session::setValue('payments_execute_result', $result);
+
+
+		// // CHECK AND VALIDATE PAYMENT RESULT
+		// $stripeResult = $this->flatOutput($result, false);
+
+		// //debug
+		// Session::setValue('stripeResult', $stripeResult);
+		// if ($stripeResult && isset($stripeResult['payment_intent']) && in_array($stripeResult['payment_intent']['status'], ['succeeded', 'processing']))
+		// 	return $stripeResult['payment_intent']['status'];
+
+		// return false;
 	}
 
 	public function cancelPayment($data = NULL) {
