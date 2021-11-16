@@ -313,10 +313,10 @@ class Api {
 			);
 
 			// insert status and response from successful request to logdata and logdata on dev devices
-			$logData = array_merge([
+			$logData = array_merge($logData, [
 				'Status' => 200,
 				'Response' => json_decode((string)$response->getBody(), true)
-			], $logData);
+			]);
 			$this->logger->debug('api request', $logData);
 
 			return json_decode((string)$response->getBody(), true);
@@ -326,10 +326,10 @@ class Api {
 			$statusCode = $e->getResponse()->getStatusCode();
 
 			// insert status and response from error request
-			$logData = array_merge([
+			$logData = array_merge($logData, [
 				'Status' => $statusCode,
 				'Response' => json_decode((string)$e->getResponse()->getBody(), true)
-			], $logData);
+			]);
 
 			switch ($statusCode) {
 
@@ -759,15 +759,14 @@ class Api {
 			'order_id' => Session::getValue('order_uuid'),
 			'payment_type' => 'paypal'
 		];
-
 		foreach ($fieldMapping as $dataKey => $targetKey) {
 			if (!isset($data[$dataKey]))
 				return false;
 
 			$postData[$targetKey] = $data[$dataKey];
 		}
-
 		$result = $this->curlApiRoute('orders/checkout/finish',$postData);
+		var_dump([$result,$this->flatOutput($result, false, 'paypalResult')]);
 		return $this->flatOutput($result, false, 'paypalResult');
 	}
 
