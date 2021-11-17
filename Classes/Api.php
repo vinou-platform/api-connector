@@ -571,6 +571,14 @@ class Api {
 		return $result;
 	}
 
+
+	public function storeCard($items){
+		Session::deleteValue('card');
+		if (!empty($items)){
+			Session::setValue('card',$items);
+		}
+	}
+
 	public function initBasket() {
 		// Prevent function execution if crawler is detected
 		if ($this->crawler)
@@ -582,11 +590,8 @@ class Api {
 				Session::deleteValue('basket');
 				return $this->createBasket();
 			}
+			$this->storeCard($basket['basketItems']);
 
-			Session::deleteValue('card');
-			if (!empty($basket['basketItems'])){
-				Session::setValue('card',$basket['basketItems']);
-			}
 			return true;
 		} else {
 			return $this->createBasket();
@@ -627,8 +632,9 @@ class Api {
 		$postData = is_numeric($basket) ? ['id' => $basket] : ['uuid' => $basket];
 		$postData['data'] = ['basketItems' => $items];
 		$result = $this->curlApiRoute('baskets/edit', $postData, true);
+		$this->storeCard($result['data']['basketItems']);
 		// $this->initBasket();
-		return $result;;
+		return $result;
 	}
 
 	public function deleteItemFromBasket($id) {
@@ -697,7 +703,8 @@ class Api {
 			'bottles' => 0,
 			'net' => 0,
 			'tax' => 0,
-			'gross' => 0
+			'gross' => 0,
+			'quantity' => array_sum(array_map(function($item) {	return $item['item_type'] == 'wine' ? $item['quantity'] : ($item['item_type'] == 'bundle' ? $item['quantity'] * $item['item']['package_quantity'] : 0); }, $items))
 		];
 
 		foreach ($items as $item) {
