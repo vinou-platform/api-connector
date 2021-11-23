@@ -306,6 +306,7 @@ class Api {
 			]
 		];
 
+/*  ?><pre><?php print_r($data); */
 		try {
 			$response = $this->httpClient->request(
 				'POST',
@@ -315,7 +316,6 @@ class Api {
 			    	'json' => $data
 				]
 			);
-
 			// insert status and response from successful request to logdata and logdata on dev devices
 			$logData = array_merge($logData, [
 				'Status' => 200,
@@ -326,7 +326,6 @@ class Api {
 			return json_decode((string)$response->getBody(), true);
 
 		} catch (ClientException $e) {
-
 			$statusCode = $e->getResponse()->getStatusCode();
 
 			// insert status and response from error request
@@ -1060,10 +1059,97 @@ class Api {
 			'uuid' => $data['payment_uuid']
 		]);
 
-		//debug
-		Session::setValue('payments_execute_result', $result);
+		if (isset($result['order'])){
+			Session::setValue('order', $result['order']);
+			Session::setValue('order_uuid',$result['order']['uuid']);
+		}
+		// "order": {
+		// 	"taxrates": {
+		// 		"19": {
+		// 			"net": "66.64",
+		// 			"tax": "12.66",
+		// 			"gross": "79.30"
+		// 		}
+		// 	},
+		// 	"id": 49100,
+		// 	"uuid": "acd5dcab-0d16-532d-956f-e484e4bbb6ca",
+		// 	"number": "BE0000000008",
+		// 	"ref_id": null,
+		// 	"ref_number": null,
+		// 	"billing_type": "address",
+		// 	"billing_id": 13529,
+		// 	"delivery_type": "address",
+		// 	"delivery_id": 13529,
+		// 	"delivery_note_remark": null,
+		// 	"payment_type": "card",
+		// 	"status": "need_package",
+		// 	"net": "66.64",
+		// 	"tax": "12.66",
+		// 	"gross": "79.30",
+		// 	"payment_period": 30,
+		// 	"invoice_type": "gross",
+		// 	"tax_free": 0,
+		// 	"item_net": "66.64",
+		// 	"item_tax": "12.66",
+		// 	"item_gross": "79.30",
+		// 	"rebate": 0,
+		// 	"rebate_net": "0.00",
+		// 	"rebate_tax": "0.00",
+		// 	"rebate_gross": "0.00",
+		// 	"cashback": 0,
+		// 	"gross_cashback": "79.30",
+		// 	"cashback_period": 0,
+		// 	"service_start_date": null,
+		// 	"service_end_date": null,
+		// 	"source": "network",
+		// 	"crstamp": "2021-11-23T07:23:55Z",
+		// 	"cruser_id": 623,
+		// 	"chstamp": "2021-11-23T07:23:55Z",
+		// 	"customers_id": 853,
+		// 	"client_id": 56150,
+		// 	"remark": null,
+		// 	"invoice_remark": null,
+		// 	"offer_id": null,
+		// 	"basket_id": 56,
+		// 	"touched": 0,
+		// 	"checkout_id": 43,
+		// 	"fixed": true,
+		// 	"note": null
+		// },
 
 		return $this->flatOutput($result, false);
+
+
+		// result => array(19 items)
+		//
+		// 	id => 23961 (integer)
+		// 	parent_id => NULL
+		// 	uuid => '9b69c26f-20b8-5377-b52e-1882c9374a73' (36 chars)
+		// 	type => 'card' (4 chars)
+		// 	externalid => 'pi_3Jyt18H6v913SMRU0E8SEmjo' (27 chars)
+		// 	details => NULL
+		// 	status => 'payed' (5 chars)
+		// 	gross => '143.92' (6 chars)
+		// 	bookingstamp => '2021-11-23 07:02:40' (19 chars)
+		// 	crstamp => '2021-11-23T07:02:14Z' (20 chars)
+		// 	cruser_id => 623 (integer)
+		// 	chstamp => '2021-11-23T07:02:14Z' (20 chars)
+		// 	customers_id => 954 (integer)
+		// 	order_id => NULL
+		// 	checkout_id => 41 (integer)
+		// 	session_id => 'cs_test_b18jRWwF7eTHLnfLuhiOsOBKraEzwnXv2RJ3Wq5PsrX7JsfMUBNAp9TFeI' (66 chars)
+		// 	account_id => 'acct_1JxBftQbSOX1BIQQ' (21 chars)
+		// 	return_url => 'https://yummytours.frog/marktplatz/bezahlung-abschliessen?no_cache=1&checkou
+		// 			t_id=41&payment_uuid=9b69c26f-20b8-5377-b52e-1882c9374a73&pid=9b69c26f-20b8-
+		// 			5377-b52e-1882c9374a73' (174 chars)
+		// 	cancel_url => 'https://yummytours.frog/marktplatz/bezahlung-abbrechen?no_cache=1&checkout_i
+		// 			d=41&payment_uuid=9b69c26f-20b8-5377-b52e-1882c9374a73&pid=9b69c26f-20b8-537
+		// 			7-b52e-1882c9374a73' (171 chars)order => FALSE
+
+
+
+
+
 		// // $result = [
 		// // 	"data" => [
 		// // 		"payment" => 'paymentmodel'
