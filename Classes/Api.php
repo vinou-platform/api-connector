@@ -652,34 +652,41 @@ class Api {
 			'data' => $order
 		];
 
+		Session::deleteValue('order_id');
+		Session::deleteValue('order_uuid');
 		Session::deleteValue('stripe');
 		Session::deleteValue('paypal');
 
 
 		$result = $this->curlApiRoute('orders/add', $postData);
 
-		if (isset($result['data']['uuid']))
-			$orderUid = Session::setValue('order_uuid', $result['data']['uuid']);
-
-		// DETECT FOR EXTERNAL CHECKOUT (PAYPAL) AND REDIRECT
-		if (isset($result['targetUrl'])) {
-			$order = $orderUid;
-			Session::setValue('paypal', $result['targetUrl']);
-			Redirect::external($result['targetUrl']);
+		if (isset($result['data']['uuid'])){
+			Session::setValue('order_uuid', $result['data']['uuid']);
+			Session::setValue('order_id', $result['data']['id']);
 		}
-
-
-		// DETECT STRIPE CHECKOUT SESSION
-		if (isset($result['sessionId']) && isset($result['publishableKey']) && isset($result['accountId'])) {
-			$stripeData = [
-				'sessionId' => $result['sessionId'],
-				'accountId' => $result['accountId'],
-				'publishableKey' => $result['publishableKey']
-			];
-			$stripe = Session::setValue('stripe', $stripeData);
-		}
+		$this->detectExternalPayments($result);
 
 		return $this->flatOutput($result, false);
+	}
+
+	public function detectExternalPayments($data) {
+
+		// DETECT STRIPE CHECKOUT SESSION
+		if (isset($data['sessionId']) && isset($data['publishableKey']) && isset($data['accountId'])) {
+			$stripeData = [
+				'sessionId' => $data['sessionId'],
+				'accountId' => $data['accountId'],
+				'publishableKey' => $data['publishableKey']
+			];
+			Session::setValue('stripe', $stripeData);
+		}
+
+		// DETECT FOR EXTERNAL CHECKOUT (PAYPAL) AND REDIRECT
+		if (isset($data['targetUrl'])) {// $data['data']['payment']['type'] = 'paypal'
+			Session::setValue('paypal', $data['targetUrl']);
+			Redirect::external($data['targetUrl']);
+		}
+
 	}
 
 	public function findPackage($type,$count) {
@@ -736,137 +743,6 @@ class Api {
 
 	public function checkout($data, $include = null, $prepare = true) {
 
-	// 	{
-	// 		"info": "success",
-	// 		"data": {
-	// 				"net": "747.52",
-	// 				"tax": "98.53",
-	// 				"gross": "846.05",
-	// 				"taxrates": {
-	// 						"19": {
-	// 								"net": "385.00",
-	// 								"tax": "73.15",
-	// 								"gross": "458.15"
-	// 						},
-	// 						"7": {
-	// 								"net": "362.52",
-	// 								"tax": "25.38",
-	// 								"gross": "387.90"
-	// 						}
-	// 				},
-	// 				"taxrate": "13.18",
-	// 				"payment": null,
-	// 				"items": [
-	// 						{
-	// 								"item_type": "wine",
-	// 								"item_id": 9223,
-	// 								"quantity": 4,
-	// 								"custom": 1,
-	// 								"net": "79.36",
-	// 								"tax": "15.08",
-	// 								"taxrate": 19,
-	// 								"gross": "94.44",
-	// 								"name": "Muskateller",
-	// 								"winery_id": 1585,
-	// 								"winery_company": "Weingut Rudolph"
-	// 						},
-	// 						{
-	// 								"item_type": "wine",
-	// 								"item_id": 9229,
-	// 								"quantity": 6,
-	// 								"custom": 1,
-	// 								"net": "166.32",
-	// 								"tax": "31.60",
-	// 								"taxrate": 19,
-	// 								"gross": "197.92",
-	// 								"name": "Secco",
-	// 								"winery_id": 1585,
-	// 								"winery_company": "Weingut Rudolph"
-	// 						},
-	// 						{
-	// 								"item_type": "wine",
-	// 								"item_id": 9216,
-	// 								"quantity": 6,
-	// 								"custom": 1,
-	// 								"net": "139.32",
-	// 								"tax": "26.47",
-	// 								"taxrate": 19,
-	// 								"gross": "165.79",
-	// 								"name": "Rosé Cuvée",
-	// 								"winery_id": 1585,
-	// 								"winery_company": "Weingut Rudolph"
-	// 						},
-	// 						{
-	// 								"item_type": "package",
-	// 								"item_id": 439,
-	// 								"quantity": 1,
-	// 								"name": "Packaging",
-	// 								"taxrate": 19,
-	// 								"net": "4.20",
-	// 								"gross": "5.00",
-	// 								"tax": "0.80",
-	// 								"custom": 0,
-	// 								"winery_id": 1585,
-	// 								"winery_company": "Weingut Rudolph"
-	// 						},
-	// 						{
-	// 								"item_type": "rebate",
-	// 								"item_id": 439,
-	// 								"name": "Kostenloser Versand",
-	// 								"quantity": 1,
-	// 								"taxrate": 19,
-	// 								"net": "-4.20",
-	// 								"gross": "-5.00",
-	// 								"tax": "-0.80",
-	// 								"custom": 0,
-	// 								"winery_id": 1585,
-	// 								"winery_company": "Weingut Rudolph"
-	// 						},
-	// 						{
-	// 								"item_type": "wine",
-	// 								"item_id": 9290,
-	// 								"quantity": 6,
-	// 								"custom": 1,
-	// 								"net": "362.52",
-	// 								"tax": "25.38",
-	// 								"taxrate": 7,
-	// 								"gross": "387.90",
-	// 								"name": "Agiorgitiko",
-	// 								"winery_id": 1656,
-	// 								"winery_company": "Musterweingut Vinou"
-	// 						},
-	// 						{
-	// 								"item_type": "package",
-	// 								"item_id": 49,
-	// 								"quantity": 1,
-	// 								"name": "Packaging",
-	// 								"taxrate": 19,
-	// 								"net": "5.04",
-	// 								"gross": "6.00",
-	// 								"tax": "0.96",
-	// 								"custom": 0,
-	// 								"winery_id": 1656,
-	// 								"winery_company": "Musterweingut Vinou"
-	// 						},
-	// 						{
-	// 								"item_type": "rebate",
-	// 								"item_id": 49,
-	// 								"name": "Kostenloser Versand",
-	// 								"quantity": 1,
-	// 								"taxrate": 19,
-	// 								"net": "-5.04",
-	// 								"gross": "-6.00",
-	// 								"tax": "-0.96",
-	// 								"custom": 0,
-	// 								"winery_id": 1656,
-	// 								"winery_company": "Musterweingut Vinou"
-	// 						}
-	// 				]
-	// 		},
-	// 		"processingTime": 0.626
-	// }
-
-		// return $result["data"];
 
 		$data = ['data' => $data];
 
@@ -877,106 +753,12 @@ class Api {
 			$prepare ? 'orders/checkout/prepare' : 'orders/checkout/process',
 			$data
 		);
-		Session::deleteValue('checkout');
 		if ($result !== false) {
-
-			Session::setValue('checkout',$result['data']); //items
-			Session::setValue('checkout_process_result',$result); //items
-
-
 			if(!$prepare) {
-
-
-				if (isset($result['data']['uuid']))
-				$orderUid = Session::setValue('order_uuid', $result['data']['uuid']);
-
-				// // DETECT FOR EXTERNAL CHECKOUT (PAYPAL) AND REDIRECT
-				// if (isset($result['targetUrl'])) {
-				// 	$order = $orderUid;
-				// 	Session::setValue('paypal', $result['targetUrl']);
-				// 	Redirect::external($result['targetUrl']);
-				// }
-
-
-				// DETECT STRIPE CHECKOUT SESSION
-				if (isset($result['sessionId']) && isset($result['publishableKey']) && isset($result['accountId'])) {
-					$stripeData = [
-						'sessionId' => $result['sessionId'],
-						'accountId' => $result['accountId'],
-						'publishableKey' => $result['publishableKey']
-					];
-					$stripe = Session::setValue('stripe', $stripeData);
-				}
-
-
-				/* ?><pre>prepare:<?php echo $prepare?>:<?php print_r($result);die; */
-				/*
-				Array
-(
-    [info] => success
-    [data] => Array
-        (
-            [customers_id] => 954
-            [cruser_id] => 623
-            [client_id] => 54792
-            [basket_id] => 7286769
-            [crstamp] => 2021-11-09 15:39:31
-            [taxrates] => Array
-                (
-                    [7] => Array
-                        (
-                            [net] => 60.39
-                            [tax] => 4.23
-                            [gross] => 64.62
-                        )
-
-                    [19] => Array
-                        (
-                            [net] => 5.04
-                            [tax] => 0.96
-                            [gross] => 6.00
-                        )
-
-                )
-
-            [net] => 65.43
-            [tax] => 5.19
-            [gross] => 70.62
-            [id] => 16
-            [payment] => Array
-                (
-                    [order_id] => 46246
-                    [gross] => 70.62
-                    [return_url] => https://yummytours.frog/marktplatz/bezahlung-abschliessen?no_cache=1&checkout_id=16&payment_uuid=cb034e12-5ab9-56e8-9854-1e0adf335631&pid=cb034e12-5ab9-56e8-9854-1e0adf335631
-                    [cancel_url] => https://yummytours.frog/marktplatz/bezahlung-abbrechen?no_cache=1&checkout_id=16&payment_uuid=cb034e12-5ab9-56e8-9854-1e0adf335631&pid=cb034e12-5ab9-56e8-9854-1e0adf335631
-                    [customers_id] => 289
-                    [status] => created
-                    [uuid] => cb034e12-5ab9-56e8-9854-1e0adf335631
-                    [cruser_id] => 623
-                    [type] => card
-                    [externalid] => pi_3JtwQ8QXEDxoa6dN0h1J1Fjl
-                    [session_id] => cs_test_a1PpY5zyxgKWnZTx2gAX1Bw6rrqCpXIByYKBJQMFHDbCoAuyh35QDkwCkf
-                    [account_id] => acct_1Jf240QXEDxoa6dN
-                    [bookingstamp] =>
-                    [id] => 21789
-                    [details] =>
-                )
-
-        )
-
-    [sessionId] => cs_test_a1PpY5zyxgKWnZTx2gAX1Bw6rrqCpXIByYKBJQMFHDbCoAuyh35QDkwCkf
-    [accountId] => acct_1Jf240QXEDxoa6dN
-    [publishableKey] => pk_test_51GzJkkH6v913SMRU0KDha4lVZb7p4W4X8WReXePAZGcbt5j6EXm2Gp6u1PwEBmnKBfekYFjXad9OhSTKHFfRV0mx00yjavgod3
-    [processingTime] => 4.858
-)
-*/
+				if (isset($result['data']['id']))
+					Session::setValue('checkout_id', $result['data']['id']);
+				$this->detectExternalPayments($result);
 			}
-			//debug
-			// Session::deleteValue('checkoutResult');
-			// Session::setValue('checkoutResult',$result);
-
-
-
 			return $result['data'];
 		}
 
@@ -1028,16 +810,18 @@ class Api {
 	}
 
 	// ToDo: Prüfen ob beide Funktionen finishPaypalPayment und finishPayment in finishPayment vereint werden können
+	// @deprecated use finishPayment
 	public function finishPaypalPayment($data = NULL) {
 		if (is_null($data))
 			return false;
 
-		$postData = [
+		$result = $this->curlApiRoute('payments/execute', [
 			'uuid' => $data['payment_uuid'],
-			// 'payer_id' => $data['PayerID']
-		];
+		]);
 
-		$result = $this->curlApiRoute('payments/execute',$postData);
+		if (isset($result['order']))
+			Session::setValue('order', $result['order']);
+
 		return $this->flatOutput($result, false);
 
 	}
@@ -1051,7 +835,6 @@ class Api {
 
 	public function finishPayment($data = NULL) {
 
-
 		if (is_null($data) || !array_key_exists('payment_uuid', $data))
 			return false;
 
@@ -1059,121 +842,18 @@ class Api {
 			'uuid' => $data['payment_uuid']
 		]);
 
-		if (isset($result['order'])){
+		if (isset($result['order']))
 			Session::setValue('order', $result['order']);
-			Session::setValue('order_uuid',$result['order']['uuid']);
-		}
-		// "order": {
-		// 	"taxrates": {
-		// 		"19": {
-		// 			"net": "66.64",
-		// 			"tax": "12.66",
-		// 			"gross": "79.30"
-		// 		}
-		// 	},
-		// 	"id": 49100,
-		// 	"uuid": "acd5dcab-0d16-532d-956f-e484e4bbb6ca",
-		// 	"number": "BE0000000008",
-		// 	"ref_id": null,
-		// 	"ref_number": null,
-		// 	"billing_type": "address",
-		// 	"billing_id": 13529,
-		// 	"delivery_type": "address",
-		// 	"delivery_id": 13529,
-		// 	"delivery_note_remark": null,
-		// 	"payment_type": "card",
-		// 	"status": "need_package",
-		// 	"net": "66.64",
-		// 	"tax": "12.66",
-		// 	"gross": "79.30",
-		// 	"payment_period": 30,
-		// 	"invoice_type": "gross",
-		// 	"tax_free": 0,
-		// 	"item_net": "66.64",
-		// 	"item_tax": "12.66",
-		// 	"item_gross": "79.30",
-		// 	"rebate": 0,
-		// 	"rebate_net": "0.00",
-		// 	"rebate_tax": "0.00",
-		// 	"rebate_gross": "0.00",
-		// 	"cashback": 0,
-		// 	"gross_cashback": "79.30",
-		// 	"cashback_period": 0,
-		// 	"service_start_date": null,
-		// 	"service_end_date": null,
-		// 	"source": "network",
-		// 	"crstamp": "2021-11-23T07:23:55Z",
-		// 	"cruser_id": 623,
-		// 	"chstamp": "2021-11-23T07:23:55Z",
-		// 	"customers_id": 853,
-		// 	"client_id": 56150,
-		// 	"remark": null,
-		// 	"invoice_remark": null,
-		// 	"offer_id": null,
-		// 	"basket_id": 56,
-		// 	"touched": 0,
-		// 	"checkout_id": 43,
-		// 	"fixed": true,
-		// 	"note": null
-		// },
+
 
 		return $this->flatOutput($result, false);
 
-
-		// result => array(19 items)
-		//
-		// 	id => 23961 (integer)
-		// 	parent_id => NULL
-		// 	uuid => '9b69c26f-20b8-5377-b52e-1882c9374a73' (36 chars)
-		// 	type => 'card' (4 chars)
-		// 	externalid => 'pi_3Jyt18H6v913SMRU0E8SEmjo' (27 chars)
-		// 	details => NULL
-		// 	status => 'payed' (5 chars)
-		// 	gross => '143.92' (6 chars)
-		// 	bookingstamp => '2021-11-23 07:02:40' (19 chars)
-		// 	crstamp => '2021-11-23T07:02:14Z' (20 chars)
-		// 	cruser_id => 623 (integer)
-		// 	chstamp => '2021-11-23T07:02:14Z' (20 chars)
-		// 	customers_id => 954 (integer)
-		// 	order_id => NULL
-		// 	checkout_id => 41 (integer)
-		// 	session_id => 'cs_test_b18jRWwF7eTHLnfLuhiOsOBKraEzwnXv2RJ3Wq5PsrX7JsfMUBNAp9TFeI' (66 chars)
-		// 	account_id => 'acct_1JxBftQbSOX1BIQQ' (21 chars)
-		// 	return_url => 'https://yummytours.frog/marktplatz/bezahlung-abschliessen?no_cache=1&checkou
-		// 			t_id=41&payment_uuid=9b69c26f-20b8-5377-b52e-1882c9374a73&pid=9b69c26f-20b8-
-		// 			5377-b52e-1882c9374a73' (174 chars)
-		// 	cancel_url => 'https://yummytours.frog/marktplatz/bezahlung-abbrechen?no_cache=1&checkout_i
-		// 			d=41&payment_uuid=9b69c26f-20b8-5377-b52e-1882c9374a73&pid=9b69c26f-20b8-537
-		// 			7-b52e-1882c9374a73' (171 chars)order => FALSE
-
-
-
-
-
-		// // $result = [
-		// // 	"data" => [
-		// // 		"payment" => 'paymentmodel'
-		// // 	]
-		// // ];
-		// //debug
-		// Session::setValue('payments_execute_result', $result);
-
-
-		// // CHECK AND VALIDATE PAYMENT RESULT
-		// $stripeResult = $this->flatOutput($result, false);
-
-		// //debug
-		// Session::setValue('stripeResult', $stripeResult);
-		// if ($stripeResult && isset($stripeResult['payment_intent']) && in_array($stripeResult['payment_intent']['status'], ['succeeded', 'processing']))
-		// 	return $stripeResult['payment_intent']['status'];
-
-		// return false;
 	}
 
 	public function cancelPayment($data = NULL) {
 		if (is_null($data) || !array_key_exists('payment_uuid', $data))
 			return false;
-
+//TODO check if order or checkout is in session
 		$result = $this->curlApiRoute('checkouts/cancel', [
 			'uuid' => Session::getValue('order_uuid')
 		]);
@@ -1185,13 +865,6 @@ class Api {
 		if (empty($uuid))
 			return false;
 		return $this->getOrder($uuid);
-	}
-	public function getSessionCheckout() {
-		$id = Session::getValue('checkout_id');
-		if (empty($id))
-			return false;
-		// To-Do: Mit Eric abklären ob noch includes gesetzt werden müssen um Dokumente und Orders / Items direkt mit dem checkout zu bekommen
-		return $this->getCheckout($id, ["orders"]);
 	}
 
 	public function registerClient($data = NULL) {
