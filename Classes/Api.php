@@ -815,7 +815,7 @@ class Api {
 		if (is_null($data))
 			return false;
 
-		// @deprecated..
+		// @deprecated
 		if (!isset($data['payment_uuid'])) {
 			if (isset($data['paymentId']))
 				$data['payment_uuid'] = $data['paymentId'];
