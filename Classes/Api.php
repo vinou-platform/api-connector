@@ -819,6 +819,7 @@ class Api {
 			'uuid' => $data['payment_uuid'],
 		]);
 
+		Session::setValue('payment', $result);
 		if (isset($result['order']))
 			Session::setValue('order', $result['order']);
 
@@ -842,6 +843,7 @@ class Api {
 			'uuid' => $data['payment_uuid']
 		]);
 
+		Session::setValue('payment', $result);
 		if (isset($result['order']))
 			Session::setValue('order', $result['order']);
 
