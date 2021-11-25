@@ -815,6 +815,14 @@ class Api {
 		if (is_null($data))
 			return false;
 
+		// @deprecated..
+		if (!isset($data['payment_uuid'])) {
+			if (isset($data['paymentId']))
+				$data['payment_uuid'] = $data['paymentId'];
+			elseif (isset($data['pid']))
+				$data['payment_uuid'] = $data['pid'];
+		}
+
 		$result = $this->curlApiRoute('payments/execute', [
 			'uuid' => $data['payment_uuid'],
 		]);
