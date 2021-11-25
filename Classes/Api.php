@@ -157,8 +157,12 @@ class Api {
 
 		$loglevel = defined('VINOU_LOG_LEVEL') ? Logger::VINOU_LOG_LEVEL : Logger::ERROR;
 
+
 		if (defined('VINOU_DEBUG') && VINOU_DEBUG)
 			$loglevel = Logger::DEBUG;
+
+
+//$loglevel = Logger::DEBUG;
 
 		$this->logger = new Logger('api');
 		$this->logger->pushHandler(new RotatingFileHandler($logDir.'api-connector.log', 30, $loglevel));
@@ -302,6 +306,7 @@ class Api {
 			]
 		];
 
+/*  ?><pre><?php print_r($data); */
 		try {
 			$response = $this->httpClient->request(
 				'POST',
@@ -311,7 +316,6 @@ class Api {
 			    	'json' => $data
 				]
 			);
-
 			// insert status and response from successful request to logdata and logdata on dev devices
 			$logData = array_merge($logData, [
 				'Status' => 200,
@@ -322,7 +326,6 @@ class Api {
 			return json_decode((string)$response->getBody(), true);
 
 		} catch (ClientException $e) {
-
 			$statusCode = $e->getResponse()->getStatusCode();
 
 			// insert status and response from error request
@@ -567,6 +570,14 @@ class Api {
 		return $result;
 	}
 
+
+	public function storeCard($items){
+		Session::deleteValue('card');
+		if (!empty($items)){
+			Session::setValue('card',$items);
+		}
+	}
+
 	public function initBasket() {
 		// Prevent function execution if crawler is detected
 		if ($this->crawler)
@@ -578,11 +589,8 @@ class Api {
 				Session::deleteValue('basket');
 				return $this->createBasket();
 			}
+			$this->storeCard($basket['basketItems']);
 
-			Session::deleteValue('card');
-			if (!empty($basket['basketItems'])){
-				Session::setValue('card',$basket['basketItems']);
-			}
 			return true;
 		} else {
 			return $this->createBasket();
@@ -617,7 +625,19 @@ class Api {
 		return $result;;
 	}
 
+
+	public function editBasket($items = []) {
+		$basket = Session::getValue('basket');
+		$postData = is_numeric($basket) ? ['id' => $basket] : ['uuid' => $basket];
+		$postData['data'] = ['basketItems' => $items];
+		$result = $this->curlApiRoute('baskets/edit', $postData, true);
+		$this->storeCard($result['data']['basketItems']);
+		// $this->initBasket();
+		return $result;
+	}
+
 	public function deleteItemFromBasket($id) {
+
 		$postData['id'] = $id;
 		$result = $this->curlApiRoute('baskets/deleteItem', $postData, true);
 		$this->initBasket();
@@ -632,36 +652,45 @@ class Api {
 			'data' => $order
 		];
 
+		Session::deleteValue('order_id');
+		Session::deleteValue('order_uuid');
 		Session::deleteValue('stripe');
 		Session::deleteValue('paypal');
 
 
 		$result = $this->curlApiRoute('orders/add', $postData);
 
-		if (isset($result['data']['uuid']))
-			$orderUid = Session::setValue('order_uuid', $result['data']['uuid']);
-
-		// DETECT FOR EXTERNAL CHECKOUT (PAYPAL) AND REDIRECT
-		if (isset($result['targetUrl'])) {
-			$order = $orderUid;
-			Session::setValue('paypal', $result['targetUrl']);
-			Redirect::external($result['targetUrl']);
+		if (isset($result['data']['uuid'])){
+			Session::setValue('order_uuid', $result['data']['uuid']);
+			Session::setValue('order_id', $result['data']['id']);
 		}
-
-		// DETECT STRIPE CHECKOUT SESSION
-		if (isset($result['sessionId']) && isset($result['publishableKey']) && isset($result['accountId'])) {
-			$stripeData = [
-				'sessionId' => $result['sessionId'],
-				'accountId' => $result['accountId'],
-				'publishableKey' => $result['publishableKey']
-			];
-			$stripe = Session::setValue('stripe', $stripeData);
-		}
+		$this->detectExternalPayments($result);
 
 		return $this->flatOutput($result, false);
 	}
 
+	public function detectExternalPayments($data) {
+
+		// DETECT STRIPE CHECKOUT SESSION
+		if (isset($data['sessionId']) && isset($data['publishableKey']) && isset($data['accountId'])) {
+			$stripeData = [
+				'sessionId' => $data['sessionId'],
+				'accountId' => $data['accountId'],
+				'publishableKey' => $data['publishableKey']
+			];
+			Session::setValue('stripe', $stripeData);
+		}
+
+		// DETECT FOR EXTERNAL CHECKOUT (PAYPAL) AND REDIRECT
+		if (isset($data['targetUrl'])) {// $data['data']['payment']['type'] = 'paypal'
+			Session::setValue('paypal', $data['targetUrl']);
+			Redirect::external($data['targetUrl']);
+		}
+
+	}
+
 	public function findPackage($type,$count) {
+
 		$postData = [
 			'type' => $type,
 			$type => $count
@@ -680,7 +709,8 @@ class Api {
 			'bottles' => 0,
 			'net' => 0,
 			'tax' => 0,
-			'gross' => 0
+			'gross' => 0,
+			'quantity' => array_sum(array_map(function($item) {	return $item['item_type'] == 'wine' ? $item['quantity'] : ($item['item_type'] == 'bundle' ? $item['quantity'] * $item['item']['package_quantity'] : 0); }, $items))
 		];
 
 		foreach ($items as $item) {
@@ -711,9 +741,42 @@ class Api {
 
 	}
 
+	public function checkout($data, $include = null, $prepare = true) {
+
+
+		$data = ['data' => $data];
+
+		if ($include)
+			$data['include'] = $include;
+
+		$result = $this->curlApiRoute(
+			$prepare ? 'orders/checkout/prepare' : 'orders/checkout/process',
+			$data
+		);
+		if ($result !== false) {
+			if(!$prepare) {
+				if (isset($result['data']['id']))
+					Session::setValue('checkout_id', $result['data']['id']);
+				$this->detectExternalPayments($result);
+			}
+			return $result['data'];
+		}
+
+		return false;
+	}
+
+
+	/**
+	 * @deprecated
+	 */
 	public function getBasketPackage() {
 		if (Session::getValue('delivery_type') == 'none')
 			return false;
+
+		// 	packaging/find ersetzen durch
+		// -	orders/checkout/prepare
+		// 	- Params: { basket_id: ... }
+		// 	- data: { net, tax, gross, packages: [] }
 
 		$summary = $this->getBasketSummary();
 		if ($summary['bottles'] > 0) {
@@ -746,28 +809,30 @@ class Api {
 		return $this->curlApiRoute('campaigns/find',$postData, false, true, true);
 	}
 
+	// ToDo: Prüfen ob beide Funktionen finishPaypalPayment und finishPayment in finishPayment vereint werden können
+	// @deprecated use finishPayment
 	public function finishPaypalPayment($data = NULL) {
 		if (is_null($data))
 			return false;
 
-		$fieldMapping = [
-			'pid' => 'payment_id',
-			'paymentId' => 'external_id',
-			'PayerID' => 'payer_id',
-		];
-		$postData = [
-			'order_id' => Session::getValue('order_uuid'),
-			'payment_type' => 'paypal'
-		];
-		foreach ($fieldMapping as $dataKey => $targetKey) {
-			if (!isset($data[$dataKey]))
-				return false;
-
-			$postData[$targetKey] = $data[$dataKey];
+		// @deprecated..
+		if (!isset($data['payment_uuid'])) {
+			if (isset($data['paymentId']))
+				$data['payment_uuid'] = $data['paymentId'];
+			elseif (isset($data['pid']))
+				$data['payment_uuid'] = $data['pid'];
 		}
-		$result = $this->curlApiRoute('orders/checkout/finish',$postData);
-		var_dump([$result,$this->flatOutput($result, false, 'paypalResult')]);
-		return $this->flatOutput($result, false, 'paypalResult');
+
+		$result = $this->curlApiRoute('payments/execute', [
+			'uuid' => $data['payment_uuid'],
+		]);
+
+		Session::setValue('payment', $result);
+		if (isset($result['order']))
+			Session::setValue('order', $result['order']);
+
+		return $this->flatOutput($result, false);
+
 	}
 
 	public function cancelPaypalPayment($postData = []) {
@@ -778,28 +843,40 @@ class Api {
 	}
 
 	public function finishPayment($data = NULL) {
-		if (is_null($data) || !array_key_exists('pid', $data))
+
+		if (is_null($data) || !array_key_exists('payment_uuid', $data))
 			return false;
 
-		$result = $this->curlApiRoute('orders/checkout/finish', [
-			'payment_uuid' => $data['pid']
+		$result = $this->curlApiRoute('payments/execute', [
+			'uuid' => $data['payment_uuid']
 		]);
 
-		// CHECK AND VALIDATE PAYMENT RESULT
-		$stripeResult = $this->flatOutput($result, false, 'stripeResult');
-		if (!!$stripeResult && isset($stripeResult['payment_intent']) && in_array($stripeResult['payment_intent']['status'], ['succeeded', 'processing']))
-			return $stripeResult['payment_intent']['status'];
+		Session::setValue('payment', $result);
+		if (isset($result['order']))
+			Session::setValue('order', $result['order']);
 
-		return false;
+
+		return $this->flatOutput($result, false);
+
 	}
 
 	public function cancelPayment($data = NULL) {
-		if (is_null($data) || !array_key_exists('pid', $data))
+		if (is_null($data) || !array_key_exists('payment_uuid', $data))
 			return false;
 
-		$result = $this->curlApiRoute('orders/checkout/cancel', [
-			'uuid' => Session::getValue('order_uuid')
-		]);
+		$checkout_id = Session::getValue('checkout_id') ?? false;
+		if ($checkout_id) {
+			$result = $this->curlApiRoute('checkouts/cancel', [
+				'id' => $checkout_id
+				// 'uuid' => Session::getValue('order_uuid')
+			]);
+		} else {
+			//TODO check if order or checkout is in session
+			$result = $this->curlApiRoute('checkouts/cancel', [
+				'uuid' => Session::getValue('order_uuid')
+			]);
+		}
+
 		return $this->flatOutput($result, false);
 	}
 
@@ -1042,6 +1119,14 @@ class Api {
 	public function getOrder($postData = NULL) {
 		$postData = is_numeric($postData) ? ['id' => $postData] : ['uuid' => $postData];
 		$result = $this->curlApiRoute('orders/get', $postData, true);
+		return $this->flatOutput($result, false);
+	}
+
+	public function getCheckout($id, $include = NULL) {
+		$postData = ['id' => $id];
+		if ($include)
+			$postData['include'] = $include;
+		$result = $this->curlApiRoute('orders/checkout/get', $postData, true);
 		return $this->flatOutput($result, false);
 	}
 
