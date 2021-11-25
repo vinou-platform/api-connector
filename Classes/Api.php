@@ -855,10 +855,20 @@ class Api {
 	public function cancelPayment($data = NULL) {
 		if (is_null($data) || !array_key_exists('payment_uuid', $data))
 			return false;
-//TODO check if order or checkout is in session
-		$result = $this->curlApiRoute('checkouts/cancel', [
-			'uuid' => Session::getValue('order_uuid')
-		]);
+
+		$checkout_id = Session::getValue('checkout_id') ?? false;
+		if ($checkout_id) {
+			$result = $this->curlApiRoute('checkouts/cancel', [
+				'id' => $checkout_id
+				// 'uuid' => Session::getValue('order_uuid')
+			]);
+		} else {
+			//TODO check if order or checkout is in session
+			$result = $this->curlApiRoute('checkouts/cancel', [
+				'uuid' => Session::getValue('order_uuid')
+			]);
+		}
+
 		return $this->flatOutput($result, false);
 	}
 
