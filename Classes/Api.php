@@ -1157,6 +1157,15 @@ class Api {
 		return $this->flatOutput($result, false);
 	}
 
+	public function getNewsByFilter($postData = NULL) {
+		$postData = [
+			"filter" => ["path_segment" => $postData]
+		];
+
+		$result = $this->curlApiRoute('news/getAll',$postData);
+		return $this->flatOutput($result, false);
+	}
+
 	public function getTextsAll($postData = NULL) {
 		$result = $this->curlApiRoute('texts/getAll',$postData);
 		return $this->flatOutput($result, false);
