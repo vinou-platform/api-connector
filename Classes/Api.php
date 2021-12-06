@@ -844,8 +844,16 @@ class Api {
 
 	public function finishPayment($data = NULL) {
 
-		if (is_null($data) || !array_key_exists('payment_uuid', $data))
+		if (is_null($data))
 			return false;
+
+		// @deprecated..
+		if (!isset($data['payment_uuid'])) {
+			if (isset($data['paymentId']))
+				$data['payment_uuid'] = $data['paymentId'];
+			elseif (isset($data['pid']))
+				$data['payment_uuid'] = $data['pid'];
+		}
 
 		$result = $this->curlApiRoute('payments/execute', [
 			'uuid' => $data['payment_uuid']
@@ -861,7 +869,7 @@ class Api {
 	}
 
 	public function cancelPayment($data = NULL) {
-		if (is_null($data) || !array_key_exists('payment_uuid', $data))
+		if (is_null($data))
 			return false;
 
 		$checkout_id = Session::getValue('checkout_id') ?? false;
