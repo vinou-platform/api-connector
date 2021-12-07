@@ -876,7 +876,6 @@ class Api {
 		if ($checkout_id) {
 			$result = $this->curlApiRoute('checkouts/cancel', [
 				'id' => $checkout_id
-				// 'uuid' => Session::getValue('order_uuid')
 			]);
 		} else {
 			//TODO check if order or checkout is in session
