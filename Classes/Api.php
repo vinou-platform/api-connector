@@ -516,7 +516,8 @@ class Api {
 		$postData = [
 			'filter' => [
 				'tags' => $this->detectIdentifier($input)
-			]
+			],
+			'pageSize' => 100
 		];
 
 		$result = $this->curlApiRoute('products/getAll', $postData, true);
