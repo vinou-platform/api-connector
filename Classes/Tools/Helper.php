@@ -57,10 +57,16 @@ class Helper {
         return $apiurl;
     }
 
+    public static function isHTTPS() {
+        return (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
+    }
+
+    public static function fetchProtocol() {
+        return self::isHTTPS() ? 'https://' : 'http://';
+    }
+
     public static function getCurrentHost() {
-        $ssl = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? true : false;
-        $protocol = $ssl ? 'https://' : 'http://';
-    	return $protocol . $_SERVER['HTTP_HOST'];
+    	return self::fetchProtocol() . $_SERVER['HTTP_HOST'];
     }
 
     public static function getClassPath($class = "\Composer\Autoload\ClassLoader")

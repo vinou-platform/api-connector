@@ -9,13 +9,8 @@ class Redirect {
 	}
 
 	public static function internal($route) {
-		header("Location: ".self::detectProtocol().$_SERVER['HTTP_HOST'].$route);
+		header("Location: " . Helper::getCurrentHost() . $route);
 		exit;
-	}
-
-	public static function detectProtocol() {
-		isset($_SERVER['HTTPS']) ? $protocol = 'https://' : $protocol = 'http://';
-		return $protocol;
 	}
 
 }
