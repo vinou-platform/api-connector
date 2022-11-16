@@ -780,7 +780,7 @@ class Api {
 		// 	- data: { net, tax, gross, packages: [] }
 
 		$summary = $this->getBasketSummary();
-		if ($summary['bottles'] > 0) {
+		if (is_array($summary) && isset($summary['bottles']) && $summary['bottles'] > 0) {
 			$result = $this->curlApiRoute('packaging/find',$summary);
 			Session::deleteValue('package');
 			if (isset($result['data'])) {
