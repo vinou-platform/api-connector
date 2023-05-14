@@ -38,7 +38,7 @@ class Images {
 		$pureFileName = $split[0];
 
 		// PREFIX FILENAME IF ATTRIBUTE WAS GIVEN
-		if (isset($split[1]) && strpos($host, 'instagram') == false)
+		if (isset($split[1]) && !is_null($host) && strpos($host, 'instagram') == false)
 			$pureFileName = explode('=', $split[1])[1] . '-' . $pureFileName;
 
 		$fileName = self::createOptimalFilename($pureFileName);

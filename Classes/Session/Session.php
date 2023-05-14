@@ -25,7 +25,7 @@ class Session {
         // DETECT IF SESSION EXISTS
         if (!isset($_SESSION['id'])) {
             $_SESSION['id'] = Converter::generateRandomString();
-            self::setValue('start',strftime('%d.%m.%Y %H:%M:%S',time()));
+            self::setValue('start',date('d.m.Y h:i:s'));
         }
     }
 
