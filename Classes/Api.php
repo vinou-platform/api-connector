@@ -387,6 +387,45 @@ class Api {
 		return $result;
 	}
 
+	public function getFacts($identifier = Null) {
+		$result = $this->curlApiRoute('facts/getAll', ['wine_id' => $identifier], true);
+		$rawFacts = $this->flatOutput($result);
+		if (!$rawFacts)
+			return false;
+
+		$nutritionalInformation = array_filter($rawFacts, function($k) {
+			return $k['factgroup'] == 'nutritionalInformation';
+		});
+		$ingredients = array_filter($rawFacts, function($k) {
+			return $k['factgroup'] == 'ingredients';
+		});
+		$recycling = array_filter($rawFacts, function($k) {
+			return $k['factgroup'] == 'recycling';
+		});
+
+		$facts = [
+			'nutritionalInformation' => [
+				'regular' => array_filter($nutritionalInformation, function($k) {
+					return $k['quantity'] != '0.0';
+				}),
+				'minor' => array_filter($nutritionalInformation, function($k) {
+					return $k['quantity'] == '0.0';
+				}),
+			],
+			'recycling' => $recycling,
+			'ingredients' => [
+				'all' => $ingredients
+			]
+		];
+		$subgroups = ['general', 'acidityregulator', 'preservatices', 'complexingagents', 'activators', 'clarificationaids', 'stabilizers', 'enzymes', 'gases', 'fermentationagent', 'correctives', 'others'];
+		foreach ($subgroups as $subgroup) {
+			$facts['ingredients'][$subgroup] = array_filter($ingredients, function($k) use ($subgroup) {
+				return $k['subgroup'] == $subgroup;
+			});
+		}
+		return $facts;
+	}
+
 	public function getWinesByCategory($params) {
 		$postData = $this->detectIdentifier($params);
 		if (!array_key_exists('language', $postData))
