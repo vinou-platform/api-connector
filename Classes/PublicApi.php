@@ -71,6 +71,31 @@ class PublicApi {
 		return false;
 	}
 
+	public function getRoute($route = null, $raw = false) {
+		$ch = curl_init();
+		$url = $this->apiUrl . $route;
+
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		// Disable certificate validation. TODO: Remove when problem is solved.
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		$result = curl_exec($ch);
+		curl_close($ch);
+
+		if ($result && $raw)
+			return $result;
+
+		$result = json_decode($result, true);
+
+		// Bail out if error in api request cannot be found.
+		if (isset($result['details']))
+			return false;
+
+		return isset($result['data']) ? $result['data'] : $result;
+
+	}
+
 	public function getWine($postData) {
 		$postData = is_numeric($postData) ? ['id' => $postData] : ['path_segment' => $postData];
 		$result = $this->curlApiRoute('wines/getPublic',$postData);
@@ -127,6 +152,18 @@ class PublicApi {
 		$postData = is_numeric($postData) ? ['id' => $postData] : ['path_segment' => $postData];
 		$result = $this->curlApiRoute('wines/getByCategory',$postData);
 		return $this->flatOutput($result, false);
+	}
+
+	public function getWinery($id) {
+		$postData = ['id' => $id];
+		$result = $this->curlApiRoute('wineries/get',$postData);
+		return $this->flatOutput($result);
+	}
+
+	public function getElabel($uuid) {
+		$postData = ['uuid' => $uuid];
+		$result = $this->curlApiRoute('elabels/get',$postData);
+		return $this->flatOutput($result);
 	}
 
 	public function getExpertise($id) {
