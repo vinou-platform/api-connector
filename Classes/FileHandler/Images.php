@@ -53,6 +53,10 @@ class Images {
 
 		$localFile = $folder . $fileName;
 		$extension = pathinfo($pureFileName, PATHINFO_EXTENSION);
+
+		if (is_null($chstamp))
+			$chstamp = 'now';
+
 		$changeStamp = strtotime($chstamp);
 
 		$returnArr = [
@@ -63,7 +67,7 @@ class Images {
 			'src' => str_replace(Helper::getNormDocRoot(), '/', $localFile),
 			'localtime' => is_file($localFile) ? filemtime($localFile) : 0,
 			'externaltime' => $changeStamp,
-			'recreate' => is_file($localFile) ? $changeStamp > filemtime($localFile) : true
+			'recreate' => is_file($localFile) ? $changeStamp > filemtime($localFile) && $chstamp != 'now' : true
 		];
 
 		$fileurl = filter_var($imagesrc, FILTER_VALIDATE_URL) ? $imagesrc : Helper::getApiUrl().$imagesrc;
