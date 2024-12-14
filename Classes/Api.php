@@ -387,7 +387,17 @@ class Api {
 		return $result;
 	}
 
-	public function getFacts($identifier = Null) {
+	public function getFacts($data = NUll) {
+		$identifier = false;
+		if (is_numeric($data))
+			$identifier = $data;
+
+		if (is_array($data) && isset($data['wine']) && isset($data['wine']['id']))
+			$identifier = $data['wine']['id'];
+
+		if (!$identifier)
+			return false;
+
 		$result = $this->curlApiRoute('facts/getAll', ['wine_id' => $identifier], true);
 		$rawFacts = $this->flatOutput($result);
 		if (!$rawFacts)
