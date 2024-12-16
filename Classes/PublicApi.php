@@ -2,8 +2,12 @@
 namespace Vinou\ApiConnector;
 
 use \Vinou\ApiConnector\Session\Session;
-use \Vinou\ApiConnector\Tools\Redirect;
 use \Vinou\ApiConnector\Tools\Helper;
+use \GuzzleHttp\Client;
+use \GuzzleHttp\Exception\ClientException;
+use \Jaybizzle\CrawlerDetect\CrawlerDetect;
+use \Monolog\Logger;
+use \Monolog\Handler\RotatingFileHandler;
 
 
 /**
@@ -12,88 +16,172 @@ use \Vinou\ApiConnector\Tools\Helper;
 
 class PublicApi {
 
-	public $apiUrl = "https://api.vinou.de/";
-	public $dev;
+	/**
+	 * @var array $authData	authentication array
+	 *	- token: (string) token created in token module in https://app.vinou.de
+	 *	- authid: (string) authid from invoice config in settings area in https://app.vinou.de
+	 *
+	 */
+	protected $authData = [];
+
+
+	/**
+	 * @var object $settings settingsservice object
+	 */
+	public $settingsService = null;
+
+	/**
+	 * @var string $apiUrl url where api is located
+	 */
+	public $apiUrl;
+
+	/**
+	 * @var boolean $connected status of connection
+	 */
+	public $connected = false;
+
+	/**
+	 * @var boolean $dev enable dev mode
+	 */
+	public $dev = false;
+
+	/**
+	 * @var boolean $enableLogging enable logging into log array
+	 */
 	public $enableLogging;
+
+	/**
+	 * @var array $log array to log processes
+	 */
 	public $log = [];
+
+	/**
+	 * @var object $httpClient guzzle object for client
+	 */
+	public $httpClient = null;
+
+	/**
+	 * @var boolean $crawlerDetect shows if a crawler was detected
+	 */
+	public $crawler = false;
+
+	/**
+	 * @var object $logger monolog object for logs
+	 */
+	public $logger = null;
+
+	/**
+	 * @var string $lastError insert last logged error;
+	 */
+	public $lastError = null;
+
+	/**
+	 * @var boolean $lastStatus last status of api call;
+	 */
+	public $lastStatus = true;
 
 	public function __construct($logging = false, $dev = false) {
 
 		$this->enableLogging = $logging;
 		$this->dev = $dev;
-		$this->apiUrl = Helper::getApiUrl() . '/';
+
+		$this->apiUrl = Helper::getApiUrl().'/';
+		$this->httpClient = new Client([
+			'base_uri' => $this->apiUrl,
+			// 'verify' => Helper::getEnvironment() === 'Production'
+		]);
+
+		$this->initLogging();
 	}
 
-	private function curlApiRoute($route, $data = [], $debug = false)
+	/**
+	 * Create API request with postdata using Guzzle http agent
+	 *
+	 * @param string $route api route to call without leading slash all routes prefixed with service
+	 * @param array $data post values
+	 * @param boolean $internal enable additional header if client authentification is needed
+	 * @param boolean $authorization insert authorization header
+	 *
+	 * @return array|false $response response body if route status code was 200
+	 *
+	 */
+	private function curlApiRoute($route, $data = [])
 	{
 		if (is_null($data) || !is_array($data))
 			$data = [];
 
-		$data_string = json_encode($data);
-		$url = $this->apiUrl.$route;
-		$this->writeLog('curl route '.$url);
-		$ch = curl_init($url);
-		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
 		$headers = [
-			'Content-Type: application/json',
-			'Content-Length: ' . strlen($data_string),
-			'Origin: '.$_SERVER['SERVER_NAME']
+			'User-Agent' => 'api-connector',
+			'Content-Type' => 'application/json',
+			'Origin' => ''.$_SERVER['SERVER_NAME']
 		];
 
-		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-		$result = curl_exec($ch);
-		$requestinfo = curl_getinfo($ch);
-		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		$this->writeLog('Status: '.$httpCode);
-		switch ($httpCode) {
-			case 200:
-				curl_close($ch);
-				return json_decode($result, true);
-				break;
-			case 401:
-				return [
-					'error' => 'unauthorized',
-					'info' => $requestinfo,
-					'response' => json_decode($result, true)
-				];
-				break;
-			default:
-				return [
-					'error' => 'bad request',
-					'info' => $requestinfo,
-					'response' => json_decode($result, true)
-				];
-				break;
-		}
-		return false;
-	}
+		// prepare logdata
+		$logData = [
+			'Route' => $route,
+			'Data' => $this->cleanUpLogData($data),
+			'Pageinfo' => [
+				'url' => (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]",
+				'GET' => $this->cleanUpLogData($_GET),
+				'POST' => $this->cleanUpLogData($_POST),
+			]
+		];
 
-	public function getRoute($route = null, $raw = false) {
-		$ch = curl_init();
-		$url = $this->apiUrl . $route;
+		try {
+			$response = $this->httpClient->request(
+				'POST',
+				$route,
+				[
+					'headers' => $headers,
+					'json' => $data
+				]
+			);
+			// insert status and response from successful request to logdata and logdata on dev devices
+			$logData = array_merge($logData, [
+				'Status' => 200,
+				'Response' => json_decode((string)$response->getBody(), true)
+			]);
+			$this->logger->debug('api request', $logData);
 
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		// Disable certificate validation. TODO: Remove when problem is solved.
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-		$result = curl_exec($ch);
-		curl_close($ch);
+			$this->lastStatus = true;
 
-		if ($result && $raw)
-			return $result;
+			return json_decode((string)$response->getBody(), true);
 
-		$result = json_decode($result, true);
+		} catch (ClientException $e) {
+			$statusCode = $e->getResponse()->getStatusCode();
 
-		// Bail out if error in api request cannot be found.
-		if (isset($result['details']))
+			// insert status and response from error request
+			$logData = array_merge($logData, [
+				'Status' => $statusCode,
+				'Response' => json_decode((string)$e->getResponse()->getBody(), true)
+			]);
+
+			switch ($statusCode) {
+
+				case '401':
+					// if only authorization is missing the error is only a warning
+					$this->logger->warning('unauthorized', $logData);
+					break;
+
+				default:
+					// all other errors should be fixed immediatly
+					$this->logger->error('error', $logData);
+					break;
+
+			}
+			$this->lastError = json_decode((string)$e->getResponse()->getBody(), true);
+			$this->lastStatus = false;
+			switch (Helper::getDebugMode()) {
+				case 'inline':
+					var_dump($this->lastError);
+					break;
+
+				case 'result':
+					return $this->lastError;
+
+			}
 			return false;
-
-		return isset($result['data']) ? $result['data'] : $result;
-
+		}
 	}
 
 	public function getWine($postData) {
@@ -193,38 +281,6 @@ class PublicApi {
 		return $this->flatOutput($result, false);
 	}
 
-	private function writeLog($entry) {
-		if ($this->enableLogging)
-			array_push($this->log,$entry);
-	}
-
-	private function detectIdentifier($data) {
-		if (is_null($data))
-			return $data;
-
-		if (is_numeric($data))
-			return ['id' => $data];
-
-		if (is_string($data))
-			return ['path_segment' => $data];
-
-		if (is_array($data)) {
-			if (isset($data['id']) || isset($data['path_segment']))
-				return $data;
-
-			if (isset($data[0])) {
-				if (is_numeric($data[0]))
-					$data['id'] = $data[0];
-				else
-				 	$data['path_segment'] = $data[0];
-
-				unset($data[0]);
-			}
-		}
-
-		return $data;
-	}
-
 	private function flatOutput($data, $retAll = true, $selector = 'data') {
 		if (isset($data[$selector]))
 			return $data[$selector];
@@ -241,6 +297,52 @@ class PublicApi {
 			'total' => $result['totalCount'],
 			'pagination' => $result['pages']
 		];
+	}
+
+	private function initLogging() {
+
+		$logDirName = defined('VINOU_LOG_DIR') ? VINOU_LOG_DIR : 'logs/';
+
+		$logDir = Helper::getNormDocRoot() . $logDirName;
+
+        if (!is_dir($logDir))
+            mkdir($logDir, 0777, true);
+
+        $htaccess = $logDir .'/.htaccess';
+        if (!is_file($htaccess)) {
+            $content = 'Deny from all';
+            file_put_contents($htaccess, $content);
+        }
+
+		$loglevel = defined('VINOU_LOG_LEVEL') ? Logger::VINOU_LOG_LEVEL : Logger::ERROR;
+		if (defined('VINOU_DEBUG') && VINOU_DEBUG)
+			$loglevel = Logger::DEBUG;
+
+		$this->logger = new Logger('api');
+		$this->logger->pushHandler(new RotatingFileHandler($logDir.'api-connector.log', 30, $loglevel));
+
+		$crawllog = new Logger('crawler');
+		$crawllog->pushHandler(new RotatingFileHandler($logDir.'crawler.log', 10, Logger::DEBUG));
+
+		$CrawlerDetect = new CrawlerDetect;
+		$this->crawler = $CrawlerDetect->isCrawler();
+
+		if ($this->crawler)
+			$crawllog->debug($CrawlerDetect->getMatches());
+	}
+
+	private function cleanUpLogData($data) {
+		$forbiddenKeys = [
+			'password',
+			'password_repeat',
+			'token',
+			'authId'
+		];
+		foreach ($data as $key => $value) {
+			if (in_array($key, $forbiddenKeys))
+				unset($data[$key]);
+		}
+		return $data;
 	}
 
 }
