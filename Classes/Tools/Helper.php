@@ -40,7 +40,7 @@ class Helper {
 
     public static function getApiUrl() {
 
-        $apiurl = self::$urls['live'];
+        $apiurl = self::$urls['Production'];
 		$sourceKey = null;
 
 		if (defined('VINOU_SOURCE'))
