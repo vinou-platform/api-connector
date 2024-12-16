@@ -11,10 +11,11 @@ use \Composer\Autoload\ClassLoader;
 class Helper {
 
     public static $urls = [
-        'local' => 'http://api.vinou.site',
-        'development' => 'https://api.development.vinou.de',
-        'staging' => 'https://api.staging.vinou.de',
-        'live' => 'https://api.vinou.de',
+        'Local' => 'https://api.vinou.site',
+        'Development' => 'https://api.development.vinou.de',
+		'Sandbox' => 'https://api.staging.vinou.de',
+        'Staging' => 'https://api.staging.vinou.de',
+        'Production' => 'https://api.vinou.de',
     ];
 
     private static $normDocRoot = NULL;
@@ -40,19 +41,16 @@ class Helper {
     public static function getApiUrl() {
 
         $apiurl = self::$urls['live'];
+		$sourceKey = null;
 
-        // Override if constant is set
-        if ((defined('VINOU_SOURCE') && VINOU_SOURCE === 'Local'))
-            $apiurl = self::$urls['local'];
+		if (defined('VINOU_SOURCE'))
+			$sourceKey = VINOU_SOURCE;
 
-        if ((defined('VINOU_SOURCE') && VINOU_SOURCE === 'Dev'))
-            $apiurl = self::$urls['development'];
+		if (getenv('VINOU_SOURCE'))
+			$sourceKey = getenv('VINOU_SOURCE');
 
-        if ((defined('VINOU_SOURCE') && VINOU_SOURCE === 'Sandbox'))
-            $apiurl = self::$urls['staging'];
-
-        if ((defined('VINOU_SOURCE') && VINOU_SOURCE === 'Staging'))
-            $apiurl = self::$urls['staging'];
+		if (!is_null($sourceKey) && isset(self::$urls[$sourceKey]))
+			$apiurl = self::$urls[$sourceKey];
 
         return $apiurl;
     }
