@@ -6,10 +6,7 @@ use \Vinou\ApiConnector\Tools\Redirect;
 use \Vinou\ApiConnector\Tools\Helper;
 use \Vinou\ApiConnector\Services\ServiceLocator;
 use \GuzzleHttp\Client;
-use \GuzzleHttp\Psr7;
-use \GuzzleHttp\Psr7\Request;
 use \GuzzleHttp\Exception\ClientException;
-use \GuzzleHttp\Exception\RequestException;
 use \Jaybizzle\CrawlerDetect\CrawlerDetect;
 use \Monolog\Logger;
 use \Monolog\Handler\RotatingFileHandler;
@@ -73,6 +70,16 @@ class Api {
 	 * @var object $logger monolog object for logs
 	 */
 	public $logger = null;
+
+	/**
+	 * @var string $lastError insert last logged error;
+	 */
+	public $lastError = null;
+
+	/**
+	 * @var boolean $lastStatus last status of api call;
+	 */
+	public $lastStatus = true;
 
 	/**
 	 * @param string $token token created in token module in https://app.vinou.de
@@ -306,7 +313,6 @@ class Api {
 			]
 		];
 
-/*  ?><pre><?php print_r($data); */
 		try {
 			$response = $this->httpClient->request(
 				'POST',
@@ -322,6 +328,8 @@ class Api {
 				'Response' => json_decode((string)$response->getBody(), true)
 			]);
 			$this->logger->debug('api request', $logData);
+
+			$this->lastStatus = true;
 
 			return json_decode((string)$response->getBody(), true);
 
@@ -348,8 +356,20 @@ class Api {
 
 			}
 
+			$this->lastError = json_decode((string)$e->getResponse()->getBody(), true);
+			$this->lastStatus = false;
+			switch (Helper::getDebugMode()) {
+				case 'inline':
+					var_dump($this->lastError);
+					break;
+
+				case 'result':
+					return $this->lastError;
+
+			}
+
 			if ($returnErrorResponse)
-				return json_decode((string)$e->getResponse()->getBody(), true);
+				return $this->lastError;
 
 			return false;
 		}
