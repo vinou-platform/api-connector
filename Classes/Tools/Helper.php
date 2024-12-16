@@ -39,21 +39,42 @@ class Helper {
     }
 
     public static function getApiUrl() {
-
-        $apiurl = self::$urls['Production'];
-		$sourceKey = null;
-
-		if (defined('VINOU_SOURCE'))
-			$sourceKey = VINOU_SOURCE;
-
-		if (getenv('VINOU_SOURCE'))
-			$sourceKey = getenv('VINOU_SOURCE');
-
-		if (!is_null($sourceKey) && isset(self::$urls[$sourceKey]))
-			$apiurl = self::$urls[$sourceKey];
-
-        return $apiurl;
+        return self::$urls[self::getEnvironment()];
     }
+
+	public static function getEnvironment() {
+		$env = 'Production';
+
+		if (defined('VINOU_SOURCE') && isset(self::$urls[VINOU_SOURCE]))
+			$env = VINOU_SOURCE;
+
+		if (getenv('VINOU_SOURCE') && isset(self::$urls[getenv('VINOU_SOURCE')]))
+			$env = getenv('VINOU_SOURCE');
+
+		return $env;
+	}
+
+	public static function getDebugMode() {
+		$mode = false;
+		if (defined('VINOU_DEBUG') || getenv('VINOU_DEBUG')) {
+			$conf = defined('VINOU_DEBUG') ? VINOU_DEBUG : getenv('VINOU_DEBUG');
+
+			switch ($conf) {
+				case 'result':
+				case 2:
+					$mode = 'result';
+					break;
+
+
+				case 'inline':
+				case 1:
+					$mode = 'inline';
+					break;
+			}
+		}
+
+		return $mode;
+	}
 
     public static function isHTTPS() {
         return (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
