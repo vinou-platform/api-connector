@@ -184,6 +184,11 @@ class PublicApi {
 		}
 	}
 
+	public function getRoute($route) {
+		$request = $this->httpClient->request('GET', $route);
+		return $request->getBody();
+	}
+
 	public function getWine($postData) {
 		$postData = is_numeric($postData) ? ['id' => $postData] : ['path_segment' => $postData];
 		$result = $this->curlApiRoute('wines/getPublic',$postData);
