@@ -45,7 +45,6 @@ class Session {
 
             case 'TYPO3':
                 return TYPO3Session::writeSessionData($key,$value);
-                break;
 
             default:
                 $_SESSION[$key] = $value;
@@ -58,7 +57,6 @@ class Session {
 
             case 'TYPO3':
                 return TYPO3Session::readSessionData($key);
-                break;
 
             default:
                 if (isset($_SESSION[$key]))

@@ -27,8 +27,8 @@ class Pdf {
 	public static function getExternalPDFBinary($url,$targetFile) {
 	    $process = curl_init(self::rawUrlEncodeApiPath($url));
 	    curl_setopt($process, CURLOPT_TIMEOUT, 30);
-	    curl_setopt($process, CURLOPT_HEADER, 0);
-	    curl_setopt($process, CURLOPT_RETURNTRANSFER, 1);
+	    curl_setopt($process, CURLOPT_HEADER, false);
+	    curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
 	    curl_setopt($process, CURLOPT_BINARYTRANSFER,1);
 	    $rawPDF = curl_exec($process);
 	    $httpStatus = curl_getinfo($process, CURLINFO_HTTP_CODE);

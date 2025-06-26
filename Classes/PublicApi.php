@@ -82,6 +82,18 @@ class PublicApi {
 
 	public function __construct($logging = false, $dev = false) {
 
+		if (!defined('VINOU_LOG_DIR')) {
+			define('VINOU_LOG_DIR', 'logs/');
+		}
+
+		if (!defined('VINOU_LOG_LEVEL')) {
+			define('VINOU_LOG_LEVEL', 'ERROR');
+		}
+
+		if (!defined('VINOU_DEBUG')) {
+			define('VINOU_DEBUG', false);
+		}
+
 		$this->enableLogging = $logging;
 		$this->dev = $dev;
 
@@ -99,16 +111,12 @@ class PublicApi {
 	 *
 	 * @param string $route api route to call without leading slash all routes prefixed with service
 	 * @param array $data post values
-	 * @param boolean $internal enable additional header if client authentification is needed
-	 * @param boolean $authorization insert authorization header
 	 *
 	 * @return array|false $response response body if route status code was 200
 	 *
 	 */
-	private function curlApiRoute($route, $data = [])
+	private function curlApiRoute($route, array $data = [])
 	{
-		if (is_null($data) || !is_array($data))
-			$data = [];
 
 		$headers = [
 			'User-Agent' => 'api-connector',
@@ -306,7 +314,7 @@ class PublicApi {
 
 	private function initLogging() {
 
-		$logDirName = defined('VINOU_LOG_DIR') ? VINOU_LOG_DIR : 'logs/';
+		$logDirName = VINOU_LOG_DIR;
 
 		$logDir = Helper::getNormDocRoot() . $logDirName;
 
@@ -319,8 +327,8 @@ class PublicApi {
             file_put_contents($htaccess, $content);
         }
 
-		$loglevel = defined('VINOU_LOG_LEVEL') ? Logger::VINOU_LOG_LEVEL : Logger::ERROR;
-		if (defined('VINOU_DEBUG') && VINOU_DEBUG)
+		$loglevel = constant('Logger::' . VINOU_LOG_LEVEL);
+		if (VINOU_DEBUG === true)
 			$loglevel = Logger::DEBUG;
 
 		$this->logger = new Logger('api');

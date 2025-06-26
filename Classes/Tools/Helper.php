@@ -114,8 +114,8 @@ class Helper {
 
     public static function curl_get_contents($url) {
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_URL, $url);
         $data = curl_exec($ch);
         curl_close($ch);
@@ -139,9 +139,11 @@ class Helper {
 
         if (array_key_exists($ext, $mime_types)) {
             $a = $mime_types[$ext];
+			return 'data: '.$a.';base64,'.$data;
         }
 
-        return 'data: '.$a.';base64,'.$data;
+		return false;
+
     }
 
 	public static function validateCaptcha($dynamicCaptchaInput = false) {

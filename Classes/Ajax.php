@@ -19,7 +19,7 @@ class Ajax {
 
 		$this->api = new Api();
 
-		if (!$this->api || is_null($this->api)) {
+		if (!$this->api->connected) {
 			array_push($this->errors, 'could not create api connection');
 		}
 	}
@@ -63,7 +63,6 @@ class Ajax {
                 $this->output = $this->api->getBasketPackage();
                 // force return to prevent error handling
                 return;
-                break;
 
             case 'findCampaign':
                 $this->output = $this->api->findCampaign($this->data);

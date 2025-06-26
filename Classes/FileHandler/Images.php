@@ -18,11 +18,11 @@ class Images {
 	    $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? 'php';
 	    $process = curl_init($url);
 	    curl_setopt($process, CURLOPT_HTTPHEADER, $headers);
-	    curl_setopt($process, CURLOPT_HEADER, 0);
+	    curl_setopt($process, CURLOPT_HEADER, false);
 	    curl_setopt($process, CURLOPT_USERAGENT, $user_agent); //check here
 	    curl_setopt($process, CURLOPT_TIMEOUT, 30);
-	    curl_setopt($process, CURLOPT_RETURNTRANSFER, 1);
-	    curl_setopt($process, CURLOPT_FOLLOWLOCATION, 1);
+	    curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
+	    curl_setopt($process, CURLOPT_FOLLOWLOCATION, true);
 	    $rawImage = curl_exec($process);
 	    $httpStatus = curl_getinfo($process, CURLINFO_HTTP_CODE);
 	    curl_close($process);

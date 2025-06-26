@@ -9,8 +9,16 @@ class TYPO3Session {
 
 	public static $storageKey = 'vinou-api-connector';
 
+	public static function checkTYPO3Mode($mode) {
+		if (!defined('TYPO3_MODE')) {
+			define('TYPO3_MODE', false);
+		}
+
+		return TYPO3_MODE === $mode;
+	}
+
 	public static function readSessionData($key) {
-		if (TYPO3_MODE === 'BE')
+		if (self::checkTYPO3Mode('BE'))
 			return self::readBESessionData($key);
 
 		if ($GLOBALS['TSFE']->loginUser) {
@@ -21,7 +29,7 @@ class TYPO3Session {
 	}
 
 	public static function writeSessionData($key,$data) {
-		if (TYPO3_MODE === 'BE')
+		if (self::checkTYPO3Mode('BE'))
 			return self::writeBESessionData($key,$data);
 
 		if ($GLOBALS['TSFE']->loginUser) {
@@ -33,7 +41,7 @@ class TYPO3Session {
 	}
 
 	public static function removeSessionData($key) {
-		if (TYPO3_MODE === 'BE')
+		if (self::checkTYPO3Mode('BE'))
 			return self::removeBESessionData($key);
 
 		$GLOBALS['TSFE']->fe_user->setAndSaveSessionData($key, null);

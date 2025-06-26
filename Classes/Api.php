@@ -82,8 +82,8 @@ class Api {
 	public $lastStatus = true;
 
 	/**
-	 * @param string $token token created in token module in https://app.vinou.de
-	 * @param string $authid authid from invoice config in settings area in https://app.vinou.de
+	 * @param string|boolean $token token created in token module in https://app.vinou.de
+	 * @param string|boolean $authid authid from invoice config in settings area in https://app.vinou.de
 	 * @param boolean $logging enable logging if needed
 	 * @param boolean $dev enable dev mode
 	 */
@@ -98,6 +98,18 @@ class Api {
 			$this->authData['authid'] = $authid;
 			$this->enableLogging = $logging;
 			$this->dev = $dev;
+		}
+
+		if (!defined('VINOU_LOG_DIR')) {
+			define('VINOU_LOG_DIR', 'logs/');
+		}
+
+		if (!defined('VINOU_LOG_LEVEL')) {
+			define('VINOU_LOG_LEVEL', 'ERROR');
+		}
+
+		if (!defined('VINOU_DEBUG')) {
+			define('VINOU_DEBUG', false);
 		}
 
 		$this->enableLogging = $logging;
@@ -149,7 +161,7 @@ class Api {
 
 	private function initLogging() {
 
-		$logDirName = defined('VINOU_LOG_DIR') ? VINOU_LOG_DIR : 'logs/';
+		$logDirName = VINOU_LOG_DIR;
 
 		$logDir = Helper::getNormDocRoot() . $logDirName;
 
@@ -162,14 +174,9 @@ class Api {
             file_put_contents($htaccess, $content);
         }
 
-		$loglevel = defined('VINOU_LOG_LEVEL') ? Logger::VINOU_LOG_LEVEL : Logger::ERROR;
-
-
-		if (defined('VINOU_DEBUG') && VINOU_DEBUG)
+		$loglevel = constant('Logger::' . VINOU_LOG_LEVEL);
+		if (VINOU_DEBUG === true)
 			$loglevel = Logger::DEBUG;
-
-
-//$loglevel = Logger::DEBUG;
 
 		$this->logger = new Logger('api');
 		$this->logger->pushHandler(new RotatingFileHandler($logDir.'api-connector.log', 30, $loglevel));
@@ -221,7 +228,7 @@ class Api {
 				$this->connected = true;
 			}
 		}
-		return true;
+		return $this->connected;
 
     }
 
@@ -269,10 +276,8 @@ class Api {
 	 * @return array|false $response response body if route status code was 200
 	 *
 	 */
-	private function curlApiRoute($route, $data = [], $internal = false, $authorization = true, $returnErrorResponse = false, $onlyinternal = false)
+	private function curlApiRoute($route, array $data = [], $internal = false, $authorization = true, $returnErrorResponse = false, $onlyinternal = false)
 	{
-		if (is_null($data) || !is_array($data))
-			$data = [];
 
 		if (!isset($data['filter']))
 			$data['filter'] = [];
@@ -516,7 +521,7 @@ class Api {
 		return $result['pdf'];
 	}
 
-	public function getWineriesAll($postData = NULL) {
+	public function getWineriesAll($postData = []) {
 		$result = $this->curlApiRoute('wineries/getAll',$postData);
 		if (isset($result['clusters']))
 			return [
@@ -526,12 +531,12 @@ class Api {
 		return $this->flatOutput($result);
 	}
 
-	public function getWinery($postData = NULL) {
+	public function getWinery($postData = []) {
 		$result = $this->curlApiRoute('wineries/get',$this->detectIdentifier($postData));
 		return $this->flatOutput($result, false);
 	}
 
-	public function getMerchantsAll($postData = NULL) {
+	public function getMerchantsAll($postData = []) {
 		$result = $this->curlApiRoute('merchants/getAll',$postData);
 		if (isset($result['clusters']))
 			return [
@@ -541,7 +546,7 @@ class Api {
 		return $this->flatOutput($result);
 	}
 
-	public function getMerchant($postData = NULL) {
+	public function getMerchant($postData = []) {
 		$result = $this->curlApiRoute('merchants/get',$this->detectIdentifier($postData));
 		return $this->flatOutput($result, false);
 	}
@@ -556,32 +561,32 @@ class Api {
 		return $this->flatOutput($result, false, 'payments');
 	}
 
-	public function getCategory($postData = NULL) {
+	public function getCategory($postData = []) {
 		$result = $this->curlApiRoute('categories/get', $this->detectIdentifier($postData), true);
 		return $result;
 	}
 
-	public function getCategoryWithWines($postData = NULL) {
+	public function getCategoryWithWines($postData = []) {
 		$result = $this->curlApiRoute('categories/getWithWines', $this->detectIdentifier($postData), true);
 		return $this->flatOutput($result);
 	}
 
-	public function getCategoryWines($postData = NULL) {
+	public function getCategoryWines($postData = []) {
 		$result = $this->curlApiRoute('categories/getWines', $this->detectIdentifier($postData), true);
 		return $this->flatOutput($result, false);
 	}
 
-	public function getCategoriesAll($postData = NULL) {
+	public function getCategoriesAll($postData = []) {
 		$result = $this->curlApiRoute('categories/getAll', $postData, true);
 		return $this->flatOutput($result, false, 'categories');
 	}
 
-	public function getProductsAll($postData = NULL) {
+	public function getProductsAll($postData = []) {
 		$result = $this->curlApiRoute('products/getAll', $postData, true);
 		return $this->flatOutput($result);
 	}
 
-	public function getProductsByCategory($input = NULL) {
+	public function getProductsByCategory($input = []) {
 		$postData = [
 			'filter' => [
 				'tags' => $this->detectIdentifier($input)
@@ -593,7 +598,7 @@ class Api {
 		return $this->flatOutput($result);
 	}
 
-	public function getProduct($postData) {
+	public function getProduct($postData = []) {
 		$result = $this->curlApiRoute('products/get', $this->detectIdentifier($postData), true);
 		return $this->flatOutput($result);
 	}
@@ -609,12 +614,12 @@ class Api {
 		return $this->pagedOutput($result);
 	}
 
-	public function getBundlesByCategory($postData = NULL) {
+	public function getBundlesByCategory($postData = []) {
 		$result = $this->curlApiRoute('bundles/getByCategory', $this->detectIdentifier($postData), true);
 		return $this->flatOutput($result);
 	}
 
-	public function getBundle($postData = NULL) {
+	public function getBundle($postData = []) {
 		$result = $this->curlApiRoute('bundles/get', $this->detectIdentifier($postData), true);
 		return $this->flatOutput($result);
 	}
@@ -682,14 +687,14 @@ class Api {
 
 	}
 
-	public function addItemToBasket($postData = NULL) {
+	public function addItemToBasket($postData = []) {
 		$postData['uuid'] = Session::getValue('basket');
 		$result = $this->curlApiRoute('baskets/addItem', $postData, true);
 		$this->initBasket();
 		return $result;
 	}
 
-	public function editItemInBasket($postData = NULL) {
+	public function editItemInBasket($postData = []) {
 		$result = $this->curlApiRoute('baskets/editItem', $postData, true);
 		$this->initBasket();
 		return $result;;
@@ -771,7 +776,7 @@ class Api {
 
 	public function getBasketSummary() {
 		$items = Session::getValue('card');
-		if (!$items || empty($items))
+		if ($items === false || !is_array($items))
 			return false;
 
 		$summary = [
@@ -867,12 +872,12 @@ class Api {
 		return true;
 	}
 
-	public function getAllPackages($postData = null) {
+	public function getAllPackages($postData = []) {
 		$result = $this->curlApiRoute('packaging/getAll',$postData);
 		return $this->flatOutput($result, false);
 	}
 
-	public function findCampaign($postData = null) {
+	public function findCampaign($postData = []) {
 		$basket = Session::getValue('basket');
 		if ($basket)
 			$postData['basket_uuid'] = $basket;
@@ -965,13 +970,11 @@ class Api {
 	}
 
 	public function registerClient($data = NULL) {
-
-
-				$dynamicCaptchaInput = false;
-				if (is_array($data) && isset($data['dynamicCaptchaInput'])){
-					$dynamicCaptchaInput = $data['dynamicCaptchaInput'];
-					unset($data['dynamicCaptchaInput']);
-				}
+		$dynamicCaptchaInput = false;
+		if (is_array($data) && isset($data['dynamicCaptchaInput'])){
+			$dynamicCaptchaInput = $data['dynamicCaptchaInput'];
+			unset($data['dynamicCaptchaInput']);
+		}
 
         if (is_null($data) || empty($data))
             return ['notsend' => true];
@@ -1028,7 +1031,7 @@ class Api {
         return $this->flatOutput($result, false);
 	}
 
-	public function activateClient($postData = NULL) {
+	public function activateClient($postData = []) {
 		$errors = [];
 		if (!isset($postData['mail']))
 			array_push($errors, 'no mail set');
@@ -1056,7 +1059,7 @@ class Api {
 		return isset($result['data']) && $result['data'] ? true : ['error' => 'activation error', 'details' => $result['response']['details']];
 	}
 
-	public function clientLogin($postData = NULL) {
+	public function clientLogin($postData = []) {
 		if (is_null($postData) || empty($postData))
 			return ['notsend' => true];
 
@@ -1145,14 +1148,14 @@ class Api {
 		return $this->flatOutput($result, false);
 	}
 
-	public function getClient($postData = NULL) {
+	public function getClient($postData = []) {
 		$result = $this->curlApiRoute('clients/get',$postData, true, true, false, true);
 		$client = $this->flatOutput($result, false);
 		Session::setValue('client', $client);
 		return $client;
 	}
 
-	public function checkClientMail($postData = NULL) {
+	public function checkClientMail($postData = []) {
 		$result = $this->flatOutput($this->curlApiRoute('clients/exists',$postData), false);
 		return is_array($result) && count($result) == 1 ? array_shift($result) : $result;
 	}
@@ -1180,7 +1183,7 @@ class Api {
 		return $this->flatOutput($result, false);
 	}
 
-	public function clientLogout($postData = NULL) {
+	public function clientLogout($postData = []) {
 		$authData = Session::getValue('vinou');
 		unset($authData['clientToken']);
 		Session::setValue('vinou', $authData);
@@ -1188,7 +1191,7 @@ class Api {
 			Redirect::internal($postData['redirect']);
 	}
 
-	public function getClientOrders($postData = NULL) {
+	public function getClientOrders($postData = []) {
 		$result = $this->curlApiRoute('clients/orders/getAll',$postData, true);
 		return $this->flatOutput($result, false);
 	}
@@ -1213,22 +1216,22 @@ class Api {
 		return $this->flatOutput($result, false);
 	}
 
-	public function addStock($postData = NULL) {
+	public function addStock($postData = []) {
 		$result = $this->curlApiRoute('stocks/add', $postData);
 		return $this->flatOutput($result, false);
 	}
 
-	public function getNewsAll($postData = NULL) {
+	public function getNewsAll($postData = []) {
 		$result = $this->curlApiRoute('news/getAll',$postData);
 		return $this->flatOutput($result, false);
 	}
 
-	public function getInternalNewsAll($postData = NULL) {
+	public function getInternalNewsAll($postData = []) {
 		$result = $this->curlApiRoute('news/getAll',$postData, true);
 		return $this->flatOutput($result, false);
 	}
 
-	public function getNews($postData = NULL) {
+	public function getNews($postData = []) {
 		$postData = is_numeric($postData) ? ['id' => $postData] : ['path_segment' => $postData];
 		$result = $this->curlApiRoute('news/get',$postData);
 		return $this->flatOutput($result, false);
@@ -1243,7 +1246,7 @@ class Api {
 		return $this->flatOutput($result, false);
 	}
 
-	public function getTextsAll($postData = NULL) {
+	public function getTextsAll($postData = []) {
 		$result = $this->curlApiRoute('texts/getAll',$postData);
 		return $this->flatOutput($result, false);
 	}
@@ -1263,7 +1266,7 @@ class Api {
 		}
 	}
 
-	public function getAutomationCustomers($postData = NULL) {
+	public function getAutomationCustomers($postData = []) {
 		$result = $this->curlApiRoute('automations/getCustomers',$postData);
 		return $this->flatOutput($result, false);
 	}
@@ -1274,14 +1277,9 @@ class Api {
 		return $result['ip'];
 	}
 
-	private function writeLog($entry) {
-		if ($this->enableLogging)
-			array_push($this->log,$entry);
-	}
-
 	private function detectIdentifier($data) {
-		if (is_null($data))
-			return $data;
+		if (is_null($data) || empty($data))
+			return [];
 
 		if (is_numeric($data))
 			return ['id' => $data];
