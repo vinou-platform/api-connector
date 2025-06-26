@@ -327,7 +327,7 @@ class PublicApi {
             file_put_contents($htaccess, $content);
         }
 
-		$loglevel = constant('Logger::' . VINOU_LOG_LEVEL);
+		$loglevel = constant('\Monolog\Logger::' . VINOU_LOG_LEVEL);
 		if (VINOU_DEBUG === true)
 			$loglevel = Logger::DEBUG;
 
