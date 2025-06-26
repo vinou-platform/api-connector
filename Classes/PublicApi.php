@@ -115,8 +115,10 @@ class PublicApi {
 	 * @return array|false $response response body if route status code was 200
 	 *
 	 */
-	private function curlApiRoute($route, array $data = [])
+	private function curlApiRoute($route, array|string|null $data = [])
 	{
+		if (is_null($data) || !is_array($data))
+			$data = [];
 
 		$headers = [
 			'User-Agent' => 'api-connector',

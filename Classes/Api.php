@@ -276,8 +276,11 @@ class Api {
 	 * @return array|false $response response body if route status code was 200
 	 *
 	 */
-	private function curlApiRoute($route, array $data = [], $internal = false, $authorization = true, $returnErrorResponse = false, $onlyinternal = false)
+	private function curlApiRoute($route, array|string|null $data = [], $internal = false, $authorization = true, $returnErrorResponse = false, $onlyinternal = false)
 	{
+
+		if (is_null($data) || !is_array($data))
+			$data = [];
 
 		if (!isset($data['filter']))
 			$data['filter'] = [];
