@@ -1059,7 +1059,7 @@ class Api {
 		}
 
 		$result = $this->curlApiRoute('clients/activate',$postData);
-		return isset($result['data']) && $result['data'] ? true : ['error' => 'activation error', 'details' => $result['response']['details']];
+		return isset($result['data']) && $result['data'] ? true : ['error' => 'activation error', 'details' => $result['details']];
 	}
 
 	public function clientLogin($postData = []) {
