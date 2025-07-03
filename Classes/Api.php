@@ -483,6 +483,12 @@ class Api {
 		return $result['wines'];
 	}
 
+	public function getWinesByWinery($params) {
+		$postData = $this->detectIdentifier($params);
+		$result = $this->curlApiRoute('wines/getByWinery', $postData, true);
+		return $result['wines'];
+	}
+
 	public function getWinesAll($postData = []) {
 		if (!array_key_exists('language', $postData))
 			$postData['language'] = Session::getValue('language') ? Session::getValue('language') : 'de';
